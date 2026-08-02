@@ -37,15 +37,10 @@ env:
 
 jobs:
   # ============================================
-  # JOB 1: LINT & FORMAT CHECK (FIXED)
-  # ============================================
-
-  # ============================================
-  # JOB 2: BUILD (ALL SERVICES WITH MATRIX)
+  # JOB 1: BUILD (ALL SERVICES WITH MATRIX)
   # ============================================
   build:
     name: 🏗️ Build ${{ matrix.service }}
-    needs: lint
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -79,11 +74,11 @@ jobs:
           echo "**Dockerfile:** ${{ matrix.dockerfile }}" >> $GITHUB_STEP_SUMMARY
 
   # ============================================
-  # JOB 3: DOCKER BUILD VALIDATION (NO PUSH)
+  # JOB 2: DOCKER BUILD VALIDATION (NO PUSH)
   # ============================================
   docker-build-validate:
     name: 🐳 Docker Build Validation ${{ matrix.service }}
-    needs: [lint, build]
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -125,11 +120,11 @@ jobs:
           echo "**Status:** ✅ Build successful (no push)" >> $GITHUB_STEP_SUMMARY
 
   # ============================================
-  # JOB 4: FINAL SUMMARY (now actually fails the pipeline)
+  # JOB 3: FINAL SUMMARY (now actually fails the pipeline)
   # ============================================
   summary:
     name: 📊 Final Summary
-    needs: [lint, build, docker-build-validate]
+    needs: [build, docker-build-validate]
     runs-on: ubuntu-latest
     if: always()
     steps:
