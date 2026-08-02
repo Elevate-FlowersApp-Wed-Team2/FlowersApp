@@ -32,6 +32,8 @@ concurrency:
 # ============================================
 env:
   DOTNET_VERSION: '8.0.x'
+  # TODO: replace with your actual solution file name
+  SOLUTION_FILE: 'FlowersApp.sln'
 
 jobs:
   # ============================================
@@ -49,14 +51,17 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      # ✅ FIX: Use dotnet format instead of dotnet-format
+      # ✅ FIX: point dotnet format at the solution explicitly.
+      # Without this, it errors out whenever both a .sln and a .csproj
+      # exist in the same directory ("Both a MSBuild project file and
+      # solution file found...").
       - name: Check code formatting
-        run: dotnet format --verify-no-changes
+        run: dotnet format ${{ env.SOLUTION_FILE }} --verify-no-changes
 
       - name: Run static code analysis
         run: |
           dotnet add package Microsoft.CodeAnalysis.NetAnalyzers || true
-          dotnet build -c Release /p:RunAnalyzers=true || true
+          dotnet build ${{ env.SOLUTION_FILE }} -c Release /p:RunAnalyzers=true || true
 
       - name: Lint Summary
         run: |
@@ -150,11 +155,11 @@ jobs:
           echo "**Status:** ✅ Build successful (no push)" >> $GITHUB_STEP_SUMMARY
 
   # ============================================
-  # JOB 4: FINAL SUMMARY
+  # JOB 4: FINAL SUMMARY (now actually fails the pipeline)
   # ============================================
   summary:
     name: 📊 Final Summary
-    needs: [build, docker-build-validate]
+    needs: [lint, build, docker-build-validate]
     runs-on: ubuntu-latest
     if: always()
     steps:
@@ -164,48 +169,25 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## 📊 Build Status" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Service | Build | Docker Build |" >> $GITHUB_STEP_SUMMARY
-          echo "|---------|-------|--------------|" >> $GITHUB_STEP_SUMMARY
-          
-          SERVICES=("auth" "profile" "nutrition" "workout" "progress" "fitnesscalc")
-          for service in "${SERVICES[@]}"; do
-            if [[ "${{ needs.build.result }}" == "success" ]]; then
-              build_status="✅"
-            else
-              build_status="❌"
-            fi
-            
-            if [[ "${{ needs.docker-build-validate.result }}" == "success" ]]; then
-              docker_status="✅"
-            else
-              docker_status="❌"
-            fi
-            
-            echo "| $service | $build_status | $docker_status |" >> $GITHUB_STEP_SUMMARY
-          done
-          
+          echo "| Job | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Lint | ${{ needs.lint.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build | ${{ needs.build.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Docker Build Validation | ${{ needs.docker-build-validate.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
-          # Check if all passed
-          if [[ "${{ needs.build.result }}" == "success" && \
+
+          if [[ "${{ needs.lint.result }}" == "success" && \
+                "${{ needs.build.result }}" == "success" && \
                 "${{ needs.docker-build-validate.result }}" == "success" ]]; then
-            echo "## 🎉 All Builds Passed!" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "✅ **All 6 services passed:**" >> $GITHUB_STEP_SUMMARY
-            echo "- ✅ Lint check" >> $GITHUB_STEP_SUMMARY
-            echo "- ✅ Build" >> $GITHUB_STEP_SUMMARY
-            echo "- ✅ Docker build validation" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "## 🎉 All Checks Passed!" >> $GITHUB_STEP_SUMMARY
             echo "🚀 **Ready for deployment!**" >> $GITHUB_STEP_SUMMARY
           else
-            echo "## ⚠️ Some Builds Failed" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "❌ **Please check the failed services above and fix the issues.**" >> $GITHUB_STEP_SUMMARY
+            echo "## ⚠️ Some Checks Failed" >> $GITHUB_STEP_SUMMARY
+            echo "❌ **Please check the failed jobs above and fix the issues.**" >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## 📝 Details" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
           echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
           echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
@@ -214,14 +196,15 @@ jobs:
       - name: Check if all passed
         id: check_status
         run: |
-          if [[ "${{ needs.build.result }}" == "success" && \
+          if [[ "${{ needs.lint.result }}" == "success" && \
+                "${{ needs.build.result }}" == "success" && \
                 "${{ needs.docker-build-validate.result }}" == "success" ]]; then
             echo "all_passed=true" >> $GITHUB_OUTPUT
           else
             echo "all_passed=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Set PR Status (Success)
+      - name: Comment on PR (Success)
         if: steps.check_status.outputs.all_passed == 'true' && github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
@@ -230,17 +213,10 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## ✅ All Builds Passed!
-              
-              All 6 services passed:
-              - ✅ Lint check
-              - ✅ Build
-              - ✅ Docker build validation
-              
-              🚀 **Ready for deployment!**`
+              body: `## ✅ All Checks Passed!\n\n- ✅ Lint check\n- ✅ Build\n- ✅ Docker build validation\n\n🚀 **Ready for deployment!**`
             })
 
-      - name: Set PR Status (Failure)
+      - name: Comment on PR (Failure)
         if: steps.check_status.outputs.all_passed == 'false' && github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
@@ -249,18 +225,10 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## ❌ Some Builds Failed!
-              
-              Please check the build logs above and fix the issues.
-              
-              ### Failed Checks
-              ${{ needs.build.result != 'success' && '- Build failed\n' || '' }}
-              ${{ needs.docker-build-validate.result != 'success' && '- Docker build validation failed\n' || '' }}
-              
-              Check the workflow run for details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`
+              body: `## ❌ Some Checks Failed!\n\nPlease check the workflow logs and fix the issues.\n\nWorkflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`
             })
 
-      - name: Create Badge
+      - name: Create badge
         if: steps.check_status.outputs.all_passed == 'true'
         run: |
           echo "# 🚀 All Builds Passing" >> build-status.txt
@@ -272,3 +240,12 @@ jobs:
         with:
           name: build-status
           path: build-status.txt
+
+      # ✅ FIX: this is the step that was missing. Without it, this job
+      # always exits 0 (success) no matter what happened upstream, which
+      # is why branch protection couldn't rely on it as a required check.
+      - name: Fail job if any check failed
+        if: steps.check_status.outputs.all_passed == 'false'
+        run: |
+          echo "::error::One or more required checks failed (lint, build, or docker-build-validate)."
+          exit 1
