@@ -1,0 +1,120 @@
+name: Production Build & Deploy
+
+on:
+  push:
+    branches: [ 'master' ]
+
+concurrency:
+  group: docker-build-production
+  cancel-in-progress: true
+
+env:
+  DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+  DOCKER_REPO: ${{ secrets.DOCKER_REPO }}
+  PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+
+jobs:
+  generate-tag:
+    name: Generate Timestamp
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.timestamp.outputs.tag }}
+    steps:
+      - name: Generate timestamp for tagging (Egypt Time Zone)
+        id: timestamp
+        run: |
+          export TZ=Africa/Cairo
+          echo "tag=$(date +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
+
+  build-and-push:
+    name: Build & Push ${{ matrix.service }}
+    needs: generate-tag
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # ============================================
+          # ✅ Auth Service (Active)
+          # ============================================
+          - service: auth
+            dockerfile: ./FlowersApp.Auth/Dockerfile
+          
+          # ============================================
+          # ⏳ Services Ready to Add (Remove # when ready)
+          # ============================================
+          # - service: serviceName
+          #   dockerfile: dockerFile Path
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          install: true
+          driver-opts: network=host
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and Push ${{ matrix.service }}
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          push: true
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}:${{ env.PROJECT_NAME}}-${{ matrix.service }}-${{ needs.generate-tag.outputs.tag }}
+          cache-from: type=gha,scope=${{ matrix.service }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.service }}
+
+  summary:
+    name: Deployment Summary
+    needs: [generate-tag, build-and-push]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Output deployment tag
+        run: |
+          echo "## 🚀 Deployment Information" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Repository" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Tag Format" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "${{ env.PROJECT_NAME }}-{service}-${{ needs.generate-tag.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Deployment Command" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+          echo "export PROJECT_NAME=${{ env.PROJECT_NAME }}" >> $GITHUB_STEP_SUMMARY
+          echo "export TAG=${{ needs.generate-tag.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "# Update image tags in docker-compose.production.yml to use TAG=${{ needs.generate-tag.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "docker stack deploy -c docker-compose.production.yml fitness-app-team2" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Images Pushed" >> $GITHUB_STEP_SUMMARY
+          echo "- \`${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}:${{ env.PROJECT_NAME }}-auth-${{ needs.generate-tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+          # echo "- \`${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}:${{ env.PROJECT_NAME }}-profile-${{ needs.generate-tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+          # echo "- \`${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}:${{ env.PROJECT_NAME }}-nutrition-${{ needs.generate-tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+          # echo "- \`${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}:${{ env.PROJECT_NAME }}-workout-${{ needs.generate-tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+          # echo "- \`${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}:${{ env.PROJECT_NAME }}-progress-${{ needs.generate-tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+          # echo "- \`${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}:${{ env.PROJECT_NAME }}-fitnesscalc-${{ needs.generate-tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp:** \`${{ needs.generate-tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** \`${{ env.PROJECT_NAME }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Build Status" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Auth Service built and pushed successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "⏳ Other services will be added gradually." >> $GITHUB_STEP_SUMMARY
