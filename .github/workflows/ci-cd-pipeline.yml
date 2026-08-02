@@ -1,0 +1,115 @@
+name: CI/CD Pipeline
+
+on:
+  # ============================================
+  # TRIGGERS
+  # ============================================
+  pull_request:
+    branches: [master, dev, testing]
+    types: [opened, synchronize, reopened]
+
+  push:
+    branches: [master, dev, testing]
+
+# ============================================
+# PERMISSIONS
+# ============================================
+permissions:
+  contents: read
+
+# ============================================
+# CONCURRENCY
+# ============================================
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# ============================================
+# ENVIRONMENT VARIABLES
+# ============================================
+env:
+  DOTNET_VERSION: '8.0.x'
+
+jobs:
+  # ============================================
+  # JOB 1: BUILD (ALL SERVICES WITH MATRIX)
+  # ============================================
+  build:
+    name: 🏗️ Build ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - service: auth
+            project: FlowersApp.Auth
+            dockerfile: ./FlowersApp.Auth/Dockerfile
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore ./${{ matrix.project }}/${{ matrix.project }}.csproj
+
+      - name: Build
+        run: dotnet build ./${{ matrix.project }}/${{ matrix.project }}.csproj --no-restore -c Release
+
+      - name: Build Summary for Service
+        run: |
+          echo "## 🏗️ ${{ matrix.service }} Service" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Build successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Project:** ${{ matrix.project }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Dockerfile:** ${{ matrix.dockerfile }}" >> $GITHUB_STEP_SUMMARY
+
+  # ============================================
+  # JOB 2: DOCKER BUILD VALIDATION (NO PUSH)
+  # ============================================
+  docker-build-validate:
+    name: 🐳 Docker Build Validation ${{ matrix.service }}
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - service: auth
+            dockerfile: ./FlowersApp.Auth/Dockerfile
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          install: true
+
+      - name: Validate Docker build (no push)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          push: false
+          load: true
+          tags: ${{ matrix.service }}-test:latest
+          cache-from: type=gha,scope=${{ matrix.service }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.service }}
+
+      - name: Verify Docker image exists
+        run: |
+          docker images | grep ${{ matrix.service }}-test
+          echo "✅ Docker image for ${{ matrix.service }} built successfully!"
+
+      - name: Docker Build Summary
+        run: |
+          echo "## 🐳 Docker Build Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Service:** ${{ matrix.service }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Dockerfile:** ${{ matrix.dockerfile }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ✅ Build successful (no push)" >> $GITHUB_STEP_SUMMARY
