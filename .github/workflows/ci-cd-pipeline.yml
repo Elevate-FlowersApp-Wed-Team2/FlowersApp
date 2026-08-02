@@ -35,7 +35,7 @@ env:
 
 jobs:
   # ============================================
-  # JOB 1: LINT & FORMAT CHECK
+  # JOB 1: LINT & FORMAT CHECK (FIXED)
   # ============================================
   lint:
     name: 🔍 Lint & Format Check
@@ -49,15 +49,13 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Install dotnet-format
-        run: dotnet tool install -g dotnet-format
-
+      # ✅ FIX: Use dotnet format instead of dotnet-format
       - name: Check code formatting
-        run: dotnet-format --verify-no-changes --severity error
+        run: dotnet format --verify-no-changes
 
       - name: Run static code analysis
         run: |
-          dotnet add package Microsoft.CodeAnalysis.NetAnalyzers
+          dotnet add package Microsoft.CodeAnalysis.NetAnalyzers || true
           dotnet build -c Release /p:RunAnalyzers=true || true
 
       - name: Lint Summary
@@ -68,7 +66,7 @@ jobs:
           echo "✅ Static code analysis completed!" >> $GITHUB_STEP_SUMMARY
 
   # ============================================
-  # JOB 2: BUILD (ALL SERVICES WITH MATRIX - NO TESTS)
+  # JOB 2: BUILD (ALL SERVICES WITH MATRIX)
   # ============================================
   build:
     name: 🏗️ Build ${{ matrix.service }}
@@ -81,7 +79,6 @@ jobs:
           - service: auth
             project: FlowersApp.Auth
             dockerfile: ./FlowersApp.Auth/Dockerfile
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -172,8 +169,18 @@ jobs:
           
           SERVICES=("auth" "profile" "nutrition" "workout" "progress" "fitnesscalc")
           for service in "${SERVICES[@]}"; do
-            build_status="${{ needs.build.result == 'success' && '✅' || '❌' }}"
-            docker_status="${{ needs.docker-build-validate.result == 'success' && '✅' || '❌' }}"
+            if [[ "${{ needs.build.result }}" == "success" ]]; then
+              build_status="✅"
+            else
+              build_status="❌"
+            fi
+            
+            if [[ "${{ needs.docker-build-validate.result }}" == "success" ]]; then
+              docker_status="✅"
+            else
+              docker_status="❌"
+            fi
+            
             echo "| $service | $build_status | $docker_status |" >> $GITHUB_STEP_SUMMARY
           done
           
