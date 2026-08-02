@@ -5,6 +5,7 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "flowerapp.auth": "StartDebugging"
+        "flowersapp.auth": "StartDebugging"
       }
     }
   }

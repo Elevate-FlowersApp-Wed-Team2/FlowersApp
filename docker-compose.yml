@@ -32,3 +32,14 @@ services:
 
 volumes:
   sql_data:
+  flowersapp.auth:
+    image: ${DOCKER_REGISTRY-}flowersappauth
+    build:
+      context: .
+      dockerfile: FlowersApp.Auth/Dockerfile
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health/live"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
