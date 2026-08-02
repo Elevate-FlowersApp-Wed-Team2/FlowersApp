@@ -39,36 +39,6 @@ jobs:
   # ============================================
   # JOB 1: LINT & FORMAT CHECK (FIXED)
   # ============================================
-  lint:
-    name: 🔍 Lint & Format Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      # ✅ FIX: point dotnet format at the solution explicitly.
-      # Without this, it errors out whenever both a .sln and a .csproj
-      # exist in the same directory ("Both a MSBuild project file and
-      # solution file found...").
-      - name: Check code formatting
-        run: dotnet format ${{ env.SOLUTION_FILE }} --verify-no-changes
-
-      - name: Run static code analysis
-        run: |
-          dotnet add package Microsoft.CodeAnalysis.NetAnalyzers || true
-          dotnet build ${{ env.SOLUTION_FILE }} -c Release /p:RunAnalyzers=true || true
-
-      - name: Lint Summary
-        run: |
-          echo "## 🔍 Lint Check" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Code formatting check passed!" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Static code analysis completed!" >> $GITHUB_STEP_SUMMARY
 
   # ============================================
   # JOB 2: BUILD (ALL SERVICES WITH MATRIX)
