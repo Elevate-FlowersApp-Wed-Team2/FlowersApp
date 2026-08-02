@@ -8,7 +8,6 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var 
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddHealthChecks()
                .AddCheck("self", () => HealthCheckResult.Healthy());
