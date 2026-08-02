@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
+  <Project Path="FlowersApp.Auth/FlowersApp.Auth.csproj" />
+  <Project Path="FlowersApp.Shared/FlowersApp.Shared.csproj" Id="1bda54d4-5fe9-4387-893a-707673ac4c1d" />
+</Solution>
