@@ -1,0 +1,119 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Elevate\\Project03\\FlowerApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|d:\\elevate\\project03\\flowerapp\\flowerapp.auth\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|solutionrelative:flowerapp.auth\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|d:\\elevate\\project03\\flowerapp\\flowerapp.auth\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|solutionrelative:flowerapp.auth\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|d:\\elevate\\project03\\flowerapp\\flowerapp.auth\\infrastructure\\persistence\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|solutionrelative:flowerapp.auth\\infrastructure\\persistence\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|d:\\elevate\\project03\\flowerapp\\flowerapp.auth\\flowerapp.auth.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|solutionrelative:flowerapp.auth\\flowerapp.auth.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|d:\\elevate\\project03\\flowerapp\\flowerapp.auth\\domain\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|solutionrelative:flowerapp.auth\\domain\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|d:\\elevate\\project03\\flowerapp\\flowerapp.auth\\domain\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F77FF5C5-7887-AE13-E66E-25CC67AB9A04}|FlowerApp.Auth\\FlowerApp.Auth.csproj|solutionrelative:flowerapp.auth\\domain\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\appsettings.json",
+              "RelativeDocumentMoniker": "FlowerApp.Auth\\appsettings.json",
+              "ToolTip": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\appsettings.json",
+              "RelativeToolTip": "FlowerApp.Auth\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-08-03T15:04:48.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\Program.cs",
+              "RelativeDocumentMoniker": "FlowerApp.Auth\\Program.cs",
+              "ToolTip": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\Program.cs",
+              "RelativeToolTip": "FlowerApp.Auth\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-03T15:03:45.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RefreshToken.cs",
+              "DocumentMoniker": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\Domain\\RefreshToken.cs",
+              "RelativeDocumentMoniker": "FlowerApp.Auth\\Domain\\RefreshToken.cs",
+              "ToolTip": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\Domain\\RefreshToken.cs",
+              "RelativeToolTip": "FlowerApp.Auth\\Domain\\RefreshToken.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-03T15:03:20.269Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\Domain\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "FlowerApp.Auth\\Domain\\ApplicationUser.cs",
+              "ToolTip": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\Domain\\ApplicationUser.cs",
+              "RelativeToolTip": "FlowerApp.Auth\\Domain\\ApplicationUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-03T15:01:17.147Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FlowerApp.Auth.csproj",
+              "DocumentMoniker": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\FlowerApp.Auth.csproj",
+              "RelativeDocumentMoniker": "FlowerApp.Auth\\FlowerApp.Auth.csproj",
+              "ToolTip": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\FlowerApp.Auth.csproj",
+              "RelativeToolTip": "FlowerApp.Auth\\FlowerApp.Auth.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-08-03T14:58:06.62Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\Infrastructure\\Persistence\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "FlowerApp.Auth\\Infrastructure\\Persistence\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\Elevate\\Project03\\FlowerApp\\FlowerApp.Auth\\Infrastructure\\Persistence\\ApplicationDbContext.cs",
+              "RelativeToolTip": "FlowerApp.Auth\\Infrastructure\\Persistence\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-03T14:57:35.734Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

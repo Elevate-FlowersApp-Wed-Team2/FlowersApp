@@ -1,0 +1,29 @@
+<Solution>
+  <Folder Name="/scr/" />
+  <Folder Name="/scr/Services/" />
+  <Folder Name="/scr/Services/Address/">
+    <Project Path="FlowerApp.Address/FlowerApp.Address.csproj" />
+  </Folder>
+  <Folder Name="/scr/Services/ApiGateway/">
+    <Project Path="FlowerApp.ApiGateway/FlowerApp.ApiGateway.csproj" />
+  </Folder>
+  <Folder Name="/scr/Services/Auth/">
+    <Project Path="FlowerApp.Auth/FlowerApp.Auth.csproj" />
+  </Folder>
+  <Folder Name="/scr/Services/Catalog/">
+    <Project Path="FlowerApp.Catalog/FlowerApp.Catalog.csproj" />
+  </Folder>
+  <Folder Name="/scr/Services/Driver/">
+    <Project Path="FlowerApp.Driver/FlowerApp.Driver.csproj" />
+  </Folder>
+  <Folder Name="/scr/Services/Notification/">
+    <Project Path="FlowerApp.Notification/FlowerApp.Notification.csproj" />
+  </Folder>
+  <Folder Name="/scr/Services/Order/">
+    <Project Path="FlowerApp.Order/FlowerApp.Order.csproj" />
+  </Folder>
+  <Folder Name="/scr/Services/Payment/">
+    <Project Path="FlowerApp.Payment/FlowerApp.Payment.csproj" />
+  </Folder>
+  <Project Path="FlowerApp/FlowerApp.csproj" />
+</Solution>

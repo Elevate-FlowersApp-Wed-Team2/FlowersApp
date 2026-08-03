@@ -1,0 +1,6 @@
+@FlowerApp.Payment_HostAddress = http://localhost:5297
+
+GET {{FlowerApp.Payment_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

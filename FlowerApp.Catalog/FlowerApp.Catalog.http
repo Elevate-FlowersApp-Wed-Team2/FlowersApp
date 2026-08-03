@@ -1,0 +1,6 @@
+@FlowerApp.Catalog_HostAddress = http://localhost:5213
+
+GET {{FlowerApp.Catalog_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

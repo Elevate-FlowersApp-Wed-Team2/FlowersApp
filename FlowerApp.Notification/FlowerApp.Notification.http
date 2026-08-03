@@ -1,0 +1,6 @@
+@FlowerApp.Notification_HostAddress = http://localhost:5256
+
+GET {{FlowerApp.Notification_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

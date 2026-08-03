@@ -1,0 +1,6 @@
+@FlowerApp.Driver_HostAddress = http://localhost:5038
+
+GET {{FlowerApp.Driver_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
