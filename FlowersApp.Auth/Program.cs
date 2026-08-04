@@ -1,4 +1,5 @@
 
+using FlowersApp.Auth.Extensions;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
@@ -14,6 +15,7 @@ public class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
+        builder.Services.AddDependencies(builder.Configuration);
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -29,7 +31,7 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
+        app.ApplyDatabaseMigrations(app.Logger);
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
