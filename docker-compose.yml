@@ -10,3 +10,33 @@ services:
       timeout: 3s
       retries: 3
       start_period: 10s
+    depends_on:
+      - sqlserver
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=FlowersApp.AuthDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+    networks:
+      - myapp-network
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserverdb
+    ports:
+      - "3535:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong!Passw0rd
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - myapp-network
+    healthcheck: 
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrong!Passw0rd", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+volumes:
+  sqlserver_data:
+
+networks:
+  myapp-network:
+  
