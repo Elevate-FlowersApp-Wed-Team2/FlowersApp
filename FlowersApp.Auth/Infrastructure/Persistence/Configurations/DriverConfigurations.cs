@@ -12,13 +12,5 @@ public class DriverConfigurations : IEntityTypeConfiguration<Driver>
         builder.HasOne(d => d.Vehicle)
                .WithOne(v => v.Driver)
                .HasForeignKey<Driver>(d => d.VehicleId);
-
-        builder.Property(c => c.PhoneNumber);
-        builder.HasIndex(c => c.NormalizedEmail)
-               .IsUnique()
-               .HasFilter("[NormalizedEmail] IS NOT NULL");
-
-        builder.HasIndex(c => c.NormalizedEmail)
-            .HasDatabaseName("EmailIndex");
     }
 }
