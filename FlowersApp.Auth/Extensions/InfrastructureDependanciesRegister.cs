@@ -10,6 +10,7 @@ public static class InfrastructureDependanciesRegister
         services.AddDbContext<AppDbContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         });
         return services;
     }
