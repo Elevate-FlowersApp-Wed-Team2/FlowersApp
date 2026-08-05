@@ -4,9 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FlowersApp.Auth.Infrastructure.Persistence;
 
-public class AppDbContext:DbContext
+public class AppDbContext:IdentityDbContext<AppUser, Role, Guid>
 {
     public DbSet<Driver> Drivers { get; set; }
+    public DbSet<Customer> Customers { get; set; }
     public DbSet<DriverApplication> Applications { get; set; }
     public DbSet<DriverDocument> Documents { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }

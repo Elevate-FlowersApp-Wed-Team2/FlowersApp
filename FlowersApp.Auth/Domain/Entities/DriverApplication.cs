@@ -15,6 +15,7 @@ public class DriverApplication: BaseEntity
     public required string NationalIDNumber { get; set; }
     public Guid VehicleID { get; set; }
     public required string HashedPassword { get; set; }
+    public string LicenseNumber { get; set; }
     public List<DriverDocument>? Documents { get; set; }
     public Vehicle? Vehicle { get; set; }
 }

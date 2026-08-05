@@ -7,7 +7,7 @@ public static class ApplicationDependanciesRegister
     {
         services.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssembly(typeof(ApplicationDependanciesRegister).Assembly)
+            cfg.RegisterServicesFromAssembly(typeof(ApplicationDependanciesRegister).Assembly);
         });
         return services;
     }

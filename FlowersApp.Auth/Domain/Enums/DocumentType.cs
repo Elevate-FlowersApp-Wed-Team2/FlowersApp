@@ -2,6 +2,7 @@
 
 public enum DocumentType
 {
+    Other = 0,
     License = 1,
     Identity
 }
