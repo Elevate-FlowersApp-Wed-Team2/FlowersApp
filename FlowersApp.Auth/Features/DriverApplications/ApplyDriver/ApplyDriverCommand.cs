@@ -1,8 +1,8 @@
 ﻿using FlowersApp.Auth.Shared.Interfaces;
 
-namespace FlowersApp.Auth.Features.Drivers.SubmitApplication;
+namespace FlowersApp.Auth.Features.DriverApplications.SubmitApplication;
 
-public record SubmitApplicationCommand(
+public record ApplyDriverCommand(
    string Name,
     string Email,
     string Password,
@@ -16,8 +16,8 @@ public record SubmitApplicationCommand(
     string Nid,
     IFormFile NidImage,
     string? FcmToken = null)
-    : ICommand<SubmitApplicationResponse>;
+    : ICommand<ApplyDriverResponse>;
 
-public record SubmitApplicationResponse(string ApplicationId, string Status);
+public record ApplyDriverResponse(string ApplicationId, string Status);
 
 

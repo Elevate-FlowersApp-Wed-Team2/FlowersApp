@@ -27,6 +27,7 @@ public class Program
         {
             Predicate = check => check.Name == "self"
         });
+        app.UseRequestLocalization();
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
