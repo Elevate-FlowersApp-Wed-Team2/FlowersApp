@@ -25,5 +25,8 @@
   <Folder Name="/scr/Services/Payment/">
     <Project Path="FlowerApp.Payment/FlowerApp.Payment.csproj" />
   </Folder>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
   <Project Path="FlowerApp/FlowerApp.csproj" />
 </Solution>

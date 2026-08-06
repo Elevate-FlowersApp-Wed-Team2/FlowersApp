@@ -1,0 +1,34 @@
+services:
+  flowerapp.auth:
+    build:
+      context: ./FlowerApp.Auth
+
+    container_name: elevate-auth-service
+
+    ports:
+      - "5001:8080"
+
+    depends_on:
+      - sqlserver
+
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__AuthDb=Server=sqlserver,1433;Database=ElevateAuthDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+    container_name: elevate-sqlserver
+
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "YourStrong@Passw0rd"
+
+    ports:
+      - "1433:1433"
+
+    volumes:
+      - sql_data:/var/opt/mssql
+
+volumes:
+  sql_data:
