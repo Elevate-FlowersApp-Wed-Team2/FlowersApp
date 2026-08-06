@@ -9,19 +9,19 @@ using FlowersApp.Auth.Shared.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace FlowersApp.Auth.Features.Drivers.SubmitApplication;
+namespace FlowersApp.Auth.Features.DriverApplications.SubmitApplication;
 
-public class SubmitApplicationCommandHandler(UserManager<Driver> userManager, IMediator mediator, DocumentService documentService, Repository<DriverApplication> repository, ILogger<SubmitApplicationCommandHandler> logger)
-    : ICommandHandler<SubmitApplicationCommand, SubmitApplicationResponse>
+public class ApplyDriverCommandHandler(UserManager<Driver> userManager, IMediator mediator, DocumentService documentService, Repository<DriverApplication> repository, ILogger<ApplyDriverCommandHandler> logger)
+    : ICommandHandler<ApplyDriverCommand, ApplyDriverResponse>
 {
     private readonly UserManager<Driver> userManager = userManager;
     private readonly IMediator _mediator = mediator;
     private readonly DocumentService _documentStorageService = documentService;
     private readonly Repository<DriverApplication> _applicationRepository = repository;
-    private readonly ILogger<SubmitApplicationCommandHandler> _logger = logger;
+    private readonly ILogger<ApplyDriverCommandHandler> _logger = logger;
 
-    public async Task<RequestResult<SubmitApplicationResponse>> Handle(
-        SubmitApplicationCommand request,
+    public async Task<RequestResult<ApplyDriverResponse>> Handle(
+        ApplyDriverCommand request,
         CancellationToken cancellationToken)
     {
         try
@@ -29,11 +29,11 @@ public class SubmitApplicationCommandHandler(UserManager<Driver> userManager, IM
             // Check for duplicate email
             var isExistingUser = await _mediator.Send(new CheckDriverExistenceQuery(request.Email, request.Phone), cancellationToken);
             if (isExistingUser.Result)
-                return RequestResult<SubmitApplicationResponse>.Failure(ResultCode.DriverIsAlreadyExist);
+                return RequestResult<ApplyDriverResponse>.Failure(ResultCode.DriverIsAlreadyExist);
 
             var isVehicleExist = await _mediator.Send(new CheckVehicleExistenceQuery(request.VehicleId), cancellationToken);
             if (!isVehicleExist.Result)
-                return RequestResult<SubmitApplicationResponse>.Failure(ResultCode.VehicleNotFound);
+                return RequestResult<ApplyDriverResponse>.Failure(ResultCode.VehicleNotFound);
 
             var licenceDocument = await UploadDocumentAsync(request.LicenceImage, "licence", cancellationToken);
             var nidDocument = await UploadDocumentAsync(request.NidImage, "nid", cancellationToken);
@@ -57,11 +57,11 @@ public class SubmitApplicationCommandHandler(UserManager<Driver> userManager, IM
             _applicationRepository.Add(application);
             var effectedRows = await _applicationRepository.SaveChangeAsync(cancellationToken);
             if(effectedRows <= 0)
-                return RequestResult<SubmitApplicationResponse>.Failure(ResultCode.FailedToSubmitApplication);
+                return RequestResult<ApplyDriverResponse>.Failure(ResultCode.FailedToSubmitApplication);
    
             // Return success response
-            return RequestResult<SubmitApplicationResponse>.succeeded(
-                new SubmitApplicationResponse(
+            return RequestResult<ApplyDriverResponse>.succeeded(
+                new ApplyDriverResponse(
                     application.Id.ToString(),
                     application.Status.ToString()
                 ),ResultCode.ApplicationSubmittedSuccessfully
@@ -71,7 +71,7 @@ public class SubmitApplicationCommandHandler(UserManager<Driver> userManager, IM
         {
              _logger.LogError(ex, "Error submitting driver application");
 
-            return RequestResult<SubmitApplicationResponse>.Failure(ResultCode.FailedToSubmitApplication);
+            return RequestResult<ApplyDriverResponse>.Failure(ResultCode.FailedToSubmitApplication);
         }
     }
 

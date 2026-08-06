@@ -40,6 +40,7 @@ public class Program
 
         builder.Services.AddRedisCache(redisConnection);
 
+        app.UseRequestLocalization();
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
