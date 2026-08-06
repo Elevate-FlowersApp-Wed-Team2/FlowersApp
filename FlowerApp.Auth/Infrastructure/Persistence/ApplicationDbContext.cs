@@ -16,6 +16,9 @@ namespace FlowerApp.Auth.Infrastructure.Persistence
         public DbSet<GuestSession> GuestSessions { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<LoginAttempt> LoginAttempts { get; set; }
         public DbSet<PasswordResetOtp> PasswordResetOtps { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -23,7 +26,6 @@ namespace FlowerApp.Auth.Infrastructure.Persistence
             base.OnModelCreating(builder);
             builder.Entity<RefreshToken>()
                 .HasOne(x => x.User)
-                .WithMany()
                 .HasForeignKey(x => x.UserId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
@@ -35,6 +37,8 @@ namespace FlowerApp.Auth.Infrastructure.Persistence
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
+        }
+    }
         }
     }
 }
