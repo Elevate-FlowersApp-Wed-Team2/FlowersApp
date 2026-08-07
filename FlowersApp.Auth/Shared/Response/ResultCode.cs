@@ -15,4 +15,11 @@ public enum ResultCode
     //Application
     FailedToSubmitApplication = 300,
     ApplicationSubmittedSuccessfully = 301,
+    ApplicationCreatedSuccessfully = 302,
+    InvalidGender = 303,
+    UserAlreadyApplied = 304,
+    UserNotApplied = 305,
+
+    // Document
+    DocumentCreated = 400,
 }

@@ -118,15 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Validation_Required" xml:space="preserve">
-    <value> {0} مطلوب.</value>
+    <value>{0} is required.</value>
   </data>
   <data name="Error_Unexpected" xml:space="preserve">
-    <value>حدث خطأ غير متوقع.</value>
+    <value>An unexpected error occurred.</value>
   </data>
   <data name="DriverIsAlreadyExist" xml:space="preserve">
-    <value>العميل موجود بالفعل</value>
+    <value>Driver already exists.</value>
   </data>
   <data name="VehicleNotFound" xml:space="preserve">
-    <value>خطا في بيانات السياره</value>
+    <value> Vehicle not found.</value>
+  </data>
+  <data name="UserAlreadyApplied" xml:space="preserve">
+    <value>User Already Applied</value>
   </data>
 </root>

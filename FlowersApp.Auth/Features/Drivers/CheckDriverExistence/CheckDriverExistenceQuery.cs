@@ -10,16 +10,18 @@ namespace FlowersApp.Auth.Features.Drivers.CheckDriverExistence;
 public record CheckDriverExistenceQuery(string Email, string NationalIdNumber)
     :IQuery<bool>;
 
-public class CheckIsDriverExistQueryHandler(UserManager<Driver> userManager) : IQueryHandler<CheckDriverExistenceQuery, bool>
+public class CheckIsDriverExistQueryHandler(UserManager<AppUser> userManager) : IQueryHandler<CheckDriverExistenceQuery, bool>
 {
-    private readonly UserManager<Driver> _userManager = userManager;
+    private readonly UserManager<AppUser> _userManager = userManager;
 
 
     public async Task<RequestResult<bool>> Handle(CheckDriverExistenceQuery request, CancellationToken cancellationToken)
     {
-        var isExist = await _userManager.Users.AnyAsync(d => d.Email == request.Email
-                                                         || d.NationalIDNumber == request.NationalIdNumber,
-                                                     cancellationToken);
+        var isExist = await _userManager.Users
+                               .OfType<Driver>()
+                               .AnyAsync(d => d.Email == request.Email
+                                       || d.NationalIDNumber == request.NationalIdNumber,
+                               cancellationToken);
         if(isExist)
           return RequestResult<bool>.succeeded(isExist ,ResultCode.DriverIsAlreadyExist);
         return RequestResult<bool>.succeeded(isExist ,ResultCode.DriverNotFound);

@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
 
-namespace FlowersApp.Auth.Features.DriverApplications.SubmitApplication;
+namespace FlowersApp.Auth.Features.DriverApplications.ApplyDriver;
 
-public class ApplyDriverCommandValidator : AbstractValidator<ApplyDriverCommand>
+public class ApplyDriverValidator : AbstractValidator<ApplyDriverOrchestrator>
 {
     private readonly string[] _allowedExtensions = { ".jpg", ".jpeg", ".png", ".pdf" };
     private const int MaxFileSize = 5 * 1024 * 1024; // 5MB
 
-    public ApplyDriverCommandValidator()
+    public ApplyDriverValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Full name is required")
