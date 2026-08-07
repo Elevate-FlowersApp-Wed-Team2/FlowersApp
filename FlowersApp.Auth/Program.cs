@@ -1,5 +1,6 @@
 
 using FlowersApp.Auth.Extensions;
+using FlowersApp.Auth.Middlewares;
 using FlowersApp.Auth.Shared.Interfaces;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -25,6 +26,7 @@ public class Program
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         app.MapHealthChecks("/health/live", new HealthCheckOptions
         {
