@@ -2,13 +2,16 @@ using DotNetEnv;
 using FlowerApp.Auth.Domain;
 using FlowerApp.Auth.Domain.Interfaces;
 using FlowerApp.Auth.Features.Account.ChangePassword;
+using FlowerApp.Auth.Features.Account.UpdateProfile;
 using FlowerApp.Auth.Infrastructure.Email;
 using FlowerApp.Auth.Infrastructure.Persistence;
+using FlowerApp.Auth.Infrastructure.Services;
 using FlowerApp.Auth.Infrastructure.Sessions;
 using FlowersApp.Shared.Redis;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 using Shared.Behaviors;
 
 Env.Load();
@@ -56,6 +59,9 @@ builder.Services.Configure<EmailSettings>(options =>
 });
 builder.Services.AddScoped<IEmailSender, SendGridEmailService>();
 builder.Services.AddScoped<ISessionService, SessionService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddScoped<IPhotoStorageService, LocalPhotoStorageService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -74,4 +80,5 @@ app.UseAuthorization();
 app.UseStaticFiles();
 app.MapControllers();
 app.MapChangePasswordEndpoint();
+app.MapUpdateProfileEndpoint();
 app.Run();

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    internal interface IResult
+    public interface ICurrentUserService
     {
+        Guid? UserId { get; }
+        bool IsAuthenticated { get; }
     }
 }

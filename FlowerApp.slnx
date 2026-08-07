@@ -26,7 +26,7 @@
     <Project Path="FlowerApp.Payment/FlowerApp.Payment.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
-    <File Path=".env" />
+    <File Path=".gitignore" />
   </Folder>
   <Project Path="FlowerApp/FlowerApp.csproj" />
   <Project Path="Shared/Shared.csproj" />
