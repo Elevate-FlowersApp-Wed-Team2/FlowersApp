@@ -1,5 +1,6 @@
 using DotNetEnv;
 using FlowersApp.Auth.Extensions;
+using FlowersApp.Auth.Middlewares;
 using FlowersApp.Auth.Shared.Interfaces;
 using FlowersApp.Shared.Redis;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -54,7 +55,7 @@ public class Program
 
 
         var app = builder.Build();
-
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         app.MapHealthChecks("/health/live", new HealthCheckOptions
         {

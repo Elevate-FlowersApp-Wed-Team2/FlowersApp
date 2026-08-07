@@ -4,8 +4,8 @@ namespace FlowersApp.Auth.Features.DriverApplications.ApplyDriver;
 
 public class ApplyDriverValidator : AbstractValidator<ApplyDriverOrchestrator>
 {
-    private readonly string[] _allowedExtensions = { ".jpg", ".jpeg", ".png", ".pdf" };
-    private const int MaxFileSize = 5 * 1024 * 1024; // 5MB
+    private static readonly string[] AllowedExtensions = { ".jpg", ".jpeg", ".png", ".pdf" };
+    private const long MaxFileSizeBytes = 5 * 1024 * 1024; // 5 MB
 
     public ApplyDriverValidator()
     {
@@ -38,12 +38,39 @@ public class ApplyDriverValidator : AbstractValidator<ApplyDriverOrchestrator>
 
         RuleFor(x => x.ConfirmPassword)
             .Equal(x => x.Password).WithMessage("Passwords do not match");
+        RuleFor(x => x.LicenceImage)
+            .Must(BeAValidFile).WithMessage("Licence image is invalid, too large, or an unsupported format.");
 
+        RuleFor(x => x.NidImage)
+            .Must(BeAValidFile).WithMessage("National ID image is invalid, too large, or an unsupported format.");
     }
 
-    private bool IsValidFileExtension(string fileName)
+    private bool BeAValidFile(IFormFile file)
     {
-        var extension = Path.GetExtension(fileName).ToLowerInvariant();
-        return _allowedExtensions.Contains(extension);
+        if (file is null || file.Length == 0 || file.Length > MaxFileSizeBytes)
+            return false;
+
+        var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+        if (!AllowedExtensions.Contains(extension))
+            return false;
+
+        return HasValidMagicBytes(file, extension);
+    }
+
+    private static bool HasValidMagicBytes(IFormFile file, string extension)
+    {
+        using var stream = file.OpenReadStream();
+        var buffer = new byte[8];
+        var read = stream.Read(buffer, 0, buffer.Length);
+        stream.Position = 0;
+        if (read < 4) return false;
+
+        return extension switch
+        {
+            ".jpg" or ".jpeg" => buffer[0] == 0xFF && buffer[1] == 0xD8 && buffer[2] == 0xFF,
+            ".png" => buffer[0] == 0x89 && buffer[1] == 0x50 && buffer[2] == 0x4E && buffer[3] == 0x47,
+            ".pdf" => buffer[0] == 0x25 && buffer[1] == 0x50 && buffer[2] == 0x44 && buffer[3] == 0x46,
+            _ => false
+        };
     }
 }
