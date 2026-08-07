@@ -5,8 +5,8 @@
         None,
 
         //Auth
-        EmailNotValid=100,
-        PasswordIsWrong=101,
-        RoleNotAllowed=102
+        InvalidCredentials= 100,
+        AccountInactive=101
+
     }
 }

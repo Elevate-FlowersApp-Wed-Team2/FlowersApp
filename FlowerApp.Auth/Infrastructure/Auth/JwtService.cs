@@ -20,6 +20,9 @@ namespace FlowerApp.Auth.Infrastructure.Auth
             _jwtSettings = options.Value;
         }
 
+        public int AccessTokenExpirationInSeconds
+                    => _jwtSettings.ExpirationMinutes * 60;
+
         public string GenerateAccessToken(ApplicationUser user, string role, DriverStatus? driverStatus = null)
         {
             var claims = new List<Claim>
@@ -48,14 +51,17 @@ namespace FlowerApp.Auth.Infrastructure.Auth
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public RefreshToken GenerateRefreshToken()
+        public (string RawToken, RefreshToken RefreshToken) GenerateRefreshToken()
         {
-            return new RefreshToken
+            var rawToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+            var hashedToken = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(rawToken)));
+            var refreshToken = new RefreshToken
             {
-                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                Token = hashedToken,
                 CreatedAt = DateTime.UtcNow,
                 ExpiresAt = DateTime.UtcNow.AddDays(30)
             };
+            return (rawToken, refreshToken);
         }
     }
 }

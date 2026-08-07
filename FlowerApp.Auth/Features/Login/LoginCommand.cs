@@ -31,7 +31,7 @@ namespace FlowerApp.Auth.Features.Login
             {
                 return ApiResponse<LoginResponse>.Failure
                             ("Invalid email or password",
-                            new List<ErrorCode> { ErrorCode.EmailNotValid }
+                            new List<ErrorCode> { ErrorCode.InvalidCredentials }
                             ,StatusCodes.Status401Unauthorized);
             }
 
@@ -40,8 +40,16 @@ namespace FlowerApp.Auth.Features.Login
             {
                 return ApiResponse<LoginResponse>.Failure
                             ("Invalid email or password",
-                            new List<ErrorCode> {ErrorCode.PasswordIsWrong}
+                            new List<ErrorCode> { ErrorCode.InvalidCredentials }
                             , StatusCodes.Status401Unauthorized);
+            }
+
+            if (!user.IsActive)
+            {
+                return ApiResponse<LoginResponse>.Failure(
+                    "Your account is inactive.",
+                    new List<ErrorCode> { ErrorCode.AccountInactive },
+                    StatusCodes.Status403Forbidden);
             }
 
             var Roles=await _userManager.GetRolesAsync(user);     
@@ -50,20 +58,20 @@ namespace FlowerApp.Auth.Features.Login
             {
                 return ApiResponse<LoginResponse>.Failure
                             ("You are not authorized to access this application.",
-                            new List<ErrorCode> { ErrorCode.RoleNotAllowed }
+                            new List<ErrorCode> { ErrorCode.InvalidCredentials }
                             , StatusCodes.Status403Forbidden);
             }
 
             var Role = Roles.FirstOrDefault();
 
             var Token = _jwtService.GenerateAccessToken(user,Role,user.driverStatus);
-            var RefreshToken = _jwtService.GenerateRefreshToken();
-            RefreshToken.UserId = user.Id;
+            var (rawToken, refreshToken) = _jwtService.GenerateRefreshToken();
+            refreshToken.UserId = user.Id;
 
-            _context.RefreshTokens.Add(RefreshToken);
+            _context.RefreshTokens.Add(refreshToken);
             await _context.SaveChangesAsync(cancellationToken);
 
-            var Result = new LoginResponse(Token,RefreshToken.Token,600,Role,user.driverStatus.ToString());
+            var Result = new LoginResponse(Token,rawToken,_jwtService.AccessTokenExpirationInSeconds, Role,user.driverStatus.ToString());
            
 
             return ApiResponse<LoginResponse>.Success(Result);

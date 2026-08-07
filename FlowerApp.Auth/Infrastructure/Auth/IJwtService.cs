@@ -5,7 +5,8 @@ namespace FlowerApp.Auth.Infrastructure.Auth
 {
     public interface IJwtService
     {
+        int AccessTokenExpirationInSeconds { get; }
         string GenerateAccessToken(ApplicationUser user,string role,DriverStatus? driverStatus = null);
-        RefreshToken GenerateRefreshToken();
+        (string RawToken, RefreshToken RefreshToken) GenerateRefreshToken();
     }
 }
