@@ -14,7 +14,6 @@ public class DocumentService
     public async Task<string> UploadDocumentAsync(
         string storagePath,
         Stream fileStream,
-        string contentType,
         CancellationToken cancellationToken)
     {
         try

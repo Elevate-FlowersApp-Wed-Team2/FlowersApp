@@ -4,11 +4,11 @@ namespace FlowersApp.Auth.Domain.Entities;
 
 public class DriverDocument :BaseEntity
 {
-    public string ApplicationId { get; set; }
+    public Guid ApplicationId { get; set; }
     public string Name { get; set; }
     public Guid? DriverId { get; set; }
     public DocumentType Type { get; set; }
     public string FileUrl { get; set; }
     public Driver? Driver { get; set; } 
-
+    public DriverApplication DriverApplication { get; set; }
 }

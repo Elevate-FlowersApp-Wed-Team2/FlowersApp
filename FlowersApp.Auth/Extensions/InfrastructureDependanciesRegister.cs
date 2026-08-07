@@ -1,6 +1,7 @@
 ﻿using FlowersApp.Auth.Domain.Entities;
 using FlowersApp.Auth.Infrastructure.Persistence;
 using FlowersApp.Auth.Infrastructure.Persistence.Repositories;
+using FlowersApp.Auth.Shared.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +29,9 @@ public static class InfrastructureDependanciesRegister
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         });
+
+        services.AddScoped<DocumentService>();
+        services.AddScoped<UnitOfWork>();
         return services;
     }
 }

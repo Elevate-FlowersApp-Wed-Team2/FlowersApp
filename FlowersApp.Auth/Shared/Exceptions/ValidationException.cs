@@ -12,7 +12,7 @@ public class ValidationException : Exception
         : base("One or more validation failures have occurred.")
     {
         Failure = ApiResponse<object>.Failure("One or more validation failures have occurred.");
-        Failure.StatusCode = HttpStatusCode.BadRequest;
+        Failure.Code = HttpStatusCode.BadRequest;
     }
 
     // Constructor for ValidationResult (what you have)
@@ -28,7 +28,7 @@ public class ValidationException : Exception
             .ToList();
 
         Failure = ApiResponse<object>.Failure(errors);
-        Failure.StatusCode = HttpStatusCode.BadRequest; // ← ADD THIS LINE
+        Failure.Code = HttpStatusCode.BadRequest; // ← ADD THIS LINE
     }
 
     // NEW: Constructor for List<ValidationFailure> (what your behavior uses)
@@ -44,7 +44,7 @@ public class ValidationException : Exception
             .ToList();
 
         Failure = ApiResponse<object>.Failure(errors);
-        Failure.StatusCode = HttpStatusCode.BadRequest; // ← ADD THIS LINE
+        Failure.Code = HttpStatusCode.BadRequest; // ← ADD THIS LINE
     }
 
     // NEW: Constructor for simple error messages
@@ -52,6 +52,6 @@ public class ValidationException : Exception
         : base("One or more validation failures have occurred.")
     {
         Failure = ApiResponse<object>.Failure(errorMessage);
-        Failure.StatusCode = HttpStatusCode.BadRequest;
+        Failure.Code = HttpStatusCode.BadRequest;
     }
 }

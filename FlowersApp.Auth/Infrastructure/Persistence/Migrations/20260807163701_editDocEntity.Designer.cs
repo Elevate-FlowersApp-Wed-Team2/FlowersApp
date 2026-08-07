@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlowersApp.Auth.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260805194624_init")]
-    partial class init
+    [Migration("20260807163701_editDocEntity")]
+    partial class editDocEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -180,9 +180,8 @@ namespace FlowersApp.Auth.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ApplicationId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -190,9 +189,6 @@ namespace FlowersApp.Auth.Infrastructure.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("DriverApplicationId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("DriverId")
                         .HasColumnType("uniqueidentifier");
@@ -219,7 +215,7 @@ namespace FlowersApp.Auth.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DriverApplicationId");
+                    b.HasIndex("ApplicationId");
 
                     b.HasIndex("DriverId");
 
@@ -440,15 +436,19 @@ namespace FlowersApp.Auth.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("FlowersApp.Auth.Domain.Entities.DriverDocument", b =>
                 {
-                    b.HasOne("FlowersApp.Auth.Domain.Entities.DriverApplication", null)
+                    b.HasOne("FlowersApp.Auth.Domain.Entities.DriverApplication", "DriverApplication")
                         .WithMany("Documents")
-                        .HasForeignKey("DriverApplicationId");
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("FlowersApp.Auth.Domain.Entities.Driver", "Driver")
                         .WithMany()
                         .HasForeignKey("DriverId");
 
                     b.Navigation("Driver");
+
+                    b.Navigation("DriverApplication");
                 });
 
             modelBuilder.Entity("FlowersApp.Auth.Domain.Entities.Vehicle", b =>
