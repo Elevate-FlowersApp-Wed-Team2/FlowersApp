@@ -5,6 +5,7 @@ public class RequestResult<TResult>
     public TResult? Result { get; set; }
     public ResultCode Code { get; set; }
     public bool Success { get; set; }
+    public string Message { get; set; }
 
     public static RequestResult<TResult> Failure(TResult result, ResultCode code)
     {
