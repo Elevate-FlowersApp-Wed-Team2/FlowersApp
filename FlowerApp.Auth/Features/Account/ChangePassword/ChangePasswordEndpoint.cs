@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Shared;
 using System.Security.Claims;
 
 namespace FlowerApp.Auth.Features.Account.ChangePassword
@@ -14,7 +15,12 @@ namespace FlowerApp.Auth.Features.Account.ChangePassword
                     ClaimsPrincipal user,
                     ISender sender) =>
             {
-                var userId = Guid.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier)!);
+                var nameIdClaim = user.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (string.IsNullOrEmpty(nameIdClaim) || !Guid.TryParse(nameIdClaim, out var userId))
+                {
+                    return Results.Unauthorized();
+                }
 
                 var command = new ChangePasswordCommand(
                     userId, body.CurrentPassword, body.NewPassword, body.ConfirmNewPassword);
@@ -22,15 +28,18 @@ namespace FlowerApp.Auth.Features.Account.ChangePassword
                 var result = await sender.Send(command);
 
                 return result.IsSuccess
-                    ? Results.Ok(new { message = "Password changed. Please log in again." })
-                    : Results.Json(new { error = result.Error }, statusCode: result.StatusCode);
+                ? Results.Ok(ApiResponse.Ok("Password changed successfully."))
+                : result.ToProblemResult();
+
             })
                 .RequireAuthorization()
                 .WithName("ChangePassword")
                 .WithTags("Account")
-                .Produces(200)
-                .Produces(400)
-                .Produces(401);
+                .Produces<ApiResponse>(StatusCodes.Status200OK)
+                .ProducesProblem(StatusCodes.Status400BadRequest)
+                .ProducesProblem(StatusCodes.Status401Unauthorized);
+                
+               
         }
     }
 }

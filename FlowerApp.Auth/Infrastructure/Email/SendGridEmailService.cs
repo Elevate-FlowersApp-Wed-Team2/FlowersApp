@@ -19,7 +19,7 @@ namespace FlowerApp.Auth.Infrastructure.Email
             _logger = logger;
         }
 
-        public async Task SendAsync(string toEmail, string subject, string body)
+        public async Task SendAsync(string toEmail, string subject, string body, CancellationToken cancellationToken = default)
         {
             var from = new EmailAddress(_settings.FromEmail, _settings.FromName);
             var to = new EmailAddress(toEmail);
@@ -58,5 +58,7 @@ namespace FlowerApp.Auth.Infrastructure.Email
             _logger.LogError("Failed to send email to {Email} after {MaxRetries} attempts", toEmail, maxRetries);
             throw new InvalidOperationException("Failed to send email after multiple attempts.");
         }
+
+       
     }
 }

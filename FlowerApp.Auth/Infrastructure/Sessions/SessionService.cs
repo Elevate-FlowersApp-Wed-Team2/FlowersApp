@@ -10,7 +10,7 @@ namespace FlowerApp.Auth.Infrastructure.Sessions
 
         public SessionService(ApplicationDbContext db) => _db = db;
 
-        public async Task RevokeAllSessionsAsync(Guid userId)
+        public async Task RevokeAllSessionsAsync(Guid userId, CancellationToken cancellationToken = default)
         {
             var tokens = await _db.RefreshTokens
                 .Where(t => t.UserId == userId && t.RevokedAt == null)

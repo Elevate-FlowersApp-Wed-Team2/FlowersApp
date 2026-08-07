@@ -9,22 +9,34 @@ namespace Shared
     public class Result
     {
         public bool IsSuccess { get; }
-        public string? Error { get; }
-        public string? ErrorField { get; }
-        public int StatusCode { get; }
-        public object? Data { get; }
+        public string Error { get; }
+        public ErrorType ErrorType { get; }
 
-        private Result(bool isSuccess, string? error, string? errorField, int statusCode, object? data)
+        protected Result(bool isSuccess, string error, ErrorType errorType)
         {
             IsSuccess = isSuccess;
             Error = error;
-            ErrorField = errorField;
-            StatusCode = statusCode;
-            Data = data;
+            ErrorType = errorType;
         }
 
-        public static Result Success(object? data = null) => new(true, null, null, 200, data);
-        public static Result Failure(string error, int statusCode = 400, string? field = null) =>
-            new(false, error, field, statusCode, null);
+        public static Result Success() => new(true, string.Empty, ErrorType.Failure);
+        public static Result Failure(string error, ErrorType errorType = ErrorType.Failure)
+            => new(false, error, errorType);
+    }
+    public class Result<T> : Result
+    {
+        public T? Value { get; }
+
+        private Result(T? value, bool isSuccess, string? error, ErrorType errorType)
+            : base(isSuccess, error, errorType)
+        {
+            Value = value;
+        }
+
+        public static Result<T> Success(T value) => new(value, true, null, ErrorType.None);
+
+        public static new Result<T> Failure(string error, ErrorType errorType = ErrorType.Failure)
+            => new(default, false, error, errorType);
     }
 }
+

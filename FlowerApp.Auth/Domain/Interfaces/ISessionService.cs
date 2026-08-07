@@ -2,6 +2,6 @@
 {
     public interface ISessionService
     {
-        Task RevokeAllSessionsAsync(Guid userId);
+        Task RevokeAllSessionsAsync(Guid userId, CancellationToken cancellationToken = default);
     }
 }

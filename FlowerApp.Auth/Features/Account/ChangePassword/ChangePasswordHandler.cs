@@ -11,50 +11,48 @@ namespace FlowerApp.Auth.Features.Account.ChangePassword
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly ISessionService _sessionService;
+        private readonly ILogger<ChangePasswordHandler> _logger;
 
         public ChangePasswordHandler(
             UserManager<ApplicationUser> userManager,
             IEmailSender emailSender,
-            ISessionService sessionService)
+            ISessionService sessionService,
+            ILogger<ChangePasswordHandler> logger)
         {
             _userManager = userManager;
             _emailSender = emailSender;
             _sessionService = sessionService;
+            _logger = logger;
         }
 
-        public async Task<Result> Handle(ChangePasswordCommand request, CancellationToken ct)
+        public async Task<Result> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByIdAsync(request.UserId.ToString());
             if (user is null)
-                return Result.Failure("Current password is incorrect", 400); 
+                return Result.Failure("User not found.", ErrorType.NotFound);
 
-            // verify current password FIRST, 
-            var currentPasswordValid = await _userManager.CheckPasswordAsync(user, request.CurrentPassword);
-            if (!currentPasswordValid)
-                return Result.Failure("Current password is incorrect", 400);
+            var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
 
-            var sameAsCurrent = await _userManager.CheckPasswordAsync(user, request.NewPassword);
-            if (sameAsCurrent)
-                return Result.Failure("New password must differ from current password", 400);
-
-            // password policy (length/uppercase/digit) to the new one, then hashes + saves.
-            var identityResult = await _userManager.ChangePasswordAsync(
-                user, request.CurrentPassword, request.NewPassword);
-
-            if (!identityResult.Succeeded)
+            if (!result.Succeeded)
             {
-                var message = string.Join("; ", identityResult.Errors.Select(e => e.Description));
-                return Result.Failure(message, 400);
-            }
+                var isWrongCurrentPassword = result.Errors.Any(e => e.Code == "PasswordMismatch");
 
+                return isWrongCurrentPassword
+                       ? Result.Failure("Current password is incorrect.", ErrorType.Validation)
+                       : Result.Failure(string.Join("\n", result.Errors.Select(e => e.Description)));
+            }
             // AC6 — revoke sessions, notify
             await _sessionService.RevokeAllSessionsAsync(user.Id);
+            
+            try
+            {
+                await _emailSender.SendAsync(user.Email, "Your password was changed", "Your account password was just changed. If this wasn't you, contact support immediately", cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to send password change notification email to {Email}", user.Email);
 
-            await _emailSender.SendAsync(
-                user.Email!,
-                "Your password was changed",
-                "Your account password was just changed. If this wasn't you, contact support immediately.");
-
+            }
             return Result.Success();
         }
     }

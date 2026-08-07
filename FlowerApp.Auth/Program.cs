@@ -9,6 +9,7 @@ using FlowersApp.Shared.Redis;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Shared.Behaviors;
 
 Env.Load();
 var builder = WebApplication.CreateBuilder(args);
@@ -38,7 +39,11 @@ if (string.IsNullOrEmpty(redisConnection))
 builder.Services.AddRedisCache(redisConnection);
 
 // MediatR
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+}); 
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 // Email service configuration
