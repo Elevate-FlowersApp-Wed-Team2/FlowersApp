@@ -50,6 +50,42 @@ namespace FlowerApp.Auth.Infrastructure.Auth
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+        // Guest JWT
+        public string GenerateGuestAccessToken(Guid guestSessionId)
+        {
+            var claims = new List<Claim>
+            {
+                new(
+                    ClaimTypes.NameIdentifier,
+                    guestSessionId.ToString()),
+
+                new(
+                    ClaimTypes.Role,
+                    "Guest"),
+
+                new(
+                    "UserType",
+                    "Guest")
+            };
+
+            var securityKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_jwtSettings.Key));
+
+            var signingCredentials = new SigningCredentials(
+                securityKey,
+                SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(
+                    _jwtSettings.ExpirationMinutes),
+                signingCredentials: signingCredentials);
+
+            return new JwtSecurityTokenHandler()
+                .WriteToken(token);
+        }
 
         public (string RawToken, RefreshToken RefreshToken) GenerateRefreshToken()
         {

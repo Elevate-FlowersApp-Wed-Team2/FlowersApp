@@ -1,4 +1,5 @@
 ﻿using FlowerApp.Auth.Features.Login;
+using FlowerApp.Auth.Features.Logout;
 
 namespace FlowerApp.Auth.Common.Extensions
 {
@@ -7,7 +8,8 @@ namespace FlowerApp.Auth.Common.Extensions
         public static void MapEndpoints(this WebApplication app)
         {
             app.MapLoginEndpoint();
-            
+            app.MapGuestLoginEndpoint();
+            app.MapLogoutEndpoint();
         }
     }
 }

@@ -8,17 +8,18 @@ namespace FlowerApp.Auth.Features.Logout
         public static void MapLogoutEndpoint(this WebApplication app)
         {
             app.MapPost("/auth/logout",
-                async (
-                    LogoutCommand command,
+                async (                    
                     IMediator mediator) =>
                 {
+                    LogoutCommand command = new LogoutCommand();
                     var result = await mediator.Send(command);
                     return Results.Json(
                         result,
                         statusCode: result.StatusCode
                     );
                 })
-                .WithTags("Auth");
+                .WithTags("Auth")
+                .RequireAuthorization();
         }
     }
 }

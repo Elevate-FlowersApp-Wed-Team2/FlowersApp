@@ -7,6 +7,7 @@ namespace FlowerApp.Auth.Infrastructure.Auth
     {
         int AccessTokenExpirationInSeconds { get; }
         string GenerateAccessToken(ApplicationUser user,string role,DriverStatus? driverStatus = null);
+        string GenerateGuestAccessToken(Guid guestSessionId);
         (string RawToken, RefreshToken RefreshToken) GenerateRefreshToken();
     }
 }
