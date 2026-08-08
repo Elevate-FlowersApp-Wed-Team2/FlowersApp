@@ -1,4 +1,5 @@
-﻿using FlowerApp.Auth.Features.Login;
+﻿using FlowerApp.Auth.Features.CustomerRegister;
+using FlowerApp.Auth.Features.Login;
 using FlowerApp.Auth.Features.Logout;
 
 namespace FlowerApp.Auth.Common.Extensions
@@ -10,6 +11,7 @@ namespace FlowerApp.Auth.Common.Extensions
             app.MapLoginEndpoint();
             app.MapGuestLoginEndpoint();
             app.MapLogoutEndpoint();
+            app.MapCustomerRegisterEndpoint();
         }
     }
 }
