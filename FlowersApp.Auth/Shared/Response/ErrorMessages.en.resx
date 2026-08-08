@@ -135,4 +135,55 @@
   <data name="test" xml:space="preserve">
     <value>test</value>
   </data>
+  <data name="NameRequired" xml:space="preserve">
+    <value>Name is Required</value>
+  </data>
+  <data name="ValidationFailureMessage" xml:space="preserve">
+    <value>Validation failed</value>
+  </data>
+  <data name="NameChractersMismatch" xml:space="preserve">
+    <value>Full name cannot exceed 100 characters</value>
+  </data>
+<data name="EmailRequired" xml:space="preserve">
+  <value>Email is required.</value>
+</data>
+<data name="EmailTooLong" xml:space="preserve">
+  <value>Email cannot exceed 255 characters.</value>
+</data>
+<data name="PhoneRequired" xml:space="preserve">
+  <value>Phone number is required.</value>
+</data>
+<data name="NidRequired" xml:space="preserve">
+  <value>National ID number is required.</value>
+</data>
+<data name="NidTooLong" xml:space="preserve">
+  <value>National ID cannot exceed 20 characters.</value>
+</data>
+<data name="LicenceNumberRequired" xml:space="preserve">
+  <value>License number is required.</value>
+</data>
+<data name="LicenceNumberTooLong" xml:space="preserve">
+  <value>License number cannot exceed 50 characters.</value>
+</data>
+<data name="PasswordRequired" xml:space="preserve">
+  <value>Password is required.</value>
+</data>
+<data name="PasswordTooShort" xml:space="preserve">
+  <value>Password must be at least 6 characters.</value>
+</data>
+<data name="PasswordMissingUppercase" xml:space="preserve">
+  <value>Password must contain at least one uppercase letter.</value>
+</data>
+<data name="PasswordMissingDigit" xml:space="preserve">
+  <value>Password must contain at least one digit.</value>
+</data>
+<data name="PasswordMismatch" xml:space="preserve">
+  <value>Passwords do not match.</value>
+</data>
+<data name="LicenceImageInvalid" xml:space="preserve">
+  <value>Licence image is invalid, too large, or an unsupported format.</value>
+</data>
+<data name="NidImageInvalid" xml:space="preserve">
+  <value>National ID image is invalid, too large, or an unsupported format.</value>
+</data>
 </root>

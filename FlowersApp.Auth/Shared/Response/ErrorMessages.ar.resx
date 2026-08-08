@@ -135,4 +135,55 @@
   <data name="test" xml:space="preserve">
     <value>اختبار</value>
   </data>
+  <data name="NameRequired" xml:space="preserve">
+    <value>الاسم مطلوب</value>
+  </data>
+  <data name="ValidationFailureMessage" xml:space="preserve">
+    <value>فشل التحقق من الصحة</value>
+  </data>
+  <data name="NameChractersMismatch" xml:space="preserve">
+    <value>الحد الاقصي للحروف الاسم 100 حرف</value>
+  </data>
+<data name="EmailRequired" xml:space="preserve">
+  <value>البريد الإلكتروني مطلوب.</value>
+</data>
+<data name="EmailTooLong" xml:space="preserve">
+  <value>البريد الإلكتروني لا يتجاوز 255 حرفًا.</value>
+</data>
+<data name="PhoneRequired" xml:space="preserve">
+  <value>رقم الهاتف مطلوب.</value>
+</data>
+<data name="NidRequired" xml:space="preserve">
+  <value>الرقم القومي مطلوب.</value>
+</data>
+<data name="NidTooLong" xml:space="preserve">
+  <value>الرقم القومي لا يتجاوز 20 حرفًا.</value>
+</data>
+<data name="LicenceNumberRequired" xml:space="preserve">
+  <value>رقم الرخصة مطلوب.</value>
+</data>
+<data name="LicenceNumberTooLong" xml:space="preserve">
+  <value>رقم الرخصة لا يتجاوز 50 حرفًا.</value>
+</data>
+<data name="PasswordRequired" xml:space="preserve">
+  <value>كلمة المرور مطلوبة.</value>
+</data>
+<data name="PasswordTooShort" xml:space="preserve">
+  <value>يجب ألا تقل كلمة المرور عن 6 أحرف.</value>
+</data>
+<data name="PasswordMissingUppercase" xml:space="preserve">
+  <value>يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل.</value>
+</data>
+<data name="PasswordMissingDigit" xml:space="preserve">
+  <value>يجب أن تحتوي كلمة المرور على رقم واحد على الأقل.</value>
+</data>
+<data name="PasswordMismatch" xml:space="preserve">
+  <value>كلمتا المرور غير متطابقتين.</value>
+</data>
+<data name="LicenceImageInvalid" xml:space="preserve">
+  <value>صورة الرخصة غير صالحة أو كبيرة جدًا أو بصيغة غير مدعومة.</value>
+</data>
+<data name="NidImageInvalid" xml:space="preserve">
+  <value>صورة الرقم القومي غير صالحة أو كبيرة جدًا أو بصيغة غير مدعومة.</value>
+</data>
 </root>

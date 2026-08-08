@@ -6,7 +6,12 @@ public static class Endpoints
     public static class DriverApplications
     {
         private const string DriverApplicationBase = $"{BasePath}/driver-applications";
-        public const string Apply = $"{DriverApplicationBase}/apply";
         public const string GetById = $"{DriverApplicationBase}/{{id}}";
+    }
+
+    public static class Drivers
+    {
+        public const string BaseDrivers = $"{BasePath}/drivers";
+        public const string ApplyDriver = $"{BaseDrivers}/apply";
     }
 }
