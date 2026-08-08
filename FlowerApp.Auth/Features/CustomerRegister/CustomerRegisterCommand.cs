@@ -1,12 +1,11 @@
 ﻿using FlowerApp.Auth.Common;
 using FlowerApp.Auth.Common.Enums;
 using FlowerApp.Auth.Domain;
-using FlowerApp.Auth.Features.CustomerRegister.Enums;
+using FlowerApp.Auth.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
-using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace FlowerApp.Auth.Features.CustomerRegister
@@ -17,10 +16,11 @@ namespace FlowerApp.Auth.Features.CustomerRegister
     public class CustomerRegisterCommandHandler:IRequestHandler<CustomerRegisterCommand,ApiResponse<CustomerRegisterResponse>>
     {
         private readonly UserManager<ApplicationUser> _userManager;
-
-        public CustomerRegisterCommandHandler(UserManager<ApplicationUser> userManager)
+        private readonly ApplicationDbContext _context;
+        public CustomerRegisterCommandHandler(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         public async Task<ApiResponse<CustomerRegisterResponse>> Handle(CustomerRegisterCommand request,CancellationToken cancellationToken)
@@ -37,8 +37,7 @@ namespace FlowerApp.Auth.Features.CustomerRegister
                     StatusCodes.Status400BadRequest);
             }
 
-            var existingUserByEmail =
-                await _userManager.FindByEmailAsync(email!);
+            var existingUserByEmail =await _userManager.FindByEmailAsync(email!);
 
             if (existingUserByEmail is not null)
             {
@@ -47,8 +46,7 @@ namespace FlowerApp.Auth.Features.CustomerRegister
                     StatusCodes.Status409Conflict);
             }
 
-            var existingUserByPhone =
-                await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == phone,cancellationToken);
+            var existingUserByPhone =await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == phone,cancellationToken);
 
             if (existingUserByPhone is not null)
             {
@@ -57,7 +55,16 @@ namespace FlowerApp.Auth.Features.CustomerRegister
                     StatusCodes.Status409Conflict);
             }
 
-            Enum.TryParse<Gender>(request.Gender,true,out var gender);
+            if (!Enum.TryParse<Gender>(
+                    request.Gender,
+                    true,
+                    out var gender))
+            {
+                return ApiResponse<CustomerRegisterResponse>.Failure(
+                    "Invalid gender",
+                    [ErrorCode.InvalidGender],
+                    StatusCodes.Status400BadRequest);
+            }
 
             var user = new ApplicationUser
             {
@@ -70,27 +77,33 @@ namespace FlowerApp.Auth.Features.CustomerRegister
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
             };
+            await using var transaction =await _context.Database.BeginTransactionAsync(cancellationToken);
 
             var createResult =await _userManager.CreateAsync(user,request.Password);
 
             if (!createResult.Succeeded)
             {
-                return ApiResponse<CustomerRegisterResponse>.Failure("Registration failed",
+                await transaction.RollbackAsync(cancellationToken);
+
+                return ApiResponse<CustomerRegisterResponse>.Failure(
+                    "Registration failed",
                     [ErrorCode.RegistrationFailed],
                     StatusCodes.Status400BadRequest);
             }
 
-            var roleResult =
-                await _userManager.AddToRoleAsync(user,"Customer");
+            var roleResult =await _userManager.AddToRoleAsync(user,"Customer");
 
             if (!roleResult.Succeeded)
             {
-                await _userManager.DeleteAsync(user);
+                await transaction.RollbackAsync(cancellationToken);
 
-                return ApiResponse<CustomerRegisterResponse>.Failure("Registration failed",
+                return ApiResponse<CustomerRegisterResponse>.Failure(
+                    "Registration failed",
                     [ErrorCode.RegistrationFailed],
                     StatusCodes.Status400BadRequest);
             }
+
+            await transaction.CommitAsync(cancellationToken);
 
             return ApiResponse<CustomerRegisterResponse>.Success(new CustomerRegisterResponse(user.Id),
                 "Registration successful",
@@ -101,9 +114,14 @@ namespace FlowerApp.Auth.Features.CustomerRegister
         {
             var errors = new List<ErrorCode>();
 
-            if (!IsValidFullName(request.Fname, request.Lname))
+            if (string.IsNullOrWhiteSpace(request.Fname))
             {
-                errors.Add(ErrorCode.InvalidFullName);
+                errors.Add(ErrorCode.InvalidFName);
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Lname))
+            {
+                errors.Add(ErrorCode.InvalidLName);
             }
 
             if (!IsValidEmail(email))
@@ -119,24 +137,13 @@ namespace FlowerApp.Auth.Features.CustomerRegister
             if (!IsValidGender(request.Gender))
             {
                 errors.Add(ErrorCode.InvalidGender);
-            }
-
-            if (!IsValidPassword(request.Password))
-            {
-                errors.Add(ErrorCode.InvalidPassword);
-            }
-
+            }           
             if (!IsPasswordMatching(request.Password,request.ConfirmPassword))
             {
                 errors.Add(ErrorCode.PasswordMismatch);
             }
 
             return errors;
-        }
-
-        private static bool IsValidFullName(string? firstName,string? lastName)
-        {
-            return !string.IsNullOrWhiteSpace(firstName)&& !string.IsNullOrWhiteSpace(lastName);
         }
 
         private static bool IsValidEmail(string? email)
@@ -167,15 +174,7 @@ namespace FlowerApp.Auth.Features.CustomerRegister
         {
             return !string.IsNullOrWhiteSpace(gender)&& Enum.TryParse<Gender>(gender,true,out _);
         }
-
-        private static bool IsValidPassword(string? password)
-        {
-            if (string.IsNullOrEmpty(password))
-            {
-                return false;
-            }
-            return password.Length >= 6 && password.Any(char.IsUpper)&& password.Any(char.IsDigit);
-        }
+    
 
         private static bool IsPasswordMatching(string? password,string? confirmPassword)
         {

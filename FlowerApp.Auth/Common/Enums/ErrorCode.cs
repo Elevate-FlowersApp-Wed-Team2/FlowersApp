@@ -15,8 +15,9 @@
         InvalidPhoneNumber = 203,
         InvalidPassword = 204,
         PasswordMismatch = 205,
-        InvalidFullName = 206,
-        InvalidGender = 207,
-        RegistrationFailed = 208
+        InvalidFName = 206,
+        InvalidLName = 207,
+        InvalidGender = 208,
+        RegistrationFailed = 209
     }
 }

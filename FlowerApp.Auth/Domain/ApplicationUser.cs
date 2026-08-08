@@ -1,5 +1,4 @@
 ﻿using FlowerApp.Auth.Common.Enums;
-using FlowerApp.Auth.Features.CustomerRegister.Enums;
 using Microsoft.AspNetCore.Identity;
 
 namespace FlowerApp.Auth.Domain

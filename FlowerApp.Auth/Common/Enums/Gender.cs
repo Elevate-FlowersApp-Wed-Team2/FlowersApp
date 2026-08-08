@@ -1,4 +1,4 @@
-﻿namespace FlowerApp.Auth.Features.CustomerRegister.Enums
+﻿namespace FlowerApp.Auth.Common.Enums
 {
     public enum Gender
     {
