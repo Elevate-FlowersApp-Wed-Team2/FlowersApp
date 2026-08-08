@@ -132,4 +132,7 @@
   <data name="UserAlreadyApplied" xml:space="preserve">
     <value>User Already Applied</value>
   </data>
+  <data name="test" xml:space="preserve">
+    <value>test</value>
+  </data>
 </root>

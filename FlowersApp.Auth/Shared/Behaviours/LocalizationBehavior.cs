@@ -19,6 +19,7 @@ public class LocalizationBehavior<TRequest, TResult>(IStringLocalizer<ErrorMessa
     {
         var response = await next();
         logger.LogInformation("CurrentCulture: {culture}, localized: {val}", CultureInfo.CurrentUICulture, localizer["YourKey"]);
+        var test = localizer["test"];
         response.Message = response.Code.Localize(localizer);
         return response;
     }

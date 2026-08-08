@@ -19,7 +19,7 @@ public static class ApplicationDependanciesRegister
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LocalizationBehavior<,>));
         });
         services.AddValidatorsFromAssembly(typeof(ApplicationDependanciesRegister).Assembly);
-        services.AddLocalization();
+        services.AddAppLocalization();
         return services;
     }
 }
