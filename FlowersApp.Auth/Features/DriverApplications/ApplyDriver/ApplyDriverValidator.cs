@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using FlowersApp.Auth.Shared.Response;
+using FluentValidation;
 
 namespace FlowersApp.Auth.Features.DriverApplications.ApplyDriver;
 
@@ -10,39 +11,40 @@ public class ApplyDriverValidator : AbstractValidator<ApplyDriverOrchestrator>
     public ApplyDriverValidator()
     {
         RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("Full name is required")
-            .MaximumLength(100).WithMessage("Full name cannot exceed 100 characters");
+            .NotEmpty().WithErrorCode(ResultCode.NameRequired.ToString())
+            .MaximumLength(100).WithErrorCode(ResultCode.NameChractersMismatch.ToString());
 
         RuleFor(x => x.Email)
-            .NotEmpty().WithMessage("Email is required")
-            .EmailAddress().WithMessage("Invalid email format")
-            .MaximumLength(255).WithMessage("Email cannot exceed 255 characters");
+            .NotEmpty().WithErrorCode(ResultCode.EmailRequired.ToString())
+            .EmailAddress().WithErrorCode(ResultCode.InvalidEmail.ToString())
+            .MaximumLength(255).WithErrorCode(ResultCode.EmailTooLong.ToString());
 
         RuleFor(x => x.Phone)
-            .NotEmpty().WithMessage("Phone number is required")
-            .Matches(@"^\+?[1-9]\d{1,14}$").WithMessage("Invalid phone number format");
+            .NotEmpty().WithErrorCode(ResultCode.PhoneRequired.ToString())
+            .Matches(@"^\+?[1-9]\d{1,14}$").WithErrorCode(ResultCode.InvalidPhone.ToString());
 
         RuleFor(x => x.Nid)
-            .NotEmpty().WithMessage("National ID number is required")
-            .MaximumLength(20).WithMessage("National ID cannot exceed 20 characters");
+            .NotEmpty().WithErrorCode(ResultCode.NidRequired.ToString())
+            .MaximumLength(20).WithErrorCode(ResultCode.NidTooLong.ToString());
 
         RuleFor(x => x.LicenceNumber)
-            .NotEmpty().WithMessage("License number is required")
-            .MaximumLength(50).WithMessage("License number cannot exceed 50 characters");
+            .NotEmpty().WithErrorCode(ResultCode.LicenceNumberRequired.ToString())
+            .MaximumLength(50).WithErrorCode(ResultCode.LicenceNumberTooLong.ToString());
 
         RuleFor(x => x.Password)
-            .NotEmpty().WithMessage("Password is required")
-            .MinimumLength(6).WithMessage("Password must be at least 6 characters")
-            .Must(password => password.Any(char.IsUpper)).WithMessage("Password must contain at least one uppercase letter")
-            .Must(password => password.Any(char.IsDigit)).WithMessage("Password must contain at least one digit");
+            .NotEmpty().WithErrorCode(ResultCode.PasswordRequired.ToString())
+            .MinimumLength(6).WithErrorCode(ResultCode.PasswordTooShort.ToString())
+            .Must(password => password.Any(char.IsUpper)).WithErrorCode(ResultCode.PasswordMissingUppercase.ToString())
+            .Must(password => password.Any(char.IsDigit)).WithErrorCode(ResultCode.PasswordMissingDigit.ToString());
 
         RuleFor(x => x.ConfirmPassword)
-            .Equal(x => x.Password).WithMessage("Passwords do not match");
+            .Equal(x => x.Password).WithErrorCode(ResultCode.PasswordMismatch.ToString());
+
         RuleFor(x => x.LicenceImage)
-            .Must(BeAValidFile).WithMessage("Licence image is invalid, too large, or an unsupported format.");
+            .Must(BeAValidFile).WithErrorCode(ResultCode.LicenceImageInvalid.ToString());
 
         RuleFor(x => x.NidImage)
-            .Must(BeAValidFile).WithMessage("National ID image is invalid, too large, or an unsupported format.");
+            .Must(BeAValidFile).WithErrorCode(ResultCode.NidImageInvalid.ToString());
     }
 
     private bool BeAValidFile(IFormFile file)

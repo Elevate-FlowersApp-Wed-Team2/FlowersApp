@@ -3,10 +3,14 @@ using FlowersApp.Auth.Extensions;
 using FlowersApp.Auth.Middlewares;
 using FlowersApp.Auth.Shared.Interfaces;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using StackExchange.Redis;
 using DotNetEnv;
 using FlowersApp.Shared.Redis;
+using Microsoft.Extensions.Options;
+using System.Globalization;
+
 namespace FlowersApp.Auth;
 
 public class Program
@@ -26,6 +30,8 @@ public class Program
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
+        var opts = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value;
+        app.UseRequestLocalization(opts);
         app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         app.MapHealthChecks("/health/live", new HealthCheckOptions
@@ -44,6 +50,13 @@ public class Program
 
         app.UseRequestLocalization();
         // Configure the HTTP request pipeline.
+        /*
+         * Middleware should be configured after builder.Build().
+         *
+         * UseRequestLocalization is part of the HTTP request pipeline,
+         * therefore it belongs here and not before building the application.
+         */
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();

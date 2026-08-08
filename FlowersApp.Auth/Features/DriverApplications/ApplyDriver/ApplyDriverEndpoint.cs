@@ -1,5 +1,4 @@
-﻿using FlowersApp.Auth.Extensions;
-using FlowersApp.Auth.Features.DriverApplications.ApplyDriver;
+﻿
 using FlowersApp.Auth.Shared.Constants;
 using FlowersApp.Auth.Shared.Interfaces;
 using FlowersApp.Auth.Shared.Response;
@@ -13,7 +12,7 @@ public class ApplyDriverEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost(Endpoints.DriverApplications.Apply, async (
+        app.MapPost(Endpoints.Drivers.ApplyDriver, async (
             [FromForm] ApplyDriverOrchestrator command,
             [FromServices] IMediator mediator,
             CancellationToken cancellationToken) =>

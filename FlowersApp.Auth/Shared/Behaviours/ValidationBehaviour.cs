@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using System.Globalization;
 
 namespace FlowersApp.Auth.Shared.Behaviours;
 
@@ -30,6 +31,7 @@ public class ValidationBehaviour<TRequest, TResponse>(IEnumerable<IValidator<TRe
         // 4. If we found problems, STOP and throw exception
         if (failures.Any())
         {
+            Console.WriteLine($"[VALIDATION BEHAVIOR] CurrentUICulture={CultureInfo.CurrentUICulture} at throw time");
             throw new FlowersApp.Auth.Shared.Exceptions.ValidationException(failures); // ← JUST THROW, don't try to create response
         }
 

@@ -12,9 +12,9 @@ public record ApplyDriverOrchestrator(
     Guid VehicleId,
     string VehicleNumber,
     string LicenceNumber,
-    IFormFile LicenceImage,
+    IFormFile? LicenceImage,
     string Nid,
-    IFormFile NidImage,
+    IFormFile? NidImage,
     string? FcmToken = null)
     : ICommand<ApplyDriverOrchestratorResponse>;
 
