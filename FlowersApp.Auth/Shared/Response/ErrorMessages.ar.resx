@@ -132,4 +132,7 @@
   <data name="UserAlreadyApplied" xml:space="preserve">
     <value>لقد قمت بالتقديم بالفعل</value>
   </data>
+  <data name="test" xml:space="preserve">
+    <value>اختبار</value>
+  </data>
 </root>

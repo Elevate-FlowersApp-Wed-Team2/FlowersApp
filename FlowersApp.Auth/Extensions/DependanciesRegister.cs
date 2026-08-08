@@ -6,7 +6,7 @@ public static class DependanciesRegister
     {
         services.AddInfrastructureDependancies(configuration);
         services.AddApplicationDependancies(configuration);
-        services.AddLocalization();
+        services.AddAppLocalization();
         return services;
     }
 }
