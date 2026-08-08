@@ -1,9 +1,13 @@
 using DotNetEnv;
 using FlowersApp.Auth.Extensions;
+using FlowersApp.Auth.Middlewares;
 using FlowersApp.Auth.Shared.Interfaces;
 using FlowersApp.Shared.Redis;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Options;
+using System.Globalization;
 
 namespace FlowersApp.Auth;
 
@@ -54,7 +58,9 @@ public class Program
 
 
         var app = builder.Build();
-
+        var opts = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value;
+        app.UseRequestLocalization(opts);
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         app.MapHealthChecks("/health/live", new HealthCheckOptions
         {
@@ -68,8 +74,6 @@ public class Program
          * UseRequestLocalization is part of the HTTP request pipeline,
          * therefore it belongs here and not before building the application.
          */
-        app.UseRequestLocalization();
-
 
         if (app.Environment.IsDevelopment())
         {

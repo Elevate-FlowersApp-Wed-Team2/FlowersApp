@@ -14,8 +14,9 @@ public class DriverApplication: BaseEntity
     public Gender Gender { get; set; }
     public required string NationalIDNumber { get; set; }
     public Guid VehicleID { get; set; }
-    public required string HashedPassword { get; set; }
+    public string HashedPassword { get; set; }
     public string LicenseNumber { get; set; }
+    public string? FcmToken { get; set; }
     public List<DriverDocument>? Documents { get; set; }
     public Vehicle? Vehicle { get; set; }
 }

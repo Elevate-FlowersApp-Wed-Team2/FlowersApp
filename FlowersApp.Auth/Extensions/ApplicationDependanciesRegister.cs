@@ -1,4 +1,5 @@
 ﻿using FlowersApp.Auth.Shared.Behaviours;
+using FlowersApp.Auth.Shared.Services;
 using FluentValidation;
 using MediatR;
 
@@ -10,7 +11,7 @@ public static class ApplicationDependanciesRegister
     {
         services.AddTransient(typeof(IPipelineBehavior<,>),
                     typeof(ValidationBehaviour<,>));
-        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LocalizationBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LocalizationBehavior<,>));
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(ApplicationDependanciesRegister).Assembly);
@@ -18,7 +19,7 @@ public static class ApplicationDependanciesRegister
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LocalizationBehavior<,>));
         });
         services.AddValidatorsFromAssembly(typeof(ApplicationDependanciesRegister).Assembly);
-        services.AddLocalization();
+        services.AddAppLocalization();
         return services;
     }
 }

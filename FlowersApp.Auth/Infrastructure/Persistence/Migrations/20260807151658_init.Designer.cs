@@ -4,6 +4,7 @@ using FlowersApp.Auth.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlowersApp.Auth.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260807151658_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,9 +120,6 @@ namespace FlowersApp.Auth.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FcmToken")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -180,8 +180,9 @@ namespace FlowersApp.Auth.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ApplicationId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ApplicationId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -189,6 +190,9 @@ namespace FlowersApp.Auth.Infrastructure.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("DriverApplicationId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("DriverId")
                         .HasColumnType("uniqueidentifier");
@@ -215,7 +219,7 @@ namespace FlowersApp.Auth.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationId");
+                    b.HasIndex("DriverApplicationId");
 
                     b.HasIndex("DriverId");
 
@@ -436,19 +440,15 @@ namespace FlowersApp.Auth.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("FlowersApp.Auth.Domain.Entities.DriverDocument", b =>
                 {
-                    b.HasOne("FlowersApp.Auth.Domain.Entities.DriverApplication", "DriverApplication")
+                    b.HasOne("FlowersApp.Auth.Domain.Entities.DriverApplication", null)
                         .WithMany("Documents")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("DriverApplicationId");
 
                     b.HasOne("FlowersApp.Auth.Domain.Entities.Driver", "Driver")
                         .WithMany()
                         .HasForeignKey("DriverId");
 
                     b.Navigation("Driver");
-
-                    b.Navigation("DriverApplication");
                 });
 
             modelBuilder.Entity("FlowersApp.Auth.Domain.Entities.Vehicle", b =>

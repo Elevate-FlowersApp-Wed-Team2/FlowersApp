@@ -4,10 +4,9 @@ namespace FlowersApp.Auth.Extensions;
 
 public static class LocalizationRegister
 {
-    public static IServiceCollection AddLocalization(this IServiceCollection services)
+    public static IServiceCollection AddAppLocalization(this IServiceCollection services)
     {
-        // Program.cs
-        services.AddLocalization(options => options.ResourcesPath = "Resources");
+        services.AddLocalization();
 
         var supportedCultures = new[] { "en", "ar"};
         services.Configure<RequestLocalizationOptions>(options =>
