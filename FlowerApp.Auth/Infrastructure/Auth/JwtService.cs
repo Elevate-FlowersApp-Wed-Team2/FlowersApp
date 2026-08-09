@@ -7,97 +7,110 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace FlowerApp.Auth.Infrastructure.Auth
+namespace FlowerApp.Auth.Infrastructure.Auth;
+
+public class JwtService : IJwtService
 {
-    public class JwtService : IJwtService
+    private readonly JwtSettings _jwtSettings;
+
+    public JwtService(IOptions<JwtSettings> options)
     {
-        private readonly JwtSettings _jwtSettings;
+        _jwtSettings = options.Value;
+    }
 
+    public int AccessTokenExpirationInSeconds =>
+        _jwtSettings.ExpirationMinutes * 60;
 
-        public JwtService(
-            IOptions<JwtSettings> options)
+    public string GenerateAccessToken(
+        ApplicationUser user,
+        string role,
+        ApplicationDriverStatus? applicationDriverStatus = null)
+    {
+        var claims = new List<Claim>
         {
-            _jwtSettings = options.Value;
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Email, user.Email!),
+            new(ClaimTypes.Role, role)
+        };
+
+        if (role == UserRole.Driver.ToString() &&
+            applicationDriverStatus is not null)
+        {
+            claims.Add(
+                new Claim(
+                    "applicationDriverStatus",
+                    applicationDriverStatus.Value.ToString()));
         }
 
-        public int AccessTokenExpirationInSeconds
-                    => _jwtSettings.ExpirationMinutes * 60;
+        var securityKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(_jwtSettings.Key));
 
-        public string GenerateAccessToken(ApplicationUser user, string role, DriverStatus? driverStatus = null)
+        var signingCredentials = new SigningCredentials(
+            securityKey,
+            SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            issuer: _jwtSettings.Issuer,
+            audience: _jwtSettings.Audience,
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(
+                _jwtSettings.ExpirationMinutes),
+            signingCredentials: signingCredentials);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+    public string GenerateGuestAccessToken(Guid guestSessionId)
+    {
+        var claims = new List<Claim>
         {
-            var claims = new List<Claim>
-            {
-                new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new(ClaimTypes.Email, user.Email!),
-                new(ClaimTypes.Role, role)
-            };
+            new(
+                ClaimTypes.NameIdentifier,
+                guestSessionId.ToString()),
 
-            if (driverStatus is not null)
-            {
-                claims.Add(new Claim("DriverStatus", driverStatus.ToString()));
-            }
+            new(
+                ClaimTypes.Role,
+                "Guest"),
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
+            new(
+                "UserType",
+                "Guest")
+        };
 
-            var signingCredentials = new SigningCredentials(securityKey,SecurityAlgorithms.HmacSha256);
+        var securityKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(_jwtSettings.Key));
 
-            var token = new JwtSecurityToken(
-                issuer: _jwtSettings.Issuer,
-                audience: _jwtSettings.Audience,
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationMinutes),
-                signingCredentials: signingCredentials);
+        var signingCredentials = new SigningCredentials(
+            securityKey,
+            SecurityAlgorithms.HmacSha256);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-        // Guest JWT
-        public string GenerateGuestAccessToken(Guid guestSessionId)
+        var token = new JwtSecurityToken(
+            issuer: _jwtSettings.Issuer,
+            audience: _jwtSettings.Audience,
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(
+                _jwtSettings.ExpirationMinutes),
+            signingCredentials: signingCredentials);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+    public (string RawToken, RefreshToken RefreshToken) GenerateRefreshToken()
+    {
+        var rawToken = Convert.ToBase64String(
+            RandomNumberGenerator.GetBytes(64));
+
+        var hashedToken = Convert.ToBase64String(
+            SHA256.HashData(
+                Encoding.UTF8.GetBytes(rawToken)));
+
+        var refreshToken = new RefreshToken
         {
-            var claims = new List<Claim>
-            {
-                new(
-                    ClaimTypes.NameIdentifier,
-                    guestSessionId.ToString()),
+            Token = hashedToken,
+            CreatedAt = DateTime.UtcNow,
+            ExpiresAt = DateTime.UtcNow.AddDays(30)
+        };
 
-                new(
-                    ClaimTypes.Role,
-                    "Guest"),
-
-                new(
-                    "UserType",
-                    "Guest")
-            };
-
-            var securityKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_jwtSettings.Key));
-
-            var signingCredentials = new SigningCredentials(
-                securityKey,
-                SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: _jwtSettings.Issuer,
-                audience: _jwtSettings.Audience,
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(
-                    _jwtSettings.ExpirationMinutes),
-                signingCredentials: signingCredentials);
-
-            return new JwtSecurityTokenHandler()
-                .WriteToken(token);
-        }
-
-        public (string RawToken, RefreshToken RefreshToken) GenerateRefreshToken()
-        {
-            var rawToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
-            var hashedToken = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(rawToken)));
-            var refreshToken = new RefreshToken
-            {
-                Token = hashedToken,
-                CreatedAt = DateTime.UtcNow,
-                ExpiresAt = DateTime.UtcNow.AddDays(30)
-            };
-            return (rawToken, refreshToken);
-        }
+        return (rawToken, refreshToken);
     }
 }

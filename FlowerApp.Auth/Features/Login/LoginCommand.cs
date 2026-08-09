@@ -64,15 +64,24 @@ namespace FlowerApp.Auth.Features.Login
 
             var Role = Roles.FirstOrDefault();
 
-            var Token = _jwtService.GenerateAccessToken(user,Role,user.driverStatus);
+            if (Role is null)
+            {
+                return ApiResponse<LoginResponse>.Failure(
+                    "You are not authorized to access this application.",
+                    new List<ErrorCode> { ErrorCode.InvalidCredentials },
+                    StatusCodes.Status403Forbidden);
+            }
+
+            var Token = _jwtService.GenerateAccessToken(user,Role, user.ApplicationStatus);
             var (rawToken, refreshToken) = _jwtService.GenerateRefreshToken();
             refreshToken.UserId = user.Id;
 
             _context.RefreshTokens.Add(refreshToken);
             await _context.SaveChangesAsync(cancellationToken);
 
-            var Result = new LoginResponse(Token,rawToken,_jwtService.AccessTokenExpirationInSeconds, Role,user.driverStatus.ToString());
-           
+            var Result = new LoginResponse(Token,rawToken,_jwtService.AccessTokenExpirationInSeconds,Role, Role == UserRole.Driver.ToString()
+                                ? user.driverStatus?.ToString(): null);
+
 
             return ApiResponse<LoginResponse>.Success(Result);
         }

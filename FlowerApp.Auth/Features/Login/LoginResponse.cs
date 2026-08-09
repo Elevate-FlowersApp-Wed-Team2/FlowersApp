@@ -5,7 +5,7 @@
         string RefreshToken,
         int ExpiresIn,
         string Role,
-        string? DriverStatus
+        string? ApplicationStatus
         );
     
 }

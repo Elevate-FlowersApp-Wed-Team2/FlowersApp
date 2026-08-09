@@ -1,5 +1,6 @@
 ﻿using FlowerApp.Auth.Common.Enums;
 using Microsoft.AspNetCore.Identity;
+using System.Data;
 
 namespace FlowerApp.Auth.Domain
 {
@@ -15,6 +16,8 @@ namespace FlowerApp.Auth.Domain
 
         public DateTime UpdatedAt { get; set; }
         public Gender? Gender { get; set; }
+        public UserRole Role { get; set; }
+        public ApplicationDriverStatus? ApplicationStatus { get; set; }
         public DriverStatus? driverStatus { get; set; }
 
         public ICollection<RefreshToken> RefreshTokens { get; set; } = [];

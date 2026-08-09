@@ -74,6 +74,7 @@ namespace FlowerApp.Auth.Features.CustomerRegister
                 UserName = email,
                 PhoneNumber = phone,
                 Gender = gender,
+                Role = UserRole.Customer,
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
             };

@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace FlowerApp.Auth.Features.Logout
 {
+
     public static class LogoutEndpoint
     {
         public static void MapLogoutEndpoint(this WebApplication app)
