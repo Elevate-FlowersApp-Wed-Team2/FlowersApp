@@ -39,5 +39,5 @@
   <ItemGroup>
     <ProjectReference Include="..\FlowersApp.Shared\FlowersApp.Shared.csproj" />
   </ItemGroup>
-	
+
 </Project>
