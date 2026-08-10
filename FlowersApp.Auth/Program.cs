@@ -1,12 +1,16 @@
 using DotNetEnv;
+using FlowerApp.Auth.Domain.Interfaces;
+using FlowerApp.Auth.Infrastructure.Email;
 using FlowersApp.Auth.Extensions;
 using FlowersApp.Auth.Middlewares;
 using FlowersApp.Auth.Shared.Interfaces;
+using FlowersApp.Auth.Shared.Services;
 using FlowersApp.Shared.Redis;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
+using SendGrid;
 using System.Globalization;
 
 namespace FlowersApp.Auth;
@@ -40,6 +44,7 @@ public class Program
          * Only middleware configuration (app.Use...) and endpoint mapping
          * (app.Map...) should be added after builder.Build().
          */
+        //redis connection string
         var redisConnection =
             builder.Configuration["REDIS_CONNECTION_STRING"]
             ?? Environment.GetEnvironmentVariable("REDIS_CONNECTION_STRING");
@@ -51,7 +56,18 @@ public class Program
         }
 
         builder.Services.AddRedisCache(redisConnection);
-
+         //sendgrid api key
+        // Email service configuration
+        builder.Services.Configure<EmailSettings>(options =>
+        {
+            builder.Configuration.GetSection("Email").Bind(options);
+            options.ApiKey = builder.Configuration["SENDGRID_API_KEY"]
+                ?? Environment.GetEnvironmentVariable("SENDGRID_API_KEY")
+                ?? throw new InvalidOperationException("SENDGRID_API_KEY is not set.");
+        });
+        //builder.Services.AddScoped<IEmailSender, SendGridEmailService>();
+        //builder.Services.AddScoped<ISessionService, SessionService>();
+        
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();

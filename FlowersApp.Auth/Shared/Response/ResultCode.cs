@@ -40,4 +40,11 @@ public enum ResultCode
 
     // Document
     DocumentCreated = 400,
+
+    // User 
+    UserNotFound = 500,
+    NewPasswordSameAsCurrent = 501,
+    CurrentPasswordIncorrect = 502,
+    PasswordChangeFailed = 503,
+    PasswordChangedSuccessfully = 504,
 }

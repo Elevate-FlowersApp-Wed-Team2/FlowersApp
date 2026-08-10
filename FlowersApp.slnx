@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".env" />
+    <File Path=".gitignore" />
+  </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />
   </Project>

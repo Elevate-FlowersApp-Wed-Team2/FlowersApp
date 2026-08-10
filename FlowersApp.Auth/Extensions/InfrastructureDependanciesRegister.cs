@@ -1,6 +1,9 @@
-﻿using FlowersApp.Auth.Domain.Entities;
+﻿using FlowerApp.Auth.Domain.Interfaces;
+using FlowerApp.Auth.Infrastructure.Email;
+using FlowersApp.Auth.Domain.Entities;
 using FlowersApp.Auth.Infrastructure.Persistence;
 using FlowersApp.Auth.Infrastructure.Persistence.Repositories;
+using FlowersApp.Auth.Shared.Interfaces;
 using FlowersApp.Auth.Shared.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +35,10 @@ public static class InfrastructureDependanciesRegister
 
         services.AddScoped<DocumentService>();
         services.AddScoped<UnitOfWork>();
+        services.AddHttpContextAccessor();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
+        services.AddScoped<IEmailSender, SendGridEmailService>();
+        services.AddScoped<ISessionService, SessionService>();
         return services;
     }
 }

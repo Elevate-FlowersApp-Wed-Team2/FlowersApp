@@ -11,6 +11,7 @@ public class AppDbContext:IdentityDbContext<AppUser, Role, Guid>
     public DbSet<DriverApplication> Applications { get; set; }
     public DbSet<DriverDocument> Documents { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
