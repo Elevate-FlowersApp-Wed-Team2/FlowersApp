@@ -198,4 +198,22 @@
   <data name="PasswordChangeFailed" xml:space="preserve">
     <value>We couldn't change your password. Please try again.</value>
   </data>
+  <data name="ProfileUpdatedSuccessfully" xml:space="preserve">
+    <value>Your profile has been updated successfully.</value>
+  </data>
+  <data name="InvalidProfilePhoto" xml:space="preserve">
+    <value>Profile photo must be a JPEG, PNG, or WEBP image.</value>
+  </data>
+  <data name="PhotoUploadFailed" xml:space="preserve">
+    <value>We couldn't upload your photo. Please try again.</value>
+  </data>
+  <data name="PhoneAlreadyInUse" xml:space="preserve">
+    <value>This phone number is already linked to another account</value>
+  </data>
+  <data name="ProfileUpdateFailed" xml:space="preserve">
+    <value>We couldn't update your profile. Please try again.</value>
+  </data>
+  <data name="NothingToUpdate" xml:space="preserve">
+    <value>Please provide at least one field to update.</value>
+  </data>
 </root>

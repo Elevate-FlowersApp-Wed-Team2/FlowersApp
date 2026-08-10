@@ -15,7 +15,7 @@ namespace FlowersApp.Auth.Features.Customer.ChangePassword
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             
-            app.MapPost(Endpoints.Customers.ChangePassword, async (
+            app.MapPost(Endpoints.Users.ChangePassword, async (
                 [FromBody] ChangePasswordCommand command,
                 [FromServices] IMediator mediator,
                 CancellationToken cancellationToken) =>

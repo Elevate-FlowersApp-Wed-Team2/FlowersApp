@@ -14,9 +14,10 @@ public static class Endpoints
         public const string BaseDrivers = $"{BasePath}/drivers";
         public const string ApplyDriver = $"{BaseDrivers}/apply";
     }
-    public static class Customers
+    public static class Users
     {
         private const string UsersMeBase = $"{BasePath}/users/me";
         public const string ChangePassword = $"{UsersMeBase}/change-password";
+        public const string UpdateProfile = UsersMeBase;
     }
 }
