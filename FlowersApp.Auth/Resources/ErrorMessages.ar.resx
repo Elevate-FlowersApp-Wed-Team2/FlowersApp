@@ -219,4 +219,16 @@
   <data name="LoggedOutSuccessfully" xml:space="preserve">
     <value>تم تسجيل الخروج بنجاح.</value>
   </data>
+  <data name="RegistrationSuccessful" xml:space="preserve">
+    <value>تم التسجيل بنجاح.</value>
+  </data>
+  <data name="EmailAlreadyRegistered" xml:space="preserve">
+    <value>البريد الإلكتروني مسجل بالفعل.</value>
+  </data>
+  <data name="PhoneAlreadyRegistered" xml:space="preserve">
+    <value>رقم الهاتف مسجل بالفعل.</value>
+  </data>
+  <data name="RegistrationFailed" xml:space="preserve">
+    <value>فشل التسجيل. يرجى المحاولة مرة أخرى.</value>
+  </data>
 </root>

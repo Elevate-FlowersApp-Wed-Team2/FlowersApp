@@ -54,4 +54,9 @@ public enum ResultCode
     ProfileUpdateFailed = 509,
     NothingToUpdate = 510,
     LoggedOutSuccessfully = 511,
+    // Registration
+    RegistrationSuccessful = 600,
+    EmailAlreadyRegistered = 601,
+    PhoneAlreadyRegistered = 602,
+    RegistrationFailed = 603,
 }

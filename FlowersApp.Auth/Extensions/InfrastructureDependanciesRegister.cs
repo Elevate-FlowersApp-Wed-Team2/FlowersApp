@@ -24,7 +24,7 @@ public static class InfrastructureDependanciesRegister
             options.Password.RequireNonAlphanumeric = true;
             options.Password.RequiredLength = 8;
         })
-        .AddRoles<IdentityRole<Guid>>()
+        .AddRoles<Role>()
         .AddEntityFrameworkStores<AppDbContext>();
         services.AddScoped(typeof(Repository<>));
 

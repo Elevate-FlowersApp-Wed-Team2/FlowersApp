@@ -23,4 +23,5 @@ public class LocalizationBehavior<TRequest, TResult>(IStringLocalizer<ErrorMessa
         response.Message = response.Code.Localize(localizer);
         return response;
     }
+
 }

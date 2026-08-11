@@ -21,4 +21,9 @@ public static class Endpoints
         public const string UpdateProfile = $"{UsersMeBase}/profile"; // PUT /api/users/me/profile
         public const string Logout = $"{UsersMeBase}/logout"; // POST /api/users/me/logout
     }
+    public static class Auth
+    {
+        private const string AuthBase = $"{BasePath}";
+        public const string Register = $"{AuthBase}/register";
+    }
 }
