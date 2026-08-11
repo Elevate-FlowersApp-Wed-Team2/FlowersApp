@@ -21,7 +21,7 @@ public static class LocalizationRegister
                    new AcceptLanguageHeaderRequestCultureProvider()
                };
         });
-        services.AddLocalization(options => options.ResourcesPath = "Resources");
+        //services.AddLocalization(options => options.ResourcesPath = "Resources");
         return services;
     }
 }
