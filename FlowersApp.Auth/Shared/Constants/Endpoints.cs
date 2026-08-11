@@ -18,6 +18,6 @@ public static class Endpoints
     {
         private const string UsersMeBase = $"{BasePath}/users/me";
         public const string ChangePassword = $"{UsersMeBase}/change-password";
-        public const string UpdateProfile = UsersMeBase;
+        public const string UpdateProfile = $"{UsersMeBase}/profile"; // PUT /api/users/me/profile
     }
 }

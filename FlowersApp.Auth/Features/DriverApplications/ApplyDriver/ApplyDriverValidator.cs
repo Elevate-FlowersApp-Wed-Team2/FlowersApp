@@ -12,7 +12,7 @@ public class ApplyDriverValidator : AbstractValidator<ApplyDriverOrchestrator>
     {
         RuleFor(x => x.Name)
             .NotEmpty().WithErrorCode(ResultCode.NameRequired.ToString())
-            .MaximumLength(100).WithErrorCode(ResultCode.NameChractersMismatch.ToString());
+            .MaximumLength(100).WithErrorCode(ResultCode.NameCharactersMismatch.ToString());
 
         RuleFor(x => x.Email)
             .NotEmpty().WithErrorCode(ResultCode.EmailRequired.ToString())

@@ -22,7 +22,7 @@ public enum ResultCode
     NameRequired = 306,
     InvalidEmail = 307,
     InvalidPhone = 308,
-    NameChractersMismatch = 309,
+    NameCharactersMismatch = 309,
     EmailRequired = 310,
     EmailTooLong = 311,
     PhoneRequired = 312,
