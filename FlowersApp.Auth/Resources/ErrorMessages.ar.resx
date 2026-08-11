@@ -231,4 +231,16 @@
   <data name="RegistrationFailed" xml:space="preserve">
     <value>فشل التسجيل. يرجى المحاولة مرة أخرى.</value>
   </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>تم تسجيل الدخول بنجاح.</value>
+  </data>
+  <data name="InvalidEmailOrPassword" xml:space="preserve">
+    <value>البريد الإلكتروني أو كلمة المرور غير صحيحة</value>
+  </data>
+  <data name="LoginRateLimited" xml:space="preserve">
+    <value>عدد كبير جدًا من محاولات تسجيل الدخول الفاشلة. حاول لاحقًا.</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.</value>
+  </data>
 </root>

@@ -231,4 +231,16 @@
   <data name="RegistrationFailed" xml:space="preserve">
     <value>Registration failed. Please try again.</value>
   </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>Login successful.</value>
+  </data>
+  <data name="InvalidEmailOrPassword" xml:space="preserve">
+    <value>Invalid email or password</value>
+  </data>
+  <data name="LoginRateLimited" xml:space="preserve">
+    <value>Too many failed login attempts. Try again later.</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Login failed. Please try again.</value>
+  </data>
 </root>

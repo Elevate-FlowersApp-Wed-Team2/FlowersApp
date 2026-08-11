@@ -59,4 +59,9 @@ public enum ResultCode
     EmailAlreadyRegistered = 601,
     PhoneAlreadyRegistered = 602,
     RegistrationFailed = 603,
+    // Login
+    LoginSuccessful = 700,
+    InvalidEmailOrPassword = 701,
+    LoginRateLimited = 702,
+    LoginFailed = 703,
 }
