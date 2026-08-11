@@ -56,8 +56,8 @@ services:
       timeout: 3s
       retries: 3
       start_period: 10s
-    ports:
-      - "9090:8080"
+    # ports:
+    #   - "9090:8080"
     networks:
       - myapp-network
     depends_on:
