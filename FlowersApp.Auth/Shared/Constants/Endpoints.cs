@@ -22,7 +22,7 @@ public static class Endpoints
     }
     public static class Auth
     {
-        private const string AuthBase = $"{BasePath}/auth";
+        private const string AuthBase = $"{BasePath}";
         public const string Register = $"{AuthBase}/register";
     }
 }
