@@ -1,0 +1,6 @@
+@FlowersApp.APIGateway_HostAddress = http://localhost:5067
+
+GET {{FlowersApp.APIGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -19,7 +19,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Env.Load();
+        Env.Load(".env", new LoadOptions(setEnvVars: true, clobberExistingVars: false));
 
         var builder = WebApplication.CreateBuilder(args);
 
@@ -114,7 +114,7 @@ public class Program
 
         app.ApplyDatabaseMigrations(app.Logger);
 
-        app.UseHttpsRedirection();
+       // app.UseHttpsRedirection();
 
         app.UseAuthorization();
 
