@@ -1,4 +1,4 @@
-﻿using FlowersApp.Auth.Domain.Entities;
+using FlowersApp.Auth.Domain.Entities;
 using FlowersApp.Auth.Shared.Interfaces;
 using FlowersApp.Auth.Shared.Response;
 using Microsoft.AspNetCore.Identity;
@@ -28,9 +28,12 @@ namespace FlowersApp.Auth.Features.UpdateProfile
             CancellationToken cancellationToken)
         {
             var userId = _currentUserService.UserId;
+            _logger.LogInformation("Attempting profile update for user {UserId}.", userId);
+
             var user = await _userManager.FindByIdAsync(userId.ToString());
             if (user is null)
             {
+                _logger.LogWarning("Profile update failed: User {UserId} not found.", userId);
                 return RequestResult<UpdateProfileResponse>.Failure(ResultCode.UserNotFound);
             }
             // --- Phone number update ---
@@ -41,6 +44,7 @@ namespace FlowersApp.Auth.Features.UpdateProfile
                                 && u.Id != user.Id, cancellationToken);
                 if (phoneTaken)
                 {
+                    _logger.LogWarning("Profile update failed for user {UserId}: Phone number {PhoneNumber} already in use.", userId, request.PhoneNumber);
                     return RequestResult<UpdateProfileResponse>.Failure(ResultCode.PhoneAlreadyInUse);
                 }
                 user.PhoneNumber = request.PhoneNumber;
@@ -101,6 +105,7 @@ namespace FlowersApp.Auth.Features.UpdateProfile
                 PhoneNumber = user.PhoneNumber,
                 ProfilePhotoUrl = user.ProfilePhotoUrl
             };
+            _logger.LogInformation("Profile updated successfully for user {UserId}.", userId);
             return RequestResult<UpdateProfileResponse>.succeeded(response, ResultCode.ProfileUpdatedSuccessfully);
         }
     }

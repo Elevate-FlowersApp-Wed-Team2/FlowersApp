@@ -1,4 +1,4 @@
-﻿namespace FlowersApp.Auth.Shared.Constants;
+namespace FlowersApp.Auth.Shared.Constants;
 
 public static class Endpoints
 {
@@ -19,5 +19,6 @@ public static class Endpoints
         private const string UsersMeBase = $"{BasePath}/users/me";
         public const string ChangePassword = $"{UsersMeBase}/change-password";
         public const string UpdateProfile = $"{UsersMeBase}/profile"; // PUT /api/users/me/profile
+        public const string Logout = $"{UsersMeBase}/logout"; // POST /api/users/me/logout
     }
 }
