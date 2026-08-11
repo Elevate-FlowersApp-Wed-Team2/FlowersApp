@@ -216,4 +216,16 @@
   <data name="NothingToUpdate" xml:space="preserve">
     <value>Please provide at least one field to update.</value>
   </data>
+  <data name="RegistrationSuccessful" xml:space="preserve">
+    <value>Registration completed successfully.</value>
+  </data>
+  <data name="EmailAlreadyRegistered" xml:space="preserve">
+    <value>Email already registered</value>
+  </data>
+  <data name="PhoneAlreadyRegistered" xml:space="preserve">
+    <value>Phone number already registered</value>
+  </data>
+  <data name="RegistrationFailed" xml:space="preserve">
+    <value>Registration failed. Please try again.</value>
+  </data>
 </root>

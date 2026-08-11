@@ -21,5 +21,18 @@ public class AppDbContext:IdentityDbContext<AppUser, Role, Guid>
     {
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        // Enforce unique, case-insensitive email using NormalizedEmail (Identity uses normalization)
+        builder.Entity<AppUser>(b =>
+        {
+            b.HasIndex(u => u.NormalizedEmail)
+                .IsUnique()
+                .HasDatabaseName("EmailIndex")
+                .HasFilter("[NormalizedEmail] IS NOT NULL");
+
+            b.HasIndex(u => u.PhoneNumber)
+                .IsUnique()
+                .HasDatabaseName("PhoneIndex")
+                .HasFilter("[PhoneNumber] IS NOT NULL");
+        });
     }
 }

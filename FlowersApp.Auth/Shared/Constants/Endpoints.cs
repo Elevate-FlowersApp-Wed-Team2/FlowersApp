@@ -20,4 +20,9 @@ public static class Endpoints
         public const string ChangePassword = $"{UsersMeBase}/change-password";
         public const string UpdateProfile = $"{UsersMeBase}/profile"; // PUT /api/users/me/profile
     }
+    public static class Auth
+    {
+        private const string AuthBase = $"{BasePath}/auth";
+        public const string Register = $"{AuthBase}/register";
+    }
 }

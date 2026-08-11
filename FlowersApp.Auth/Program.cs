@@ -67,10 +67,17 @@ public class Program
         });
         //builder.Services.AddScoped<IEmailSender, SendGridEmailService>();
         //builder.Services.AddScoped<ISessionService, SessionService>();
-        
+
+
+        //builder.Services.AddEndpointsApiExplorer();
+        //builder.Services.AddSwaggerGen();
 
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+
+        builder.Services.AddSwaggerGen(options =>
+        {
+            options.OperationFilter<AcceptLanguageHeaderOperationFilter>();
+        });
 
 
         var app = builder.Build();
