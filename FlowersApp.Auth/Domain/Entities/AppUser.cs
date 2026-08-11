@@ -9,4 +9,5 @@ public class AppUser :IdentityUser<Guid>
     public Gender Gender { get; set; }
     public DateTime CreatedAt { get ; set ; }
     public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+    public string? ProfilePhotoUrl { get; set; }
 }

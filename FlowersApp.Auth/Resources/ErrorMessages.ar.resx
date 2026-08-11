@@ -198,4 +198,22 @@
   <data name="PasswordChangeFailed" xml:space="preserve">
     <value>تعذر تغيير كلمة المرور. يرجى المحاولة مرة أخرى</value>
   </data>
+  <data name="ProfileUpdatedSuccessfully" xml:space="preserve">
+    <value>تم تحديث ملفك الشخصي بنجاح.</value>
+  </data>
+  <data name="InvalidProfilePhoto" xml:space="preserve">
+    <value>جب أن تكون صورة الملف الشخصي بصيغة JPEG أو PNG أو WEBP.</value>
+  </data>
+  <data name="PhotoUploadFailed" xml:space="preserve">
+    <value>تعذر رفع الصورة. يرجى المحاولة مرة أخرى.</value>
+  </data>
+  <data name="PhoneAlreadyInUse" xml:space="preserve">
+    <value>رقم الهاتف هذا مرتبط بحساب آخر بالفعل.</value>
+  </data>
+  <data name="ProfileUpdateFailed" xml:space="preserve">
+    <value>تعذر تحديث الملف الشخصي. يرجى المحاولة مرة أخرى.</value>
+  </data>
+  <data name="NothingToUpdate" xml:space="preserve">
+    <value>يرجى إدخال حقل واحد على الأقل للتحديث.</value>
+  </data>
 </root>

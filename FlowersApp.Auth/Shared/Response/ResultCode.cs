@@ -41,10 +41,16 @@ public enum ResultCode
     // Document
     DocumentCreated = 400,
 
-    // User 
+    // User (cusomer + driver)
     UserNotFound = 500,
     NewPasswordSameAsCurrent = 501,
     CurrentPasswordIncorrect = 502,
     PasswordChangeFailed = 503,
     PasswordChangedSuccessfully = 504,
+    ProfileUpdatedSuccessfully = 505,
+    InvalidProfilePhoto = 506,
+    PhotoUploadFailed = 507,
+    PhoneAlreadyInUse = 508,
+    ProfileUpdateFailed = 509,
+    NothingToUpdate = 510,
 }

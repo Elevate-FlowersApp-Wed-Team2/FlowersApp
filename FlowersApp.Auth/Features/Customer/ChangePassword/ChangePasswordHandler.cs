@@ -1,6 +1,7 @@
 ﻿using FlowerApp.Auth.Domain;
 using FlowerApp.Auth.Domain.Interfaces;
 using FlowersApp.Auth.Domain.Entities;
+using FlowersApp.Auth.Features.Customer.ChangePassword.Events;
 using FlowersApp.Auth.Shared.Interfaces;
 using FlowersApp.Auth.Shared.Response;
 using FlowersApp.Auth.Shared.Services;
