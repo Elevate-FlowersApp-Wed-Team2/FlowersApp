@@ -7,6 +7,7 @@ namespace FlowersApp.Auth.Features.UpdateProfile
         public string? FullName { get; set; }
         public Gender? Gender { get; set; }
         public string? PhoneNumber { get; set; }
-        public IFormFile? ProfilePhoto { get; set; } = null;
+        public IFormFile? ProfilePhoto { get; set; }
     }
+
 }
