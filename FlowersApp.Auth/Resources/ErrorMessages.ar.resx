@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -215,6 +215,9 @@
   </data>
   <data name="NothingToUpdate" xml:space="preserve">
     <value>يرجى إدخال حقل واحد على الأقل للتحديث.</value>
+  </data>
+  <data name="LoggedOutSuccessfully" xml:space="preserve">
+    <value>تم تسجيل الخروج بنجاح.</value>
   </data>
   <data name="RegistrationSuccessful" xml:space="preserve">
     <value>تم التسجيل بنجاح.</value>

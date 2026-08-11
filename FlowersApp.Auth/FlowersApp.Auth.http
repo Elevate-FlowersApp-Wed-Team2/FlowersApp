@@ -3,4 +3,33 @@
 GET {{FlowersApp.Auth_HostAddress}}/weatherforecast/
 Accept: application/json
 
-###
+### Change Password
+POST {{FlowersApp.Auth_HostAddress}}/api/v1/users/me/change-password
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "currentPassword": "OldPassword123!",
+  "newPassword": "NewPassword123!",
+  "confirmNewPassword": "NewPassword123!"
+}
+
+### Update Profile
+PUT {{FlowersApp.Auth_HostAddress}}/api/v1/users/me/profile
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="FullName"
+
+John Doe
+--boundary
+Content-Disposition: form-data; name="PhoneNumber"
+
++1234567890
+--boundary--
+
+### Logout
+POST {{FlowersApp.Auth_HostAddress}}/api/v1/users/me/logout
+Authorization: Bearer {{token}}
+Accept: application/json

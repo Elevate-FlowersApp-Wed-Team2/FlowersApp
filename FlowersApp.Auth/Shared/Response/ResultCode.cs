@@ -1,4 +1,4 @@
-﻿namespace FlowersApp.Auth.Shared.Response;
+namespace FlowersApp.Auth.Shared.Response;
 
 public enum ResultCode
 {
@@ -53,6 +53,7 @@ public enum ResultCode
     PhoneAlreadyInUse = 508,
     ProfileUpdateFailed = 509,
     NothingToUpdate = 510,
+    LoggedOutSuccessfully = 511,
     // Registration
     RegistrationSuccessful = 600,
     EmailAlreadyRegistered = 601,
