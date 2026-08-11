@@ -59,4 +59,11 @@ public enum ResultCode
     EmailAlreadyRegistered = 601,
     PhoneAlreadyRegistered = 602,
     RegistrationFailed = 603,
+
+    // Login & Auth
+    InvalidCredentials = 700,
+    DriverAccountNotApproved = 701,
+    DriverApplicationRejected = 702,
+    TooManyFailedAttempts = 703,
+    LoginSuccessful = 704,
 }

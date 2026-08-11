@@ -25,5 +25,7 @@ public static class Endpoints
     {
         private const string AuthBase = $"{BasePath}";
         public const string Register = $"{AuthBase}/register";
+        public const string UserLogin = "auth/user/login";
+        public const string DriverLogin = "auth/driver/login";
     }
 }

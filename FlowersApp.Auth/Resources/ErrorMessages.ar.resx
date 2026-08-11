@@ -231,4 +231,19 @@
   <data name="RegistrationFailed" xml:space="preserve">
     <value>فشل التسجيل. يرجى المحاولة مرة أخرى.</value>
   </data>
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>البريد الإلكتروني أو كلمة المرور غير صالحة</value>
+  </data>
+  <data name="DriverAccountNotApproved" xml:space="preserve">
+    <value>حساب السائق لم يتم الموافقة عليه بعد</value>
+  </data>
+  <data name="DriverApplicationRejected" xml:space="preserve">
+    <value>تم رفض طلب انضمام السائق</value>
+  </data>
+  <data name="TooManyFailedAttempts" xml:space="preserve">
+    <value>محاولات تسجيل دخول فاشلة كثيرة جداً. يرجى المحاولة لاحقاً.</value>
+  </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>تم تسجيل الدخول بنجاح</value>
+  </data>
 </root>

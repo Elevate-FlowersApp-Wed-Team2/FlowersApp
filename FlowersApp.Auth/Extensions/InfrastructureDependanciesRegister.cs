@@ -1,4 +1,4 @@
-﻿using FlowerApp.Auth.Domain.Interfaces;
+using FlowerApp.Auth.Domain.Interfaces;
 using FlowerApp.Auth.Infrastructure.Email;
 using FlowersApp.Auth.Domain.Entities;
 using FlowersApp.Auth.Infrastructure.Persistence;
@@ -42,6 +42,10 @@ public static class InfrastructureDependanciesRegister
         services.AddScoped<ISessionService, SessionService>();
         services.AddScoped<IPhotoStorageService, LocalPhotoStorageService>();
         
+        services.Configure<FlowersApp.Auth.Infrastructure.Authentication.JwtOptions>(configuration.GetSection(FlowersApp.Auth.Infrastructure.Authentication.JwtOptions.SectionName));
+        services.AddScoped<ITokenService, FlowersApp.Auth.Infrastructure.Authentication.JwtTokenService>();
+        services.AddScoped<ILoginRateLimiter, RedisLoginRateLimiter>();
+
         return services;
     }
 }
