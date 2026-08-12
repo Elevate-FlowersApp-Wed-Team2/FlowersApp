@@ -7,15 +7,18 @@ using System.Net;
 
 namespace FlowersApp.Auth.Features.Customer.Logout
 {
+    public record LogoutRequest(string? RefreshToken = null);
+
     public class LogoutEndpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPost(Endpoints.Users.Logout, async (
+                [FromBody(EmptyBodyBehavior = Microsoft.AspNetCore.Mvc.ModelBinding.EmptyBodyBehavior.Allow)] LogoutRequest? body,
                 [FromServices] IMediator mediator,
                 CancellationToken cancellationToken) =>
             {
-                var command = new LogoutCommand();
+                var command = new LogoutCommand(body?.RefreshToken);
                 var result = await mediator.Send(command, cancellationToken);
 
                 return result.Code switch
@@ -31,6 +34,7 @@ namespace FlowersApp.Auth.Features.Customer.Logout
                 };
             })
             .RequireAuthorization()
+            .Accepts<LogoutRequest>("application/json")
             .Produces<ApiResponse<object>>(StatusCodes.Status200OK)
             .Produces<ApiResponse<object>>(StatusCodes.Status401Unauthorized)
             .Produces<ApiResponse<object>>(StatusCodes.Status404NotFound)

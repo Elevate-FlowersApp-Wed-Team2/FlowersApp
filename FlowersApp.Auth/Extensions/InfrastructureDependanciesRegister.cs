@@ -41,6 +41,8 @@ public static class InfrastructureDependanciesRegister
         services.AddScoped<IEmailSender, SendGridEmailService>();
         services.AddScoped<ISessionService, SessionService>();
         services.AddScoped<IPhotoStorageService, LocalPhotoStorageService>();
+        services.AddScoped<IPasswordResetOtpService, PasswordResetOtpService>();
+        services.AddScoped<ILoginRateLimiter, RedisLoginRateLimiter>();
         
         return services;
     }
