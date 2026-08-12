@@ -3,5 +3,5 @@ using MediatR;
 
 namespace FlowersApp.Auth.Features.Customer.Logout
 {
-    public record LogoutCommand : ICommand<Unit>;
+    public record LogoutCommand(string? RefreshToken = null) : ICommand<Unit>;
 }

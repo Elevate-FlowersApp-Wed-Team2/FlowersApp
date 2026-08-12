@@ -189,4 +189,76 @@
   <data name="EmailAlreadyRegistered" xml:space="preserve">
     <value>المستخدم موجود بالفعل</value>
   </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>صيغة البريد الإلكتروني غير صحيحة.</value>
+  </data>
+  <data name="PasswordResetOtpSent" xml:space="preserve">
+    <value>إذا كان هذا البريد مسجلاً، فقد تم إرسال رمز التحقق.</value>
+  </data>
+  <data name="OtpRequired" xml:space="preserve">
+    <value>رمز التحقق مطلوب.</value>
+  </data>
+  <data name="InvalidOrExpiredOtp" xml:space="preserve">
+    <value>رمز التحقق غير صالح أو منتهي الصلاحية.</value>
+  </data>
+  <data name="OtpExpired" xml:space="preserve">
+    <value>انتهت صلاحية الرمز، يرجى طلب رمز جديد.</value>
+  </data>
+  <data name="OtpMaxAttemptsExceeded" xml:space="preserve">
+    <value>محاولات كثيرة غير صحيحة. يرجى طلب رمز جديد.</value>
+  </data>
+  <data name="OtpResendTooSoon" xml:space="preserve">
+    <value>يرجى الانتظار قبل طلب رمز آخر.</value>
+  </data>
+  <data name="OtpVerifiedSuccessfully" xml:space="preserve">
+    <value>تم قبول رمز التحقق.</value>
+  </data>
+  <data name="InvalidOrExpiredResetToken" xml:space="preserve">
+    <value>رمز إعادة التعيين غير صالح أو منتهي الصلاحية.</value>
+  </data>
+  <data name="PasswordResetSuccessful" xml:space="preserve">
+    <value>تمت إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول مرة أخرى.</value>
+  </data>
+  <data name="TokenRefreshedSuccessfully" xml:space="preserve">
+    <value>تم تحديث الرمز بنجاح.</value>
+  </data>
+  <data name="InvalidRefreshToken" xml:space="preserve">
+    <value>رمز التحديث غير صالح.</value>
+  </data>
+  <data name="RefreshTokenReuseDetected" xml:space="preserve">
+    <value>تم اكتشاف إعادة استخدام رمز التحديث. يرجى تسجيل الدخول مرة أخرى.</value>
+  </data>
+  <data name="SessionsRetrievedSuccessfully" xml:space="preserve">
+    <value>تم استرجاع الجلسات بنجاح.</value>
+  </data>
+  <data name="SessionRevokedSuccessfully" xml:space="preserve">
+    <value>تم إلغاء الجلسة بنجاح.</value>
+  </data>
+  <data name="SessionNotFound" xml:space="preserve">
+    <value>الجلسة غير موجودة.</value>
+  </data>
+  <data name="LoggedOutSuccessfully" xml:space="preserve">
+    <value>تم تسجيل الخروج بنجاح.</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>تم تغيير كلمة المرور بنجاح.</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>المستخدم غير موجود.</value>
+  </data>
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>البريد الإلكتروني أو كلمة المرور غير صحيحة</value>
+  </data>
+  <data name="DriverAccountNotApproved" xml:space="preserve">
+    <value>حساب السائق غير معتمد بعد</value>
+  </data>
+  <data name="DriverApplicationRejected" xml:space="preserve">
+    <value>تم رفض طلب السائق</value>
+  </data>
+  <data name="TooManyFailedAttempts" xml:space="preserve">
+    <value>محاولات تسجيل دخول فاشلة كثيرة. يرجى المحاولة لاحقاً.</value>
+  </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>تم تسجيل الدخول بنجاح</value>
+  </data>
 </root>

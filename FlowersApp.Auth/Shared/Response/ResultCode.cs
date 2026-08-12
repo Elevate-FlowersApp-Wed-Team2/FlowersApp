@@ -54,9 +54,36 @@ public enum ResultCode
     ProfileUpdateFailed = 509,
     NothingToUpdate = 510,
     LoggedOutSuccessfully = 511,
+
+    // Password reset / OTP (SCRUM-14)
+    PasswordResetOtpSent = 520,
+    OtpRequired = 521,
+    InvalidOrExpiredOtp = 522,
+    OtpExpired = 523,
+    OtpMaxAttemptsExceeded = 524,
+    OtpResendTooSoon = 525,
+    OtpVerifiedSuccessfully = 526,
+    InvalidOrExpiredResetToken = 527,
+    PasswordResetSuccessful = 528,
+
+    // Sessions / refresh (SCRUM-19)
+    TokenRefreshedSuccessfully = 530,
+    InvalidRefreshToken = 531,
+    RefreshTokenReuseDetected = 532,
+    SessionsRetrievedSuccessfully = 533,
+    SessionRevokedSuccessfully = 534,
+    SessionNotFound = 535,
+
     // Registration
     RegistrationSuccessful = 600,
     EmailAlreadyRegistered = 601,
     PhoneAlreadyRegistered = 602,
     RegistrationFailed = 603,
+
+    // Login & Auth (SCRUM-12)
+    InvalidCredentials = 700,
+    DriverAccountNotApproved = 701,
+    DriverApplicationRejected = 702,
+    TooManyFailedAttempts = 703,
+    LoginSuccessful = 704,
 }

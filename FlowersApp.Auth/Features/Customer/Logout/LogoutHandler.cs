@@ -4,7 +4,6 @@ using FlowersApp.Auth.Shared.Interfaces;
 using FlowersApp.Auth.Shared.Response;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 
 namespace FlowersApp.Auth.Features.Customer.Logout
 {
@@ -32,7 +31,7 @@ namespace FlowersApp.Auth.Features.Customer.Logout
             var userId = _currentUserService.UserId;
             _logger.LogInformation("Attempting logout for user {UserId}.", userId);
 
-            if (string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(userId) || !Guid.TryParse(userId, out var userGuid))
             {
                 _logger.LogWarning("Logout failed: UserId from current user service is null or empty.");
                 return RequestResult<Unit>.Failure(ResultCode.UserNotFound);
@@ -45,8 +44,30 @@ namespace FlowersApp.Auth.Features.Customer.Logout
                 return RequestResult<Unit>.Failure(ResultCode.UserNotFound);
             }
 
-            await _sessionService.RevokeAllSessionsAsync(user.Id, cancellationToken);
-            _logger.LogInformation("User {UserId} logged out successfully. Revoked all sessions.", userId);
+            if (!string.IsNullOrWhiteSpace(request.RefreshToken))
+            {
+                var session = await _sessionService.FindByRawTokenAsync(request.RefreshToken, cancellationToken);
+                if (session is not null && session.UserId == userGuid && session.RevokedAt is null)
+                {
+                    await _sessionService.RevokeSessionAsync(userGuid, session.Id, cancellationToken);
+                    _logger.LogInformation(
+                        "User {UserId} logged out current session {SessionId}.",
+                        userId,
+                        session.Id);
+                }
+                else
+                {
+                    // Token unknown/already revoked — still succeed; client should clear local state.
+                    _logger.LogInformation(
+                        "Logout for user {UserId}: refresh token not found or already revoked.",
+                        userId);
+                }
+            }
+            else
+            {
+                await _sessionService.RevokeAllSessionsAsync(user.Id, cancellationToken);
+                _logger.LogInformation("User {UserId} logged out successfully. Revoked all sessions.", userId);
+            }
 
             return RequestResult<Unit>.succeeded(Unit.Value, ResultCode.LoggedOutSuccessfully);
         }

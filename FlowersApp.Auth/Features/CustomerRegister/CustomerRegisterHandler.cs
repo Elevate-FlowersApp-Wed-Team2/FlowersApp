@@ -53,9 +53,16 @@ public class CustomerRegisterHandler : ICommandHandler<CustomerRegisterCommand, 
         // Use a transaction to avoid partial state
         using var tx = await _db.Database.BeginTransactionAsync(cancellationToken);
         var createResult = await _userManager.CreateAsync(user, request.Password);
+
         if (!createResult.Succeeded)
         {
-            return RequestResult<Guid>.Failure(ResultCode.RegistrationFailed);
+            var errors = string.Join(
+                " | ",
+                createResult.Errors.Select(e => $"{e.Code}: {e.Description}")
+            );
+
+            throw new InvalidOperationException(
+                $"User creation failed: {errors}");
         }
 
         // Ensure role exists
