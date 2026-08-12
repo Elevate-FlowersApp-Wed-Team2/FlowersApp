@@ -53,6 +53,15 @@ public enum ResultCode
     PhoneAlreadyInUse = 508,
     ProfileUpdateFailed = 509,
     NothingToUpdate = 510,
+
+    // Forgot/Reset Password (OTP)
+    OtpSent = 600,
+    OtpInvalid = 601,
+    OtpExpired = 602,
+    OtpMaxAttemptsExceeded = 603,
+    OtpResendCooldownActive = 604,
+    ResetTokenInvalid = 605,
+    PasswordResetSuccessfully = 606,
     LoggedOutSuccessfully = 511,
     // Registration
     RegistrationSuccessful = 600,
