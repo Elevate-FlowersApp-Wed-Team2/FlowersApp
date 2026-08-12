@@ -19,7 +19,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Env.Load(".env", new LoadOptions(setEnvVars: true, clobberExistingVars: false));
+        LoadDotEnv();
 
         var builder = WebApplication.CreateBuilder(args);
 
@@ -52,7 +52,7 @@ public class Program
         if (string.IsNullOrWhiteSpace(redisConnection))
         {
             throw new InvalidOperationException(
-                "REDIS_CONNECTION_STRING is not set. Check your .env file.");
+                "REDIS_CONNECTION_STRING is not set. Set it in appsettings, environment variables, or a local .env file.");
         }
 
         builder.Services.AddRedisCache(redisConnection);
@@ -152,5 +152,28 @@ public class Program
         app.MapControllers();
 
         app.Run();
+    }
+
+    private static void LoadDotEnv()
+    {
+        var options = new LoadOptions(setEnvVars: true, clobberExistingVars: false);
+        var candidates = new[]
+        {
+            Path.Combine(Directory.GetCurrentDirectory(), ".env"),
+            Path.Combine(AppContext.BaseDirectory, ".env"),
+            // bin/Debug/net8.0 -> project directory
+            Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".env")),
+            // project -> solution root
+            Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".env")),
+        };
+
+        foreach (var path in candidates.Distinct(StringComparer.OrdinalIgnoreCase))
+        {
+            if (!File.Exists(path))
+                continue;
+
+            Env.Load(path, options);
+            return;
+        }
     }
 }
