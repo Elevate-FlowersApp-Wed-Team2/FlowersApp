@@ -1,17 +1,15 @@
 using FlowersApp.Auth.Domain.Entities;
 using FlowersApp.Auth.Infrastructure.Persistence;
 using FlowersApp.Auth.Shared.Response;
-using FlowersApp.Shared.Redis;
 using MediatR;
 using FlowersApp.Auth.Shared.Interfaces;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+using FlowersApp.Auth.Infrastructure.Services;
+using FlowersApp.Auth.Features.RefreshTokens;
 using System.Security.Claims;
-using System.Text;
 
 namespace FlowersApp.Auth.Features.Login;
 
@@ -19,25 +17,28 @@ public class LoginHandler : ICommandHandler<LoginCommand, AuthResponse>
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly AppDbContext _db;
-    private readonly IRedisCacheService _redis;
+    private readonly SignInManager<AppUser> _signInManager;
     private readonly IConfiguration _config;
     private readonly ILogger<LoginHandler> _logger;
     private readonly IHttpContextAccessor _httpContextAccessor;
-
-    private const int MAX_ATTEMPTS = 5;
-    private static readonly TimeSpan BLOCK_WINDOW = TimeSpan.FromMinutes(15);
+    private readonly ITokenService _tokenService;
+    private readonly IMediator _mediator;
 
     public LoginHandler(
         UserManager<AppUser> userManager,
         AppDbContext db,
-        IRedisCacheService redis,
+        SignInManager<AppUser> signInManager,
+        ITokenService tokenService,
+        IMediator mediator,
         IConfiguration config,
         ILogger<LoginHandler> logger,
         IHttpContextAccessor httpContextAccessor)
     {
         _userManager = userManager;
         _db = db;
-        _redis = redis;
+        _signInManager = signInManager;
+        _tokenService = tokenService;
+        _mediator = mediator;
         _config = config;
         _logger = logger;
         _httpContextAccessor = httpContextAccessor;
@@ -87,60 +88,33 @@ public class LoginHandler : ICommandHandler<LoginCommand, AuthResponse>
             driverStatus = drv.DriverStatus.ToString();
         }
 
-        // Generate tokens
-        var jwtKey = _config["JwtSettings:Key"] ?? _config["JwtSettings:Secret"];
-        if (string.IsNullOrEmpty(jwtKey))
+        // Generate tokens via token service
+        TokenResult tokenResult;
+        try
         {
-            _logger.LogError("JWT key is not configured");
+            tokenResult = _tokenService.GenerateTokens(user, roles, driverStatus);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to generate tokens for {Email}", request.Email);
             return RequestResult<AuthResponse>.Failure(ResultCode.LoginFailed);
         }
 
-        var keyBytes = Convert.FromBase64String(jwtKey);
-        var signingKey = new SymmetricSecurityKey(keyBytes);
-        var creds = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
-
-        var expiresInSeconds = int.TryParse(_config["JwtSettings:AccessTokenExpirySeconds"], out var s) ? s : 600;
-
-        var claims = new List<Claim>
+        // persist refresh token via command
+        var saveCmd = new SaveRefreshTokenCommand
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
-            new Claim(ClaimTypes.Name, user.UserName ?? string.Empty),
+            UserId = user.Id,
+            Token = tokenResult.RefreshToken,
+            ExpiresAt = DateTime.UtcNow.AddDays(30)
         };
-        if (!string.IsNullOrEmpty(role))
-            claims.Add(new Claim(ClaimTypes.Role, role));
-        if (!string.IsNullOrEmpty(driverStatus))
-            claims.Add(new Claim("driverStatus", driverStatus));
 
-        var token = new JwtSecurityToken(
-            issuer: _config["JwtSettings:Issuer"],
-            audience: _config["JwtSettings:Audience"],
-            claims: claims,
-            notBefore: DateTime.UtcNow,
-            expires: DateTime.UtcNow.AddSeconds(expiresInSeconds),
-            signingCredentials: creds);
-
-        var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
-
-        // generate refresh token
-        var refreshTokenValueBytes = new byte[64];
-        RandomNumberGenerator.Fill(refreshTokenValueBytes);
-        var refreshTokenValue = Convert.ToBase64String(refreshTokenValueBytes);
-        var refresh = new Domain.Entities.RefreshToken
-        {
-            Id = Guid.NewGuid(),
-            Token = refreshTokenValue,
-            ExpiresAt = DateTime.UtcNow.AddDays(30),
-            UserId = user.Id
-        };
-        _db.RefreshTokens.Add(refresh);
-        await _db.SaveChangesAsync(cancellationToken);
+        var saveResult = await _mediator.Send(saveCmd, cancellationToken);
 
         var response = new AuthResponse
         {
-            AccessToken = accessToken,
-            RefreshToken = refreshTokenValue,
-            ExpiresIn = expiresInSeconds,
+            AccessToken = tokenResult.AccessToken,
+            RefreshToken = tokenResult.RefreshToken,
+            ExpiresIn = tokenResult.ExpiresIn,
             Role = role,
             DriverStatus = driverStatus
         };

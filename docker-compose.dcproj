@@ -14,5 +14,7 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="FlowersApp.Auth.Tests\FlowersApp.Auth.Tests.csproj" />
+    <None Include="FlowersApp.Auth.Tests\LoginHandlerTests.cs" />
   </ItemGroup>
 </Project>
