@@ -19,8 +19,15 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Env.Load(".env", new LoadOptions(setEnvVars: true, clobberExistingVars: false));
-
+        var envPath = Path.Combine(Directory.GetCurrentDirectory(), ".env");
+        if (File.Exists(envPath))
+        {
+            Env.Load(envPath, new LoadOptions(setEnvVars: true, clobberExistingVars: false));
+        }
+        else
+        {
+            Env.Load();
+        }
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddHealthChecks()
@@ -65,8 +72,7 @@ public class Program
                 ?? Environment.GetEnvironmentVariable("SENDGRID_API_KEY")
                 ?? throw new InvalidOperationException("SENDGRID_API_KEY is not set.");
         });
-        //builder.Services.AddScoped<IEmailSender, SendGridEmailService>();
-        //builder.Services.AddScoped<ISessionService, SessionService>();
+        
 
 
         //builder.Services.AddEndpointsApiExplorer();

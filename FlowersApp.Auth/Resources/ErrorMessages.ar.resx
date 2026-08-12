@@ -231,4 +231,25 @@
   <data name="RegistrationFailed" xml:space="preserve">
     <value>فشل التسجيل. يرجى المحاولة مرة أخرى.</value>
   </data>
+  <data name="OtpSent" xml:space="preserve">
+    <value>تم إرسال رمز التحقيق إلى بريدك الإلكتروني بنجاح.</value>
+  </data>
+  <data name="OtpInvalid" xml:space="preserve">
+    <value>رمز التحقيق غير صحيح. يرجى التأكد وإعادة المحاولة.</value>
+  </data>
+  <data name="OtpExpired" xml:space="preserve">
+    <value>انتهت صلاحية رمز التحقيق. يرجى طلب رمز جديد.</value>
+  </data>
+  <data name="OtpMaxAttemptsExceeded" xml:space="preserve">
+    <value>تجاوزت الحد الأقصى لمحاولات أدخال الكود. يرجى المحاولة لاحقاً.</value>
+  </data>
+  <data name="OtpResendCooldownActive" xml:space="preserve">
+    <value>يرجى الانتظار قليلاً قبل طلب إرسال رمز جديد.</value>
+  </data>
+  <data name="ResetTokenInvalid" xml:space="preserve">
+    <value>رمز تأكيد الحساب غير صالح أو انتهت صلاحيته</value>
+  </data>
+  <data name="PasswordResetSuccessfully" xml:space="preserve">
+    <value>تم إعادة تعيين كلمة المرور بنجاح.</value>
+  </data>
 </root>
