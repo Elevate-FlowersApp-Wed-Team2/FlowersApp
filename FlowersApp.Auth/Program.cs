@@ -30,21 +30,7 @@ public class Program
 
         builder.Services.AddDependencies(builder.Configuration);
 
-
-        /*
-         * IMPORTANT:
-         * Service registrations must happen before calling builder.Build().
-         *
-         * During the previous merge conflict resolution, Redis registration
-         * was accidentally placed after builder.Build(), which is incorrect.
-         *
-         * After the application is built, the dependency injection container
-         * is already created and should not be modified.
-         *
-         * Only middleware configuration (app.Use...) and endpoint mapping
-         * (app.Map...) should be added after builder.Build().
-         */
-        //redis connection string
+        // Redis connection string
         var redisConnection =
             builder.Configuration["REDIS_CONNECTION_STRING"]
             ?? Environment.GetEnvironmentVariable("REDIS_CONNECTION_STRING");
@@ -56,77 +42,74 @@ public class Program
         }
 
         builder.Services.AddRedisCache(redisConnection);
-         //sendgrid api key
+
         // Email service configuration
         builder.Services.Configure<EmailSettings>(options =>
         {
             builder.Configuration.GetSection("Email").Bind(options);
+
             options.ApiKey = builder.Configuration["SENDGRID_API_KEY"]
                 ?? Environment.GetEnvironmentVariable("SENDGRID_API_KEY")
                 ?? throw new InvalidOperationException("SENDGRID_API_KEY is not set.");
         });
-        //builder.Services.AddScoped<IEmailSender, SendGridEmailService>();
-        //builder.Services.AddScoped<ISessionService, SessionService>();
-
-
-        //builder.Services.AddEndpointsApiExplorer();
-        //builder.Services.AddSwaggerGen();
 
         builder.Services.AddEndpointsApiExplorer();
 
         builder.Services.AddSwaggerGen(options =>
         {
             options.OperationFilter<AcceptLanguageHeaderOperationFilter>();
-            options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-            {
-                Name = "Authorization",
-                Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
-                Scheme = "bearer",
-                BearerFormat = "JWT",
-                In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-                Description = "JWT Authorization header using the Bearer scheme."
-            });
-            options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
-            {
+
+            options.AddSecurityDefinition("Bearer",
+                new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                 {
-                    new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                    Name = "Authorization",
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+
+            options.AddSecurityRequirement(
+                new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                {
                     {
-                        Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                        new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                         {
-                            Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    Array.Empty<string>()
-                }
-            });
+                            Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                            {
+                                Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
         });
 
-
         var app = builder.Build();
-        var opts = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value;
+
+        var opts = app.Services
+            .GetRequiredService<IOptions<RequestLocalizationOptions>>()
+            .Value;
+
         app.UseRequestLocalization(opts);
+
+        // Show the real exception while debugging
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
         app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         app.MapHealthChecks("/health/live", new HealthCheckOptions
         {
             Predicate = check => check.Name == "self"
         });
-
-
-        /*
-         * Middleware should be configured after builder.Build().
-         *
-         * UseRequestLocalization is part of the HTTP request pipeline,
-         * therefore it belongs here and not before building the application.
-         */
-
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-
 
         var globalGroup = app.MapGroup("");
 
@@ -141,10 +124,9 @@ public class Program
             endpoint.MapEndpoint(globalGroup);
         }
 
-
         app.ApplyDatabaseMigrations(app.Logger);
 
-       // app.UseHttpsRedirection();
+        // app.UseHttpsRedirection();
 
         app.UseAuthentication();
         app.UseAuthorization();
@@ -156,18 +138,37 @@ public class Program
 
     private static void LoadDotEnv()
     {
-        var options = new LoadOptions(setEnvVars: true, clobberExistingVars: false);
+        var options = new LoadOptions(
+            setEnvVars: true,
+            clobberExistingVars: false);
+
         var candidates = new[]
         {
             Path.Combine(Directory.GetCurrentDirectory(), ".env"),
             Path.Combine(AppContext.BaseDirectory, ".env"),
+
             // bin/Debug/net8.0 -> project directory
-            Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".env")),
+            Path.GetFullPath(
+                Path.Combine(
+                    AppContext.BaseDirectory,
+                    "..",
+                    "..",
+                    "..",
+                    ".env")),
+
             // project -> solution root
-            Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".env")),
+            Path.GetFullPath(
+                Path.Combine(
+                    AppContext.BaseDirectory,
+                    "..",
+                    "..",
+                    "..",
+                    "..",
+                    ".env")),
         };
 
-        foreach (var path in candidates.Distinct(StringComparer.OrdinalIgnoreCase))
+        foreach (var path in candidates.Distinct(
+            StringComparer.OrdinalIgnoreCase))
         {
             if (!File.Exists(path))
                 continue;
