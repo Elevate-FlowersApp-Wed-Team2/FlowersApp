@@ -21,6 +21,7 @@ namespace FlowerApp.Auth.Infrastructure.Email
 
         public async Task SendAsync(string toEmail, string subject, string body, CancellationToken cancellationToken = default)
         {
+            var fromName = string.IsNullOrWhiteSpace(_settings.FromName) ? "FlowersApp" : _settings.FromName;
             var from = new EmailAddress(_settings.FromEmail, _settings.FromName);
             var to = new EmailAddress(toEmail);
             var msg = MailHelper.CreateSingleEmail(
@@ -42,9 +43,16 @@ namespace FlowerApp.Auth.Infrastructure.Email
                         return;
                     }
 
-                    var responseBody = await response.Body.ReadAsStringAsync();
-                    _logger.LogWarning("SendGrid returned {StatusCode} on attempt {Attempt}: {Body}",
-                        response.StatusCode, attempt, responseBody);
+                    var errorBody = await response.Body.ReadAsStringAsync();
+                    _logger.LogError("SendGrid Failed! StatusCode: {StatusCode}, Details: {ErrorBody}", response.StatusCode, errorBody);
+
+                    throw new Exception($"Failed to send email via SendGrid. Status: {response.StatusCode}, Response: {errorBody}");
+
+                    //var responseBody = await response.Body.ReadAsStringAsync();
+                    //_logger.LogWarning("SendGrid returned {StatusCode} on attempt {Attempt}: {Body}",
+                    //    response.StatusCode, attempt, responseBody);
+                    //Console.WriteLine($"SendGrid Status Code: {response.StatusCode}");
+                    //Console.WriteLine($"SendGrid Response Body: {responseBody}");
                 }
                 catch (Exception ex)
                 {
@@ -57,6 +65,7 @@ namespace FlowerApp.Auth.Infrastructure.Email
 
             _logger.LogError("Failed to send email to {Email} after {MaxRetries} attempts", toEmail, maxRetries);
             throw new InvalidOperationException("Failed to send email after multiple attempts.");
+
         }
 
        

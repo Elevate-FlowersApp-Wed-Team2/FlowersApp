@@ -4,6 +4,7 @@ using FlowersApp.Auth.Domain.Entities;
 using FlowersApp.Auth.Infrastructure.Persistence;
 using FlowersApp.Auth.Infrastructure.Persistence.Repositories;
 using FlowersApp.Auth.Infrastructure.Photos;
+using FlowersApp.Auth.Infrastructure.Services;
 using FlowersApp.Auth.Shared.Interfaces;
 using FlowersApp.Auth.Shared.Services;
 using Microsoft.AspNetCore.Identity;
@@ -25,7 +26,10 @@ public static class InfrastructureDependanciesRegister
             options.Password.RequiredLength = 8;
         })
         .AddRoles<Role>()
-        .AddEntityFrameworkStores<AppDbContext>();
+
+        .AddEntityFrameworkStores<AppDbContext>()
+        .AddDefaultTokenProviders();
+        services.AddDataProtection();
         services.AddScoped(typeof(Repository<>));
 
         services.AddDbContext<AppDbContext>(options =>

@@ -20,6 +20,9 @@ public static class Endpoints
         public const string ChangePassword = $"{UsersMeBase}/change-password";
         public const string UpdateProfile = $"{UsersMeBase}/profile"; // PUT /api/users/me/profile
         public const string Logout = $"{UsersMeBase}/logout"; // POST /api/users/me/logout
+        public const string ForgotPassword = $"{UsersMeBase}/forgot-password";
+        public const string VerifyResetOtp = $"{UsersMeBase}/forgot-password/verify-otp"; // POST /api/users/me/forgot-password/verify-otp
+        public const string ResetPassword = $"{UsersMeBase}/reset-password"; // POST /api/users/me/reset-password
         public const string Sessions = $"{UsersMeBase}/sessions";
         public const string RevokeSession = $"{UsersMeBase}/sessions/{{id}}";
     }
