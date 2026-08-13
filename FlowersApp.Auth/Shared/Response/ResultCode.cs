@@ -55,6 +55,24 @@ public enum ResultCode
     NothingToUpdate = 510,
     LoggedOutSuccessfully = 511,
 
+    // Password reset / OTP (SCRUM-14)
+    PasswordResetOtpSent = 520,
+    OtpRequired = 521,
+    InvalidOrExpiredOtp = 522,
+    OtpExpired = 523,
+    OtpMaxAttemptsExceeded = 524,
+    OtpResendTooSoon = 525,
+    OtpVerifiedSuccessfully = 526,
+    InvalidOrExpiredResetToken = 527,
+    PasswordResetSuccessful = 528,
+
+    // Sessions / refresh (SCRUM-19)
+    TokenRefreshedSuccessfully = 530,
+    InvalidRefreshToken = 531,
+    RefreshTokenReuseDetected = 532,
+    SessionsRetrievedSuccessfully = 533,
+    SessionRevokedSuccessfully = 534,
+    SessionNotFound = 535,
 
     // Registration
     RegistrationSuccessful = 600,
@@ -62,13 +80,10 @@ public enum ResultCode
     PhoneAlreadyRegistered = 602,
     RegistrationFailed = 603,
 
-    
-    // Password Reset & OTP (700 - 799)
-    OtpSent = 700,
-    OtpInvalid = 701,
-    OtpExpired = 702,
-    OtpMaxAttemptsExceeded = 703,
-    OtpResendCooldownActive = 704,
-    ResetTokenInvalid = 705,
-    PasswordResetSuccessfully = 706
+    // Login & Auth (SCRUM-12)
+    InvalidCredentials = 700,
+    DriverAccountNotApproved = 701,
+    DriverApplicationRejected = 702,
+    TooManyFailedAttempts = 703,
+    LoginSuccessful = 704,
 }

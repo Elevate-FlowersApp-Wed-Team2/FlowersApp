@@ -23,10 +23,18 @@ public static class Endpoints
         public const string ForgotPassword = $"{UsersMeBase}/forgot-password";
         public const string VerifyResetOtp = $"{UsersMeBase}/forgot-password/verify-otp"; // POST /api/users/me/forgot-password/verify-otp
         public const string ResetPassword = $"{UsersMeBase}/reset-password"; // POST /api/users/me/reset-password
+        public const string Sessions = $"{UsersMeBase}/sessions";
+        public const string RevokeSession = $"{UsersMeBase}/sessions/{{id}}";
     }
     public static class Auth
     {
         private const string AuthBase = $"{BasePath}";
         public const string Register = $"{AuthBase}/register";
+        public const string ForgotPassword = $"{AuthBase}/auth/forgot-password";
+        public const string VerifyOtp = $"{AuthBase}/auth/verify-otp";
+        public const string ResetPassword = $"{AuthBase}/auth/reset-password";
+        public const string RefreshToken = $"{AuthBase}/auth/refresh-token";
+        public const string UserLogin = $"{AuthBase}/auth/user/login";
+        public const string DriverLogin = $"{AuthBase}/auth/driver/login";
     }
 }
