@@ -1,12 +1,101 @@
 services:
-  flowersapp.auth:
-    image: ${DOCKER_REGISTRY-}flowersappauth
+  redis:
+   image: redis:alpine
+   container_name: redis-cache
+   ports:
+     - "6380:6379"
+   networks:
+     - myapp-network
+   healthcheck:
+    test: ["CMD", "redis-cli", "-a", "your_redis_password", "--raw", "incr", "ping"]
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+    container_name: sqlserverdb
+
+    ports:
+      - "3535:1433"
+
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong!Passw0rd
+
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - myapp-network
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/opt/mssql-tools/bin/sqlcmd",
+          "-S",
+          "localhost",
+          "-U",
+          "sa",
+          "-P",
+          "YourStrong!Passw0rd",
+          "-Q",
+          "SELECT 1"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  flowersapp.apigateway:
+    image: ${DOCKER_REGISTRY-}flowersappapigateway
     build:
       context: .
-      dockerfile: FlowersApp.Auth/Dockerfile
+      dockerfile: FlowersApp.APIGateway/Dockerfile
+
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health/live"]
       interval: 15s
       timeout: 3s
       retries: 3
       start_period: 10s
+    # ports:
+    #   - "9090:8080"
+    networks:
+      - myapp-network
+    depends_on:
+       - sqlserver
+       - redis
+       - flowersapp.auth
+
+
+  flowersapp.auth:
+    image: ${DOCKER_REGISTRY-}flowersappauth
+    build:
+      context: .
+      dockerfile: FlowersApp.Auth/Dockerfile
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health/live"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+    depends_on:
+      - sqlserver
+      - redis
+
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=FlowersApp.AuthDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - REDIS_CONNECTION_STRING=redis:6379,password=your_redis_password,abortConnect=false
+    networks:
+      - myapp-network
+
+
+
+
+
+volumes:
+  sqlserver_data:
+
+
+networks:
+  myapp-network:

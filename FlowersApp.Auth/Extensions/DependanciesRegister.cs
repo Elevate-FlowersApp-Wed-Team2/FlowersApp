@@ -1,0 +1,13 @@
+﻿namespace FlowersApp.Auth.Extensions;
+
+public static class DependanciesRegister
+{
+    public static IServiceCollection AddDependencies(this IServiceCollection services ,IConfiguration configuration)
+    {
+        services.AddInfrastructureDependancies(configuration);
+        services.AddJwtAuthentication(configuration);
+        services.AddApplicationDependancies(configuration);
+        services.AddAppLocalization();
+        return services;
+    }
+}
