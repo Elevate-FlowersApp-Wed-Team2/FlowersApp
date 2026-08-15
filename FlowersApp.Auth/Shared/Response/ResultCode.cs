@@ -10,7 +10,12 @@ public enum ResultCode
     InvalidVehicleNumber = 200,
     VehicleExist = 201,
     VehicleNotFound =202,
-
+    VehicleCreated = 203,
+    FailedToCreateVehicle =204,
+    VehicleAlreadyExists = 205,
+    VehiclesRetrieved = 206,
+    VehicleRetrieved = 207,
+    VehicleExistenceChecked = 208,
 
     //Application
     FailedToSubmitApplication = 300,

@@ -30,11 +30,20 @@ public static class Endpoints
     {
         private const string AuthBase = $"{BasePath}";
         public const string Register = $"{AuthBase}/register";
-        public const string ForgotPassword = $"{AuthBase}/auth/forgot-password";
-        public const string VerifyOtp = $"{AuthBase}/auth/verify-otp";
-        public const string ResetPassword = $"{AuthBase}/auth/reset-password";
-        public const string RefreshToken = $"{AuthBase}/auth/refresh-token";
-        public const string UserLogin = $"{AuthBase}/auth/user/login";
-        public const string DriverLogin = $"{AuthBase}/auth/driver/login";
+        public const string ForgotPassword = $"{AuthBase}/forgot-password";
+        public const string VerifyOtp = $"{AuthBase}/verify-otp";
+        public const string ResetPassword = $"{AuthBase}/reset-password";
+        public const string RefreshToken = $"{AuthBase}/refresh-token";
+        public const string UserLogin = $"{AuthBase}/user/login";
+        public const string DriverLogin = $"{AuthBase}/driver/login";
+    }
+
+    public static class Vehicles
+    {
+        public const string Base = $"{BasePath}/vehicles";
+        public const string Create = Base;
+        public const string GetAll = Base;
+        public const string GetById = Base + "/{id:guid}";
+        public const string CheckExistence = Base + "/exists/{vehicleNumber}";
     }
 }
