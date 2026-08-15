@@ -261,4 +261,22 @@
   <data name="LoginSuccessful" xml:space="preserve">
     <value>تم تسجيل الدخول بنجاح</value>
   </data>
+<data name="VehicleCreated" xml:space="preserve">
+    <value>تم إنشاء المركبة بنجاح</value>
+  </data>
+  <data name="FailedToCreateVehicle" xml:space="preserve">
+    <value>فشل إنشاء المركبة</value>
+  </data>
+  <data name="VehiclesRetrieved" xml:space="preserve">
+    <value>تم استرجاع المركبات بنجاح</value>
+  </data>
+  <data name="VehicleRetrieved" xml:space="preserve">
+    <value>تم استرجاع بيانات المركبة بنجاح</value>
+  </data>
+  <data name="VehicleAlreadyExists" xml:space="preserve">
+    <value>توجد مركبة بنفس الرقم مسبقًا</value>
+  </data>
+  <data name="VehicleExistenceChecked" xml:space="preserve">
+    <value>تم التحقق من وجود المركبة</value>
+  </data>
 </root>

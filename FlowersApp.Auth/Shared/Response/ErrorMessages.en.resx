@@ -261,4 +261,22 @@
   <data name="LoginSuccessful" xml:space="preserve">
     <value>Login successful</value>
   </data>
+<data name="VehicleCreated" xml:space="preserve">
+    <value>Vehicle created successfully.</value>
+  </data>
+  <data name="FailedToCreateVehicle" xml:space="preserve">
+    <value>Failed to create vehicle.</value>
+  </data>
+  <data name="VehiclesRetrieved" xml:space="preserve">
+    <value>Vehicles retrieved successfully.</value>
+  </data>
+  <data name="VehicleRetrieved" xml:space="preserve">
+    <value>Vehicle retrieved successfully.</value>
+  </data>
+  <data name="VehicleAlreadyExists" xml:space="preserve">
+    <value>A vehicle with this number already exists.</value>
+  </data>
+  <data name="VehicleExistenceChecked" xml:space="preserve">
+    <value>Vehicle existence check completed.</value>
+  </data>
 </root>
