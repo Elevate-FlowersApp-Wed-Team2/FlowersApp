@@ -37,4 +37,8 @@
     <ProjectReference Include="..\FlowersApp.Shared\FlowersApp.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\Services\" />
+  </ItemGroup>
+
 </Project>

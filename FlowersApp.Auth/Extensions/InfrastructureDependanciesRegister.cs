@@ -4,7 +4,6 @@ using FlowersApp.Auth.Domain.Entities;
 using FlowersApp.Auth.Infrastructure.Persistence;
 using FlowersApp.Auth.Infrastructure.Persistence.Repositories;
 using FlowersApp.Auth.Infrastructure.Photos;
-using FlowersApp.Auth.Infrastructure.Services;
 using FlowersApp.Auth.Shared.Interfaces;
 using FlowersApp.Auth.Shared.Services;
 using Microsoft.AspNetCore.Identity;
