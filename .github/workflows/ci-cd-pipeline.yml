@@ -47,6 +47,9 @@ jobs:
           - service: auth
             project: FlowersApp.Auth
             dockerfile: ./FlowersApp.Auth/Dockerfile
+          - service: apigateway
+            project: FlowersApp.APIGateway
+            dockerfile: ./FlowersApp.APIGateway/Dockerfile
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -84,6 +87,8 @@ jobs:
         include:
           - service: auth
             dockerfile: ./FlowersApp.Auth/Dockerfile
+          - service: apigateway
+            dockerfile: ./FlowersApp.APIGateway/Dockerfile
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -133,6 +138,9 @@ jobs:
           - service: auth
             image: flowersapp-auth
             dockerfile: ./FlowersApp.Auth/Dockerfile
+          - service: apigateway
+            image: flowersapp-apigateway
+            dockerfile: ./FlowersApp.APIGateway/Dockerfile
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
