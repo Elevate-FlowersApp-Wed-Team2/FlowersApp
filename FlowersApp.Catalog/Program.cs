@@ -1,5 +1,6 @@
 using FlowersApp.Catalog.Extensions;
 using FlowersApp.Catalog.Middlewares;
+using FlowersApp.Catalog.Shared.Interfaces;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
@@ -26,6 +27,20 @@ public class Program
         {
             Predicate = check => check.Name == "self"
         });
+        var globalGroup = app.MapGroup("");
+
+        var endpointDefinitions = typeof(Program).Assembly
+            .GetTypes()
+            .Where(t => typeof(IEndpoint).IsAssignableFrom(t) && !t.IsAbstract)
+            .Select(Activator.CreateInstance)
+            .Cast<IEndpoint>();
+
+        foreach (var endpoint in endpointDefinitions)
+        {
+            endpoint.MapEndpoint(globalGroup);
+        }
+
+        app.ApplyDatabaseMigrations(app.Logger);
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
