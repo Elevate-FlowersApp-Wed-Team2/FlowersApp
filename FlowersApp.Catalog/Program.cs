@@ -1,7 +1,9 @@
 using FlowersApp.Catalog.Extensions;
+using FlowersApp.Catalog.Infrastructure.Persistence;
 using FlowersApp.Catalog.Middlewares;
 using FlowersApp.Catalog.Shared.Interfaces;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace FlowersApp.Catalog;

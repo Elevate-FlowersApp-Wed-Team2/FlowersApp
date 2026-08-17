@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FlowersApp.Catalog.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlowersApp.Catalog.Infrastructure.Persistence;
 
@@ -14,4 +15,5 @@ public class CatalogDbContext:DbContext
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(typeof(CatalogDbContext).Assembly);
     }
+    public DbSet<Product> Products { get; set; }
 }
