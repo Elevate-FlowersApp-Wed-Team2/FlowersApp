@@ -8,5 +8,6 @@
   </Project>
   <Project Path="FlowersApp.APIGateway/FlowersApp.APIGateway.csproj" Id="3f1135a3-4061-4226-b2c4-e5684b452aec" />
   <Project Path="FlowersApp.Auth/FlowersApp.Auth.csproj" />
+  <Project Path="FlowersApp.Catalog/FlowersApp.Catalog.csproj" Id="a0789f96-4dd8-492c-9b29-087f2c26ae88" />
   <Project Path="FlowersApp.Shared/FlowersApp.Shared.csproj" Id="1bda54d4-5fe9-4387-893a-707673ac4c1d" />
 </Solution>
