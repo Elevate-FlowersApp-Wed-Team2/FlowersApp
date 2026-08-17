@@ -89,6 +89,29 @@ services:
     networks:
       - myapp-network
 
+  flowersapp.catalog:
+    image: ${DOCKER_REGISTRY-}flowersappcatalog
+    build:
+      context: .
+      dockerfile: FlowersApp.Catalog/Dockerfile
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health/live"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+    depends_on:
+      - sqlserver
+      - redis
+
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=FlowersApp.CatalogDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - REDIS_CONNECTION_STRING=redis:6379,password=your_redis_password,abortConnect=false
+    networks:
+      - myapp-network
+
 
 
 
