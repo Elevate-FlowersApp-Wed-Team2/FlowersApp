@@ -6,7 +6,8 @@ public static class LocalizationRegister
 {
     public static IServiceCollection AddAppLocalization(this IServiceCollection services)
     {
-        services.AddLocalization();
+        //services.AddLocalization();
+        services.AddLocalization(options => options.ResourcesPath = "Resources");
 
         var supportedCultures = new[] { "en", "ar"};
         services.Configure<RequestLocalizationOptions>(options =>

@@ -9,4 +9,12 @@ public static class Endpoints
 
         public const string GetProducts = $"{CatalogBase}/products";
     }
+    public static class Category
+    {
+        private const string CategoryBase = $"{BasePath}/catalog/categories";
+        public const string GetCategories = CategoryBase;
+        public const string GetCategoryById = $"{CategoryBase}/{{id}}";
+
+    }
+
 }

@@ -261,7 +261,7 @@
   <data name="LoginSuccessful" xml:space="preserve">
     <value>Login successful</value>
   </data>
-<data name="VehicleCreated" xml:space="preserve">
+  <data name="VehicleCreated" xml:space="preserve">
     <value>Vehicle created successfully.</value>
   </data>
   <data name="FailedToCreateVehicle" xml:space="preserve">
@@ -278,5 +278,20 @@
   </data>
   <data name="VehicleExistenceChecked" xml:space="preserve">
     <value>Vehicle existence check completed.</value>
+  </data>
+  <data name="CatalogRetrieved" xml:space="preserve">
+    <value>Products retrieved successfully</value>
+  </data>
+  <data name="CategoriesRetrieved" xml:space="preserve">
+    <value>Categories retrieved successfully</value>
+  </data>
+  <data name="CategoryRetrieved" xml:space="preserve">
+    <value>Category retrieved successfully</value>
+  </data>
+  <data name="CategoryNotFound" xml:space="preserve">
+    <value>This category could not be found</value>
+  </data>
+  <data name="CategoryArchived" xml:space="preserve">
+    <value>This category is no longer available</value>
   </data>
 </root>
