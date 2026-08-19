@@ -64,6 +64,8 @@ services:
        - sqlserver
        - redis
        - flowersapp.auth
+       - flowersapp.catalog
+       - flowersapp.notification
 
 
   flowersapp.auth:
@@ -112,7 +114,26 @@ services:
     networks:
       - myapp-network
 
+  flowersapp.notification:
+    image: ${DOCKER_REGISTRY-}flowersappnotification
 
+    build:
+      context: .
+      dockerfile: FlowersApp.Notification/Dockerfile
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health/live"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    depends_on:
+      - sqlserver
+
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=FlowersApp.NotificationDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+    networks:
+      - myapp-network
 
 
 
