@@ -16,4 +16,5 @@ public class CatalogDbContext:DbContext
         builder.ApplyConfigurationsFromAssembly(typeof(CatalogDbContext).Assembly);
     }
     public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
 }
