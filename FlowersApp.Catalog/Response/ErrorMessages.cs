@@ -1,4 +1,4 @@
-﻿namespace FlowersApp.Catalog.Shared.Response;
+﻿namespace FlowersApp.Catalog.Response;
 
 public class ErrorMessages
 {

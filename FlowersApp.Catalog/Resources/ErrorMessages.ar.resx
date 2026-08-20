@@ -294,4 +294,16 @@
   <data name="CategoryArchived" xml:space="preserve">
     <value>هذه الفئة لم تعد متاحة</value>
   </data>
+  <data name="OccasionsRetrieved" xml:space="preserve">
+    <value>تم استرجاع المناسبات بنجاح</value>
+  </data>
+  <data name="OccasionRetrieved" xml:space="preserve">
+    <value>تم استرجاع المناسبة بنجاح</value>
+  </data>
+  <data name="OccasionNotFound" xml:space="preserve">
+    <value>هذه المناسبة غير موجودة</value>
+  </data>
+  <data name="OccasionArchived" xml:space="preserve">
+    <value>هذه المناسبة لم تعد متاحة</value>
+  </data>
 </root>

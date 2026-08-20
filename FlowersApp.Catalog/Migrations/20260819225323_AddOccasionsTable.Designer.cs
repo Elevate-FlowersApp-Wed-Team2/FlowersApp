@@ -4,6 +4,7 @@ using FlowersApp.Catalog.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlowersApp.Catalog.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    partial class CatalogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260819225323_AddOccasionsTable")]
+    partial class AddOccasionsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,7 +112,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("IsActive", "SortOrder");
 
-                    b.ToTable("Occasions");
+                    b.ToTable("Occasion");
                 });
 
             modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Product", b =>
@@ -162,48 +165,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("OccasionProduct", b =>
-                {
-                    b.Property<Guid>("OccasionsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("OccasionsId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("ProductOccasions", (string)null);
-                });
-
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Product", b =>
-                {
-                    b.HasOne("FlowersApp.Catalog.Domain.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("OccasionProduct", b =>
-                {
-                    b.HasOne("FlowersApp.Catalog.Domain.Entities.Occasion", null)
-                        .WithMany()
-                        .HasForeignKey("OccasionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FlowersApp.Catalog.Domain.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

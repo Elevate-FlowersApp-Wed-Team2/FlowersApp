@@ -4,6 +4,7 @@ using FluentValidation.Results;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using System.Net;
+using FlowersApp.Catalog.Response;
 
 namespace FlowersApp.Catalog.Middlewares;
 

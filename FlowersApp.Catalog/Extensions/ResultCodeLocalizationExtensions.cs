@@ -1,4 +1,5 @@
-﻿using FlowersApp.Catalog.Shared.Response;
+﻿using FlowersApp.Catalog.Response;
+using FlowersApp.Catalog.Shared.Response;
 using Microsoft.Extensions.Localization;
 
 namespace FlowersApp.Catalog.Extensions;
