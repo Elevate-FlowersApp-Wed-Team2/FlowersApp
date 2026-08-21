@@ -132,6 +132,18 @@
   <data name="CategoryArchived" xml:space="preserve">
     <value>This category is no longer available</value>
   </data>
+  <data name="OccasionsRetrieved" xml:space="preserve">
+    <value>Occasions retrieved successfully</value>
+  </data>
+  <data name="OccasionRetrieved" xml:space="preserve">
+    <value>Occasion retrieved successfully</value>
+  </data>
+  <data name="OccasionNotFound" xml:space="preserve">
+    <value>This occasion could not be found</value>
+  </data>
+  <data name="OccasionArchived" xml:space="preserve">
+    <value>This occasion is no longer available</value>
+  </data>
   <data name="SectionRetrieved" xml:space="preserve">
     <value> Section Retrieved successfully</value>
   </data>

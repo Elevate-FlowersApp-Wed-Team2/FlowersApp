@@ -23,4 +23,11 @@ public static class Endpoints
         public const string GetHomeSections = $"{HomeBase}/sections";
     }
 
+    public static class Occasion
+    {
+        private const string OccasionBase = $"{BasePath}/catalog/occasions";
+
+        public const string GetOccasions = OccasionBase;
+        public const string GetOccasionById = $"{OccasionBase}/{{id}}";
+    }
 }

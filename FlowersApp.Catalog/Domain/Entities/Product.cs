@@ -12,5 +12,7 @@ namespace FlowersApp.Catalog.Domain.Entities
         public Guid StoreId { get; set; }
         public Guid? CategoryId { get; set; }
         public bool IsActive { get; set; }
+        public Category Category { get; set; }
+        public List<Occasion> Occasions { get; set; } = new(); // many-to-many
     }
 }

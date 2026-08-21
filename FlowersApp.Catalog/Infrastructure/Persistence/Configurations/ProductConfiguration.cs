@@ -13,6 +13,9 @@ namespace FlowersApp.Catalog.Infrastructure.Persistence.Configurations
 
             builder.Property(p => p.DiscountPercentage)
                 .HasColumnType("decimal(5,2)");
+            builder.HasMany(p => p.Occasions)
+                  .WithMany(o => o.Products)
+                  .UsingEntity(j => j.ToTable("ProductOccasions"));
 
         }
     }

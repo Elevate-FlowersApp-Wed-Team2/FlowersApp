@@ -20,4 +20,5 @@ public class CatalogDbContext:DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Section> Sections { get; set; }
     public DbSet<Occasion> Occasions { get; set; }
+    DbSet<Occasion> Occasions { get; set; }
 }
