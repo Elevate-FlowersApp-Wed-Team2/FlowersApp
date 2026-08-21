@@ -15,6 +15,4 @@ public sealed class Section : BaseEntity
 
     public Occasion? Occasion { get; set; }
     public Category? Category { get; set; }
-
-
 }

@@ -37,47 +37,6 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.Property<string>("IconUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Occasion", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
@@ -109,7 +68,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("IsActive", "SortOrder");
 
-                    b.ToTable("Occasions");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Product", b =>
@@ -167,45 +126,6 @@ namespace FlowersApp.Catalog.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("OccasionProduct", b =>
-                {
-                    b.Property<Guid>("OccasionsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("OccasionsId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("ProductOccasions", (string)null);
-                });
-
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Product", b =>
-                {
-                    b.HasOne("FlowersApp.Catalog.Domain.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("OccasionProduct", b =>
-                {
-                    b.HasOne("FlowersApp.Catalog.Domain.Entities.Occasion", null)
-                        .WithMany()
-                        .HasForeignKey("OccasionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FlowersApp.Catalog.Domain.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("FloweryApp.Api.Domain.Entities.Occasion", b =>
                 {
                     b.Property<Guid>("Id")
@@ -221,17 +141,26 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("SortOrder")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -240,6 +169,8 @@ namespace FlowersApp.Catalog.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IsActive", "SortOrder");
 
                     b.ToTable("Occasions");
                 });
@@ -300,200 +231,225 @@ namespace FlowersApp.Catalog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("506aefd4-44c5-4872-98be-3227f6a7f8f4"),
+                            Id = new Guid("d935caad-0f57-4211-8202-6613d9f1fd60"),
                             ArabicTitle = "المنتجات المميزة",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7355),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4910),
                             CreatedBy = "System",
                             Index = 1,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Featured Products",
                             Type = 1,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7356),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4911),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("3329cb70-0d84-452c-afa6-3429ec467058"),
+                            Id = new Guid("44d8f917-9ddc-45f6-825f-6915fa216723"),
                             ArabicTitle = "الوافدون الجدد",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7364),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4928),
                             CreatedBy = "System",
                             Index = 2,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "New Arrivals",
                             Type = 1,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7364),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4928),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("690c9830-06c9-461f-86db-0750563e4570"),
+                            Id = new Guid("b456c38c-0f44-4ae0-88ae-7e81fcaca8ee"),
                             ArabicTitle = "الأكثر رواجاً الآن",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7367),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4931),
                             CreatedBy = "System",
                             Index = 3,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Trending Now",
                             Type = 1,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7367),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4931),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("805a94ae-6e18-4ddc-9f09-aa8a7bdd508c"),
+                            Id = new Guid("f8a9d8b5-5064-4700-ae1f-b285f0620c79"),
                             ArabicTitle = "تسوق حسب الفئة",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7370),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4933),
                             CreatedBy = "System",
                             Index = 4,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Shop by Category",
                             Type = 2,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7370),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4934),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("6c0d563c-8ea8-4784-b917-f9cb4cb355e1"),
+                            Id = new Guid("3790fd7d-628c-4f3d-a7c8-79da894fb3fb"),
                             ArabicTitle = "الفئات الشائعة",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7374),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4936),
                             CreatedBy = "System",
                             Index = 5,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Popular Categories",
                             Type = 2,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7374),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4936),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("cd2251fc-22cf-43de-8e7d-5e6329be2d04"),
+                            Id = new Guid("42492bfc-a28f-473d-8e14-a571b46a77ac"),
                             ArabicTitle = "المناسبات الخاصة",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7377),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4939),
                             CreatedBy = "System",
                             Index = 6,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Special Occasions",
                             Type = 3,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7377),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4940),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("69866bf1-12af-4305-8355-d1078639c8dd"),
+                            Id = new Guid("a3f8274c-0338-4f47-be69-dcf6eb6b56d6"),
                             ArabicTitle = "مجموعات العطلات",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7379),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4942),
                             CreatedBy = "System",
                             Index = 7,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Holiday Collections",
                             Type = 3,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7380),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4942),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("3cb93a91-1f69-4cba-8358-e1287eb93871"),
+                            Id = new Guid("d10f68c3-ebd9-4ed8-a28d-100ae356ba61"),
                             ArabicTitle = "عروض أعياد الميلاد",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7390),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4944),
                             CreatedBy = "System",
                             Index = 8,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Birthday Specials",
                             Type = 3,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7390),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4945),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("58e50112-7442-4c11-82be-22a5c847dd82"),
+                            Id = new Guid("a6c971c2-9b18-4114-8555-a8e2ffce30cd"),
                             ArabicTitle = "تخفيضات الصيف",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7393),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4947),
                             CreatedBy = "System",
                             Index = 9,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Summer Sale",
                             Type = 4,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7393),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4947),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("ca118084-7bd2-492f-a8cb-4c5eed016d07"),
+                            Id = new Guid("dcddd700-f441-47e5-ade9-dd6afff560cb"),
                             ArabicTitle = "عرض خاص بعيد الأم",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7396),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4952),
                             CreatedBy = "System",
                             Index = 10,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Mother's Day Special",
                             Type = 4,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7396),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4952),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("971056ae-4e7d-43ea-841f-07e8ee9971c4"),
+                            Id = new Guid("156460b5-a0aa-4c94-87df-a918685c6e83"),
                             ArabicTitle = "تخفيضات سريعة",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7398),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4954),
                             CreatedBy = "System",
                             Index = 11,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Flash Sale",
                             Type = 4,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7399),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4955),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("67b3c747-fdeb-4c99-950c-b364c89dce02"),
+                            Id = new Guid("0e496fb9-1c2a-4634-97c1-0286c4f7365f"),
                             ArabicTitle = "الأكثر مبيعاً",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7401),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4957),
                             CreatedBy = "System",
                             Index = 12,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Best Sellers",
                             Type = 5,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7402),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4957),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("31482c92-c341-476f-bc36-ed98294535be"),
+                            Id = new Guid("756fd9c6-1c39-42de-9685-aaf90b4fdff8"),
                             ArabicTitle = "المفضلات لدى العملاء",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7406),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4959),
                             CreatedBy = "System",
                             Index = 13,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Customer Favorites",
                             Type = 5,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7406),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4960),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("f4a5d895-9bcc-4ec5-a568-2ae1403c03d2"),
+                            Id = new Guid("fb9ea25b-fcd9-455f-ac04-5ca9d5ef6b49"),
                             ArabicTitle = "الأعلى تقييماً",
-                            CreatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7409),
+                            CreatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4962),
                             CreatedBy = "System",
                             Index = 14,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Top Rated",
                             Type = 5,
-                            UpdatedAt = new DateTime(2026, 8, 21, 14, 27, 0, 619, DateTimeKind.Utc).AddTicks(7409),
+                            UpdatedAt = new DateTime(2026, 8, 21, 17, 6, 31, 772, DateTimeKind.Utc).AddTicks(4963),
                             UpdatedBy = "System"
                         });
+                });
+
+            modelBuilder.Entity("OccasionProduct", b =>
+                {
+                    b.Property<Guid>("OccasionsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("OccasionsId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("ProductOccasions", (string)null);
+                });
+
+            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Product", b =>
+                {
+                    b.HasOne("FlowersApp.Catalog.Domain.Entities.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("FloweryApp.Api.Domain.Entities.Section", b =>
@@ -509,6 +465,21 @@ namespace FlowersApp.Catalog.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Occasion");
+                });
+
+            modelBuilder.Entity("OccasionProduct", b =>
+                {
+                    b.HasOne("FloweryApp.Api.Domain.Entities.Occasion", null)
+                        .WithMany()
+                        .HasForeignKey("OccasionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlowersApp.Catalog.Domain.Entities.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
