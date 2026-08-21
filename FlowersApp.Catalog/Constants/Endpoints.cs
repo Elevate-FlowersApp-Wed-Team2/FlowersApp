@@ -23,6 +23,12 @@ public static class Endpoints
         public const string GetHomeSections = $"{HomeBase}/sections";
     }
 
+    public static class Admin
+    {
+        private const string Base = $"{BasePath}/Admin";
+        public const string GetHomeSections = $"{Base}/Home/sections";
+    }
+
     public static class Occasion
     {
         private const string OccasionBase = $"{BasePath}/catalog/occasions";
