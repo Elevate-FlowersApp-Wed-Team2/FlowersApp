@@ -117,168 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Validation_Required" xml:space="preserve">
-    <value>{0} is required.</value>
-  </data>
-  <data name="Error_Unexpected" xml:space="preserve">
-    <value>An unexpected error occurred.</value>
-  </data>
-  <data name="DriverIsAlreadyExist" xml:space="preserve">
-    <value>Driver already exists.</value>
-  </data>
-  <data name="VehicleNotFound" xml:space="preserve">
-    <value> Vehicle not found.</value>
-  </data>
-  <data name="UserAlreadyApplied" xml:space="preserve">
-    <value>User Already Applied</value>
-  </data>
-  <data name="test" xml:space="preserve">
-    <value>test</value>
-  </data>
-  <data name="NameRequired" xml:space="preserve">
-    <value>Name is Required</value>
-  </data>
-  <data name="ValidationFailureMessage" xml:space="preserve">
-    <value>Validation failed</value>
-  </data>
-  <data name="NameChractersMismatch" xml:space="preserve">
-    <value>Full name cannot exceed 100 characters</value>
-  </data>
-  <data name="EmailRequired" xml:space="preserve">
-    <value>Email is required.</value>
-  </data>
-  <data name="EmailTooLong" xml:space="preserve">
-    <value>Email cannot exceed 255 characters.</value>
-  </data>
-  <data name="PhoneRequired" xml:space="preserve">
-    <value>Phone number is required.</value>
-  </data>
-  <data name="NidRequired" xml:space="preserve">
-    <value>National ID number is required.</value>
-  </data>
-  <data name="NidTooLong" xml:space="preserve">
-    <value>National ID cannot exceed 20 characters.</value>
-  </data>
-  <data name="LicenceNumberRequired" xml:space="preserve">
-    <value>License number is required.</value>
-  </data>
-  <data name="LicenceNumberTooLong" xml:space="preserve">
-    <value>License number cannot exceed 50 characters.</value>
-  </data>
-  <data name="PasswordRequired" xml:space="preserve">
-    <value>Password is required.</value>
-  </data>
-  <data name="PasswordTooShort" xml:space="preserve">
-    <value>Password must be at least 6 characters.</value>
-  </data>
-  <data name="PasswordMissingUppercase" xml:space="preserve">
-    <value>Password must contain at least one uppercase letter.</value>
-  </data>
-  <data name="PasswordMissingDigit" xml:space="preserve">
-    <value>Password must contain at least one digit.</value>
-  </data>
-  <data name="PasswordMismatch" xml:space="preserve">
-    <value>Passwords do not match.</value>
-  </data>
-  <data name="LicenceImageInvalid" xml:space="preserve">
-    <value>Licence image is invalid, too large, or an unsupported format.</value>
-  </data>
-  <data name="NidImageInvalid" xml:space="preserve">
-    <value>National ID image is invalid, too large, or an unsupported format.</value>
-  </data>
-  <data name="EmailAlreadyRegistered" xml:space="preserve">
-    <value>Email Already Registered</value>
-  </data>
-  <data name="InvalidEmail" xml:space="preserve">
-    <value>Email format is invalid.</value>
-  </data>
-  <data name="PasswordResetOtpSent" xml:space="preserve">
-    <value>If this email is registered, a code has been sent.</value>
-  </data>
-  <data name="OtpRequired" xml:space="preserve">
-    <value>OTP is required.</value>
-  </data>
-  <data name="InvalidOrExpiredOtp" xml:space="preserve">
-    <value>Invalid or expired verification code.</value>
-  </data>
-  <data name="OtpExpired" xml:space="preserve">
-    <value>Code expired, please request a new one.</value>
-  </data>
-  <data name="OtpMaxAttemptsExceeded" xml:space="preserve">
-    <value>Too many invalid attempts. Please request a new code.</value>
-  </data>
-  <data name="OtpResendTooSoon" xml:space="preserve">
-    <value>Please wait before requesting another code.</value>
-  </data>
-  <data name="OtpVerifiedSuccessfully" xml:space="preserve">
-    <value>Verification code accepted.</value>
-  </data>
-  <data name="InvalidOrExpiredResetToken" xml:space="preserve">
-    <value>Invalid or expired reset token.</value>
-  </data>
-  <data name="PasswordResetSuccessful" xml:space="preserve">
-    <value>Password reset successfully. Please log in again.</value>
-  </data>
-  <data name="TokenRefreshedSuccessfully" xml:space="preserve">
-    <value>Token refreshed successfully.</value>
-  </data>
-  <data name="InvalidRefreshToken" xml:space="preserve">
-    <value>Invalid refresh token.</value>
-  </data>
-  <data name="RefreshTokenReuseDetected" xml:space="preserve">
-    <value>Refresh token reuse detected. Please log in again.</value>
-  </data>
-  <data name="SessionsRetrievedSuccessfully" xml:space="preserve">
-    <value>Sessions retrieved successfully.</value>
-  </data>
-  <data name="SessionRevokedSuccessfully" xml:space="preserve">
-    <value>Session revoked successfully.</value>
-  </data>
-  <data name="SessionNotFound" xml:space="preserve">
-    <value>Session not found.</value>
-  </data>
-  <data name="LoggedOutSuccessfully" xml:space="preserve">
-    <value>Logged out successfully.</value>
-  </data>
-  <data name="PasswordChangedSuccessfully" xml:space="preserve">
-    <value>Password changed successfully.</value>
-  </data>
-  <data name="UserNotFound" xml:space="preserve">
-    <value>User not found.</value>
-  </data>
-  <data name="InvalidCredentials" xml:space="preserve">
-    <value>Invalid email or password</value>
-  </data>
-  <data name="DriverAccountNotApproved" xml:space="preserve">
-    <value>Driver account is not approved yet</value>
-  </data>
-  <data name="DriverApplicationRejected" xml:space="preserve">
-    <value>Driver application was rejected</value>
-  </data>
-  <data name="TooManyFailedAttempts" xml:space="preserve">
-    <value>Too many failed login attempts. Please try again later.</value>
-  </data>
-  <data name="LoginSuccessful" xml:space="preserve">
-    <value>Login successful</value>
-  </data>
-  <data name="VehicleCreated" xml:space="preserve">
-    <value>Vehicle created successfully.</value>
-  </data>
-  <data name="FailedToCreateVehicle" xml:space="preserve">
-    <value>Failed to create vehicle.</value>
-  </data>
-  <data name="VehiclesRetrieved" xml:space="preserve">
-    <value>Vehicles retrieved successfully.</value>
-  </data>
-  <data name="VehicleRetrieved" xml:space="preserve">
-    <value>Vehicle retrieved successfully.</value>
-  </data>
-  <data name="VehicleAlreadyExists" xml:space="preserve">
-    <value>A vehicle with this number already exists.</value>
-  </data>
-  <data name="VehicleExistenceChecked" xml:space="preserve">
-    <value>Vehicle existence check completed.</value>
-  </data>
   <data name="CatalogRetrieved" xml:space="preserve">
     <value>Products retrieved successfully</value>
   </data>
@@ -305,5 +143,14 @@
   </data>
   <data name="OccasionArchived" xml:space="preserve">
     <value>This occasion is no longer available</value>
+  </data>
+  <data name="SectionRetrieved" xml:space="preserve">
+    <value> Section Retrieved successfully</value>
+  </data>
+  <data name="NotSupportedLanguage" xml:space="preserve">
+    <value>Wrong or Not Supported Language</value>
+  </data>
+  <data name="test" xml:space="preserve">
+    <value>Testt</value>
   </data>
 </root>

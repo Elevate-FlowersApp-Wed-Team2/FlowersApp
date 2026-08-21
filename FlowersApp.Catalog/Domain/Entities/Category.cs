@@ -1,4 +1,4 @@
-﻿namespace FlowersApp.Catalog.Domain.Entities
+namespace FlowersApp.Catalog.Domain.Entities
 {
     public class Category : BaseEntity
     {

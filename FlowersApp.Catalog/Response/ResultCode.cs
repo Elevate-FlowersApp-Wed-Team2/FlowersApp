@@ -14,4 +14,8 @@ public enum ResultCode
     OccasionRetrieved = 201,
     OccasionNotFound = 202,
     OccasionArchived = 203,
+
+    // Sections 
+    SectionRetrieved = 200,
+    NotSupportedLanguage = 201,
 }

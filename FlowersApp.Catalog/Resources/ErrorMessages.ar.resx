@@ -117,168 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Validation_Required" xml:space="preserve">
-    <value> {0} مطلوب.</value>
-  </data>
-  <data name="Error_Unexpected" xml:space="preserve">
-    <value>حدث خطأ غير متوقع.</value>
-  </data>
-  <data name="DriverIsAlreadyExist" xml:space="preserve">
-    <value>العميل موجود بالفعل</value>
-  </data>
-  <data name="VehicleNotFound" xml:space="preserve">
-    <value>خطا في بيانات السياره</value>
-  </data>
-  <data name="UserAlreadyApplied" xml:space="preserve">
-    <value>لقد قمت بالتقديم بالفعل</value>
-  </data>
-  <data name="test" xml:space="preserve">
-    <value>اختبار</value>
-  </data>
-  <data name="NameRequired" xml:space="preserve">
-    <value>الاسم مطلوب</value>
-  </data>
-  <data name="ValidationFailureMessage" xml:space="preserve">
-    <value>فشل التحقق من الصحة</value>
-  </data>
-  <data name="NameChractersMismatch" xml:space="preserve">
-    <value>الحد الاقصي للحروف الاسم 100 حرف</value>
-  </data>
-  <data name="EmailRequired" xml:space="preserve">
-    <value>البريد الإلكتروني مطلوب.</value>
-  </data>
-  <data name="EmailTooLong" xml:space="preserve">
-    <value>البريد الإلكتروني لا يتجاوز 255 حرفًا.</value>
-  </data>
-  <data name="PhoneRequired" xml:space="preserve">
-    <value>رقم الهاتف مطلوب.</value>
-  </data>
-  <data name="NidRequired" xml:space="preserve">
-    <value>الرقم القومي مطلوب.</value>
-  </data>
-  <data name="NidTooLong" xml:space="preserve">
-    <value>الرقم القومي لا يتجاوز 20 حرفًا.</value>
-  </data>
-  <data name="LicenceNumberRequired" xml:space="preserve">
-    <value>رقم الرخصة مطلوب.</value>
-  </data>
-  <data name="LicenceNumberTooLong" xml:space="preserve">
-    <value>رقم الرخصة لا يتجاوز 50 حرفًا.</value>
-  </data>
-  <data name="PasswordRequired" xml:space="preserve">
-    <value>كلمة المرور مطلوبة.</value>
-  </data>
-  <data name="PasswordTooShort" xml:space="preserve">
-    <value>يجب ألا تقل كلمة المرور عن 6 أحرف.</value>
-  </data>
-  <data name="PasswordMissingUppercase" xml:space="preserve">
-    <value>يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل.</value>
-  </data>
-  <data name="PasswordMissingDigit" xml:space="preserve">
-    <value>يجب أن تحتوي كلمة المرور على رقم واحد على الأقل.</value>
-  </data>
-  <data name="PasswordMismatch" xml:space="preserve">
-    <value>كلمتا المرور غير متطابقتين.</value>
-  </data>
-  <data name="LicenceImageInvalid" xml:space="preserve">
-    <value>صورة الرخصة غير صالحة أو كبيرة جدًا أو بصيغة غير مدعومة.</value>
-  </data>
-  <data name="NidImageInvalid" xml:space="preserve">
-    <value>صورة الرقم القومي غير صالحة أو كبيرة جدًا أو بصيغة غير مدعومة.</value>
-  </data>
-  <data name="EmailAlreadyRegistered" xml:space="preserve">
-    <value>المستخدم موجود بالفعل</value>
-  </data>
-  <data name="InvalidEmail" xml:space="preserve">
-    <value>صيغة البريد الإلكتروني غير صحيحة.</value>
-  </data>
-  <data name="PasswordResetOtpSent" xml:space="preserve">
-    <value>إذا كان هذا البريد مسجلاً، فقد تم إرسال رمز التحقق.</value>
-  </data>
-  <data name="OtpRequired" xml:space="preserve">
-    <value>رمز التحقق مطلوب.</value>
-  </data>
-  <data name="InvalidOrExpiredOtp" xml:space="preserve">
-    <value>رمز التحقق غير صالح أو منتهي الصلاحية.</value>
-  </data>
-  <data name="OtpExpired" xml:space="preserve">
-    <value>انتهت صلاحية الرمز، يرجى طلب رمز جديد.</value>
-  </data>
-  <data name="OtpMaxAttemptsExceeded" xml:space="preserve">
-    <value>محاولات كثيرة غير صحيحة. يرجى طلب رمز جديد.</value>
-  </data>
-  <data name="OtpResendTooSoon" xml:space="preserve">
-    <value>يرجى الانتظار قبل طلب رمز آخر.</value>
-  </data>
-  <data name="OtpVerifiedSuccessfully" xml:space="preserve">
-    <value>تم قبول رمز التحقق.</value>
-  </data>
-  <data name="InvalidOrExpiredResetToken" xml:space="preserve">
-    <value>رمز إعادة التعيين غير صالح أو منتهي الصلاحية.</value>
-  </data>
-  <data name="PasswordResetSuccessful" xml:space="preserve">
-    <value>تمت إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول مرة أخرى.</value>
-  </data>
-  <data name="TokenRefreshedSuccessfully" xml:space="preserve">
-    <value>تم تحديث الرمز بنجاح.</value>
-  </data>
-  <data name="InvalidRefreshToken" xml:space="preserve">
-    <value>رمز التحديث غير صالح.</value>
-  </data>
-  <data name="RefreshTokenReuseDetected" xml:space="preserve">
-    <value>تم اكتشاف إعادة استخدام رمز التحديث. يرجى تسجيل الدخول مرة أخرى.</value>
-  </data>
-  <data name="SessionsRetrievedSuccessfully" xml:space="preserve">
-    <value>تم استرجاع الجلسات بنجاح.</value>
-  </data>
-  <data name="SessionRevokedSuccessfully" xml:space="preserve">
-    <value>تم إلغاء الجلسة بنجاح.</value>
-  </data>
-  <data name="SessionNotFound" xml:space="preserve">
-    <value>الجلسة غير موجودة.</value>
-  </data>
-  <data name="LoggedOutSuccessfully" xml:space="preserve">
-    <value>تم تسجيل الخروج بنجاح.</value>
-  </data>
-  <data name="PasswordChangedSuccessfully" xml:space="preserve">
-    <value>تم تغيير كلمة المرور بنجاح.</value>
-  </data>
-  <data name="UserNotFound" xml:space="preserve">
-    <value>المستخدم غير موجود.</value>
-  </data>
-  <data name="InvalidCredentials" xml:space="preserve">
-    <value>البريد الإلكتروني أو كلمة المرور غير صحيحة</value>
-  </data>
-  <data name="DriverAccountNotApproved" xml:space="preserve">
-    <value>حساب السائق غير معتمد بعد</value>
-  </data>
-  <data name="DriverApplicationRejected" xml:space="preserve">
-    <value>تم رفض طلب السائق</value>
-  </data>
-  <data name="TooManyFailedAttempts" xml:space="preserve">
-    <value>محاولات تسجيل دخول فاشلة كثيرة. يرجى المحاولة لاحقاً.</value>
-  </data>
-  <data name="LoginSuccessful" xml:space="preserve">
-    <value>تم تسجيل الدخول بنجاح</value>
-  </data>
-  <data name="VehicleCreated" xml:space="preserve">
-    <value>تم إنشاء المركبة بنجاح</value>
-  </data>
-  <data name="FailedToCreateVehicle" xml:space="preserve">
-    <value>فشل إنشاء المركبة</value>
-  </data>
-  <data name="VehiclesRetrieved" xml:space="preserve">
-    <value>تم استرجاع المركبات بنجاح</value>
-  </data>
-  <data name="VehicleRetrieved" xml:space="preserve">
-    <value>تم استرجاع بيانات المركبة بنجاح</value>
-  </data>
-  <data name="VehicleAlreadyExists" xml:space="preserve">
-    <value>توجد مركبة بنفس الرقم مسبقًا</value>
-  </data>
-  <data name="VehicleExistenceChecked" xml:space="preserve">
-    <value>تم التحقق من وجود المركبة</value>
-  </data>
   <data name="CatalogRetrieved" xml:space="preserve">
     <value>تم استرجاع المنتجات بنجاح</value>
   </data>
@@ -305,5 +143,14 @@
   </data>
   <data name="OccasionArchived" xml:space="preserve">
     <value>هذه المناسبة لم تعد متاحة</value>
+  </data>
+  <data name="SectionRetrieved" xml:space="preserve">
+    <value>تم ارجاع التقسيمات بنجاح</value>
+  </data>
+  <data name="NotSupportedLanguage" xml:space="preserve">
+    <value>لغه غير صحيحه او غير مدعومه</value>
+  </data>
+  <data name="test" xml:space="preserve">
+    <value>اختبار</value>
   </data>
 </root>

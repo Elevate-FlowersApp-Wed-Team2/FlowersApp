@@ -1,5 +1,12 @@
-﻿namespace FlowersApp.Catalog.Domain.Entities
+using FlowersApp.Catalog.Domain.Entities;
+
+namespace FloweryApp.Api.Domain.Entities;
+
+public sealed class Occasion :BaseEntity
 {
+    public  string Name { get; set; }
+    public  string ImageUrl { get; set; }
+    public bool IsActive { get; set; } = true;
     public class Occasion : BaseEntity
     {
         public string Name { get; set; }
