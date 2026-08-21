@@ -19,7 +19,6 @@ public static class ApplicationDependanciesRegister
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LocalizationBehavior<,>));
         });
         services.AddValidatorsFromAssembly(typeof(ApplicationDependanciesRegister).Assembly);
-        services.AddAppLocalization();
         return services;
     }
 }

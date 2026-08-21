@@ -2,8 +2,10 @@
 using FlowersApp.Catalog.Shared.Response;
 using FluentValidation.Results;
 using Microsoft.Extensions.Localization;
+using FlowersApp.Catalog.Resources;
 using Newtonsoft.Json;
 using System.Net;
+using ErrorMessages = FlowersApp.Catalog.Resources.ErrorMessages;
 
 namespace FlowersApp.Catalog.Middlewares;
 

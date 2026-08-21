@@ -3,7 +3,10 @@ using FlowersApp.Catalog.Extensions;
 using FlowersApp.Catalog.Shared.Response;
 using MediatR;
 using Microsoft.Extensions.Localization;
+using FlowersApp.Catalog.Resources;
+
 using System.Globalization;
+using ErrorMessages = FlowersApp.Catalog.Resources.ErrorMessages;
 
 namespace FlowersApp.Catalog.Shared.Behaviours;
 

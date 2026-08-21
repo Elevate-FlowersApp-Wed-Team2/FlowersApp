@@ -7,5 +7,4 @@ public sealed class Occasion :BaseEntity
     public  string Name { get; set; }
     public  string ImageUrl { get; set; }
     public bool IsActive { get; set; } = true;
-    public int? StoreId { get; set; }
 }

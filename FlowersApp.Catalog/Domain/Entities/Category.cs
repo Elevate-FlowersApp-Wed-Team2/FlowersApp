@@ -1,11 +1,10 @@
-using FlowersApp.Catalog.Domain.Entities;
-
-namespace FloweryApp.Api.Domain.Entities;
-
-public sealed class Category : BaseEntity
+namespace FlowersApp.Catalog.Domain.Entities
 {
-    public string Name { get; set; }
-    public  string IconUrl { get; set; }
-    public bool IsActive { get; set; } = true;
-    public int? StoreId { get; set; }
+    public class Category : BaseEntity
+    {
+        public string Name { get; set; }
+        public string IconUrl { get; set; }
+        public bool IsActive { get; set; }
+        public int SortOrder { get; set; }
+    }
 }

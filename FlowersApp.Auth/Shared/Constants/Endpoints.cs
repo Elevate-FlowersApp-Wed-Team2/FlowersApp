@@ -1,4 +1,4 @@
-namespace FlowersApp.Auth.Shared.Constants;
+﻿namespace FlowersApp.Auth.Shared.Constants;
 
 public static class Endpoints
 {
