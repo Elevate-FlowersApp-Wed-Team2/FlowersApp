@@ -1,4 +1,5 @@
 ﻿using FlowersApp.Catalog.Domain.Entities;
+using FloweryApp.Api.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

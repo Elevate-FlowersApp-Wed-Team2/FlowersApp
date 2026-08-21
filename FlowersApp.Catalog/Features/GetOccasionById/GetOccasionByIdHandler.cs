@@ -4,6 +4,7 @@ using FlowersApp.Catalog.Infrastructure.Persistence.Repositories;
 using FlowersApp.Catalog.Response;
 using FlowersApp.Catalog.Shared.Interfaces;
 using FlowersApp.Catalog.Shared.Response;
+using FloweryApp.Api.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 

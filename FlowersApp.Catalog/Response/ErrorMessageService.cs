@@ -1,6 +1,7 @@
 ﻿using FlowersApp.Catalog.Response;
 using FlowersApp.Catalog.Resources;
 using Microsoft.Extensions.Localization;
+using ErrorMessages = FlowersApp.Catalog.Resources.ErrorMessages;
 
 namespace FlowersApp.Catalog.Shared.Response
 {

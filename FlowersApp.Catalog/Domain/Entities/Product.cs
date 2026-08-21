@@ -1,4 +1,5 @@
 ﻿using FlowersApp.Catalog.Domain.Entities;
+using FloweryApp.Api.Domain.Entities;
 
 namespace FlowersApp.Catalog.Domain.Entities
 {

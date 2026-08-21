@@ -2,6 +2,7 @@
 using FlowersApp.Catalog.Infrastructure.Persistence.Repositories;
 using FlowersApp.Catalog.Shared.Interfaces;
 using FlowersApp.Catalog.Shared.Response;
+using FloweryApp.Api.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlowersApp.Catalog.Features.GetOccasions
