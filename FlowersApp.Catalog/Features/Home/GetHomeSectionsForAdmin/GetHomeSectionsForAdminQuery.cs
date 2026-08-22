@@ -11,7 +11,7 @@ namespace FloweryApp.Api.Features.Home.GetHomeSectionsForAdmin;
 public sealed record GetHomeSectionsForAdminQuery()
     : IQuery<IReadOnlyList<GetHomeSectionsForAdminResponse>>;
 
-public record GetHomeSectionsForAdminResponse(Guid Id,string Type ,string Title,string ArabicTitle , int Index, bool IsActive
+public record GetHomeSectionsForAdminResponse(Guid Id,string Type ,string Title , int Index, bool IsActive
     ,Guid? OccasionId , Guid? CategoryId);
 
 public class GetHomeSectionsForAdminQueryHandler(Repository<Section> repository) 
@@ -25,7 +25,7 @@ public class GetHomeSectionsForAdminQueryHandler(Repository<Section> repository)
                                       .OrderBy(s => s.Index)
                                       .Select(s => new GetHomeSectionsForAdminResponse
                                       (
-                                          s.Id, s.Type.ToString(), s.Title, s.ArabicTitle,s.Index, s.IsActive,
+                                          s.Id, s.Type.ToString(), s.Title,s.Index, s.IsActive,
                                           s.OccasionId, s.CategoryId
 
                                       )).ToListAsync(cancellationToken);
