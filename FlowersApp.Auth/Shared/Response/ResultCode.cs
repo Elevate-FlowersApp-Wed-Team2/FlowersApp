@@ -91,4 +91,7 @@ public enum ResultCode
     DriverApplicationRejected = 702,
     TooManyFailedAttempts = 703,
     LoginSuccessful = 704,
+
+    // Catalog (750 -799)
+    CatalogRetrieved = 750,
 }
