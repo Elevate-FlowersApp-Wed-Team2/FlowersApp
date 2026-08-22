@@ -18,4 +18,9 @@ public enum ResultCode
     // Sections 
     SectionRetrieved = 200,
     NotSupportedLanguage = 201,
+    FailedToSaveSection =202,
+    SectionSavedSuccesfully =203,
+    SectionsNotFound = 204,
+    CanNotUpdateSections = 205,
+    SectionsUpdatedSuccesfully = 206,
 }

@@ -7,7 +7,6 @@ public sealed class Section : BaseEntity
 {
     public SectionType Type { get; set; }
     public string Title { get; set; }
-    public string ArabicTitle { get; set; }
     public int Index { get; set; }
     public bool IsActive { get; set; }
     public Guid? OccasionId { get; set; }

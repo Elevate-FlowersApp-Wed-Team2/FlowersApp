@@ -27,6 +27,8 @@ public static class Endpoints
     {
         private const string Base = $"{BasePath}/Admin";
         public const string GetHomeSections = $"{Base}/Home/sections";
+        public const string CreateNewSection = $"{Base}/Home/sections";
+        public const string UpdateSectionsOrderOrActive = $"{Base}/Home/sections";
     }
 
     public static class Occasion

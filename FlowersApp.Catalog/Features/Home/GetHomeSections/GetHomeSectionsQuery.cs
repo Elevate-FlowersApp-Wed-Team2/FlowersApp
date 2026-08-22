@@ -20,28 +20,14 @@ public class GetHomeSectionsQueryHandler(Repository<Section> repository) : IQuer
 
     public async Task<RequestResult<IReadOnlyList<HomeSectionResponse>>> Handle(GetHomeSectionsQuery request, CancellationToken cancellationToken)
     {
-        if(!Enum.TryParse<Languages>(request.Language,true ,out var languages))
-            return RequestResult<IReadOnlyList<HomeSectionResponse>>.Failure(ResultCode.NotSupportedLanguage);
-        var result = languages switch
-        {
-            Languages.en or Languages.English => await _repository.Get(s => s.IsActive)
+        var result = await _repository.Get(s => s.IsActive)
                                       .OrderBy(s => s.Index)
                                       .Select(s => new HomeSectionResponse
                                       (
                                           s.Id, s.Type.ToString(), s.Title, s.Index, s.IsActive,
                                           s.OccasionId, s.CategoryId
 
-                                      )).ToListAsync(cancellationToken),
-            Languages.ar or Languages.Arabic => await _repository.Get(s => s.IsActive)
-                                     .OrderBy(s => s.Index)
-                                      .Select(s => new HomeSectionResponse
-                                      (
-                                          s.Id, s.Type.ToString(), s.ArabicTitle, s.Index, s.IsActive,
-                                          s.OccasionId, s.CategoryId
-
-                                      )).ToListAsync(cancellationToken),
-            _ => new List<HomeSectionResponse>()
-        };
+                                      )).ToListAsync(cancellationToken);
         return RequestResult<IReadOnlyList<HomeSectionResponse>>.succeeded(result, ResultCode.SectionRetrieved);
     }
 }
