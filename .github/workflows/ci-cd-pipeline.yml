@@ -50,6 +50,15 @@ jobs:
           - service: apigateway
             project: FlowersApp.APIGateway
             dockerfile: ./FlowersApp.APIGateway/Dockerfile
+          - service: catalog
+            project: FlowersApp.Catalog
+            dockerfile: ./FlowersApp.Catalog/Dockerfile
+          - service: notification
+            project: FlowersApp.Notification
+            dockerfile: ./FlowersApp.Notification/Dockerfile
+          - service: cart
+            project: FlowersApp.Cart
+            dockerfile: ./FlowersApp.Cart/Dockerfile
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -89,6 +98,12 @@ jobs:
             dockerfile: ./FlowersApp.Auth/Dockerfile
           - service: apigateway
             dockerfile: ./FlowersApp.APIGateway/Dockerfile
+          - service: catalog
+            dockerfile: ./FlowersApp.Catalog/Dockerfile
+          - service: notification
+            dockerfile: ./FlowersApp.Notification/Dockerfile
+          - service: cart
+            dockerfile: ./FlowersApp.Cart/Dockerfile
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -141,6 +156,15 @@ jobs:
           - service: apigateway
             image: flowersapp-apigateway
             dockerfile: ./FlowersApp.APIGateway/Dockerfile
+          - service: catalog
+            image: flowersapp-catalog
+            dockerfile: ./FlowersApp.Catalog/Dockerfile
+          - service: notification
+            image: flowersapp-notification
+            dockerfile: ./FlowersApp.Notification/Dockerfile
+          - service: cart
+            image: flowersapp-cart
+            dockerfile: ./FlowersApp.Cart/Dockerfile
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
