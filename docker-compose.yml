@@ -135,6 +135,28 @@ services:
     networks:
       - myapp-network
 
+  flowersapp.cart:
+    image: ${DOCKER_REGISTRY-}flowersappcart
+    build:
+      context: .
+      dockerfile: FlowersApp.Cart/Dockerfile
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health/live"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+    depends_on:
+      - sqlserver
+      - redis
+
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=FlowersApp.CartDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - REDIS_CONNECTION_STRING=redis:6379,password=your_redis_password,abortConnect=false
+    networks:
+      - myapp-network
 
 
 volumes:
