@@ -50,7 +50,7 @@ public class Program
         }
 
         app.ApplyDatabaseMigrations(app.Logger);
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
         app.UseAuthorization();
 
