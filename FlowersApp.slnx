@@ -10,5 +10,6 @@
   <Project Path="FlowersApp.Auth/FlowersApp.Auth.csproj" />
   <Project Path="FlowersApp.Cart/FlowersApp.Cart.csproj" Id="0fdf6fb3-79b6-489f-a7eb-8cabb003e13f" />
   <Project Path="FlowersApp.Catalog/FlowersApp.Catalog.csproj" />
+  <Project Path="FlowersApp.Notification/FlowersApp.Notification.csproj" />
   <Project Path="FlowersApp.Shared/FlowersApp.Shared.csproj" Id="1bda54d4-5fe9-4387-893a-707673ac4c1d" />
 </Solution>
