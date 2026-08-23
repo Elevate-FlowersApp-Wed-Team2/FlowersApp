@@ -5,6 +5,9 @@ using FlowersApp.Catalog.Shared.Interfaces;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
+using System.Globalization;
 
 namespace FlowersApp.Catalog;
 
@@ -48,6 +51,23 @@ public class Program
         }
 
         app.ApplyDatabaseMigrations(app.Logger);
+        // Enable request localization using configured options
+        var locOptions = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value;
+        app.UseRequestLocalization(locOptions);
+        // Diagnostic: log embedded resource names so we can verify .resx compiled names
+        try
+        {
+            var asm = typeof(Program).Assembly;
+            var names = asm.GetManifestResourceNames();
+            foreach (var n in names)
+            {
+                app.Logger.LogInformation("Embedded resource: {name}", n);
+            }
+        }
+        catch (Exception ex)
+        {
+            app.Logger.LogWarning(ex, "Failed to enumerate embedded resources");
+        }
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {

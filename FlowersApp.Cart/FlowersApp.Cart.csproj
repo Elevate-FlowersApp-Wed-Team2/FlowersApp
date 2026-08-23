@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\AddToCart\" />
     <Folder Include="Infrastructure\Persistence\Migrations\" />
   </ItemGroup>
 

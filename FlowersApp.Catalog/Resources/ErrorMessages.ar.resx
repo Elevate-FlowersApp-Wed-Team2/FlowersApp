@@ -153,4 +153,25 @@
   <data name="test" xml:space="preserve">
     <value>اختبار</value>
   </data>
+ <data name="SectionRetrieved" xml:space="preserve">
+    <value>تم استرجاع القسم بنجاح.</value>
+  </data>
+  <data name="NotSupportedLanguage" xml:space="preserve">
+    <value>اللغة المحددة غير مدعومة.</value>
+  </data>
+  <data name="FailedToSaveSection" xml:space="preserve">
+    <value>فشل حفظ القسم.</value>
+  </data>
+  <data name="SectionSavedSuccesfully" xml:space="preserve">
+    <value>تم حفظ القسم بنجاح.</value>
+  </data>
+  <data name="SectionsNotFound" xml:space="preserve">
+    <value>لم يتم العثور على أي أقسام.</value>
+  </data>
+  <data name="CanNotUpdateSections" xml:space="preserve">
+    <value>لا يمكن تحديث الأقسام.</value>
+  </data>
+  <data name="SectionsUpdatedSuccesfully" xml:space="preserve">
+    <value>تم تحديث الأقسام بنجاح.</value>
+  </data>
 </root>
