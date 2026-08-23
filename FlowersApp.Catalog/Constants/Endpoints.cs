@@ -8,6 +8,7 @@ public static class Endpoints
         private const string CatalogBase = $"{BasePath}/catalog";
 
         public const string GetProducts = $"{CatalogBase}/products";
+        public const string GetProductById = $"{CatalogBase}/products";
     }
     public static class Category
     {

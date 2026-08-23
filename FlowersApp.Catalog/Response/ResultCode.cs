@@ -23,4 +23,8 @@ public enum ResultCode
     SectionsNotFound = 204,
     CanNotUpdateSections = 205,
     SectionsUpdatedSuccesfully = 206,
+
+    //Product
+    ProductNotFound = 300,
+    ProductRetrieved = 301
 }
