@@ -2,7 +2,6 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
@@ -13,6 +12,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["FlowersApp.Notification/FlowersApp.Notification.csproj", "FlowersApp.Notification/"]
+COPY ["FlowersApp.Shared/FlowersApp.Shared.csproj", "FlowersApp.Shared/"]
 RUN dotnet restore "./FlowersApp.Notification/FlowersApp.Notification.csproj"
 COPY . .
 WORKDIR "/src/FlowersApp.Notification"

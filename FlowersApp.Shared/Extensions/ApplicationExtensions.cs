@@ -1,8 +1,9 @@
-﻿using FlowersApp.Auth.Shared.Behaviours;
+using FlowersApp.Auth.Shared.Behaviours;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using FlowersApp.Shared.Interfaces;
+using FlowersApp.Shared.Services;
 
 namespace FlowersApp.Shared.Extensions;
 
@@ -21,7 +22,8 @@ public static class ApplicationExtensions
 
         //Add Fluent Validation
         services.AddValidatorsFromAssembly(typeof(TServiceMarker).Assembly);
-        services.AddScoped<ICurrentUserService, ICurrentUserService>();
+        services.AddHttpContextAccessor();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
         return services;
     }
 }

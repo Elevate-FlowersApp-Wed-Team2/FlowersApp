@@ -1,4 +1,6 @@
-﻿using FlowersApp.Notification.Infrastructure.Persistence;
+using FlowersApp.Notification.Infrastructure.BackgroundServices;
+using FlowersApp.Notification.Infrastructure.Firebase;
+using FlowersApp.Notification.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlowersApp.Notification.Extensions
@@ -12,6 +14,10 @@ namespace FlowersApp.Notification.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
+
+            services.AddScoped<IFcmService, FcmService>();
+            services.AddHostedService<NotificationRetryBackgroundService>();
+
             return services;
         }
     }
