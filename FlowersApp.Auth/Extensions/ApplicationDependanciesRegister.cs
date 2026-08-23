@@ -1,5 +1,6 @@
 ﻿using FlowersApp.Auth.Shared.Behaviours;
-using FlowersApp.Auth.Shared.Services;
+using FlowersApp.Auth.Shared.Interfaces;
+using FlowersApp.Shared.Extensions;
 using FluentValidation;
 using MediatR;
 
@@ -20,6 +21,7 @@ public static class ApplicationDependanciesRegister
         });
         services.AddValidatorsFromAssembly(typeof(ApplicationDependanciesRegister).Assembly);
         services.AddAppLocalization();
+        services.RegisterRabbitMq<IAuthMarker>(configuration);
         return services;
     }
 }

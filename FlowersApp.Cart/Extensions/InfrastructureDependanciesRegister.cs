@@ -2,6 +2,7 @@
 using FlowersApp.Cart.Infrastructure.Persistence.Repositories;
 using FlowersApp.Cart.Shared.Interfaces;
 using FlowersApp.Cart.Shared.Services;
+using FlowersApp.Shared.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,7 @@ public static class InfrastructureDependanciesRegister
         services.AddScoped<UnitOfWork>();
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
+        services.RegisterRabbitMq<ICartMarker>(configuration);
         return services;
     }
 }
