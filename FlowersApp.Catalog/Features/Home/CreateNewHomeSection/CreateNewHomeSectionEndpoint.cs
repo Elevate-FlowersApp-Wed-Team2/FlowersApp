@@ -17,8 +17,8 @@ public class CreateNewHomeSectionEndpoint : IEndpoint
             var result = await mediator.Send(request, cancellationToken);
             return result.Code switch
             {
-                ResultCode.SectionSavedSuccesfully => ApiResponse<CreateNewHomeSectionResponse>.Success(result.Result,System.Net.HttpStatusCode.Created),
-                _ => ApiResponse<CreateNewHomeSectionResponse>.Failure(result.Message,System.Net.HttpStatusCode.BadRequest),
+                ResultCode.SectionSavedSuccesfully => ApiResponse<CreateNewHomeSectionResponse>.Success(result.Result,System.Net.HttpStatusCode.Created,result.Message),
+                _ => ApiResponse<CreateNewHomeSectionResponse>.Failure(result.Message,System.Net.HttpStatusCode.BadRequest,result.Message),
             };
         })
         .Produces<ApiResponse<CreateNewHomeSectionResponse>>(StatusCodes.Status200OK)

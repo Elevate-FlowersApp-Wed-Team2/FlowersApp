@@ -18,8 +18,8 @@ public sealed class GetHomeSectionsForAdminEndpoint : IEndpoint
             var result = await mediator.Send(new GetHomeSectionsForAdminQuery());
             return result.Code switch
             {
-                ResultCode.SectionRetrieved => ApiResponse<IReadOnlyList<GetHomeSectionsForAdminResponse>>.Success(result.Result, System.Net.HttpStatusCode.OK),
-                _ => ApiResponse<IReadOnlyList<GetHomeSectionsForAdminResponse>>.Failure(result.Message, System.Net.HttpStatusCode.BadRequest),
+                ResultCode.SectionRetrieved => ApiResponse<IReadOnlyList<GetHomeSectionsForAdminResponse>>.Success(result.Result, System.Net.HttpStatusCode.OK ,result.Message),
+                _ => ApiResponse<IReadOnlyList<GetHomeSectionsForAdminResponse>>.Failure(result.Message, System.Net.HttpStatusCode.BadRequest,result.Message),
             };
         }).Produces<ApiResponse<IReadOnlyList<GetHomeSectionsForAdminResponse>>>(StatusCodes.Status200OK)
             .Produces<ApiResponse<IReadOnlyList<GetHomeSectionsForAdminResponse>>>(StatusCodes.Status400BadRequest)
