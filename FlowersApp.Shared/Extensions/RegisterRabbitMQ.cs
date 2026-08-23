@@ -1,5 +1,6 @@
 ﻿using FlowersApp.Shared.Models;
 using MassTransit;
+using MassTransit.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,10 +8,11 @@ namespace FlowersApp.Shared.Extensions;
 
 public static class RegisterRabbitMQ
 {
-    public static IServiceCollection RegisterRabbitMq(this IServiceCollection services ,IConfiguration configuration)
+    public static IServiceCollection RegisterRabbitMq<TAssemblyMarker>(this IServiceCollection services ,IConfiguration configuration)
     {
         services.AddMassTransit(cfg =>
         {
+            cfg.AddConsumers(typeof(TAssemblyMarker).Assembly);
             cfg.UsingRabbitMq((context, cfg) =>
             {
                 // 2. Configure RabbitMQ connection

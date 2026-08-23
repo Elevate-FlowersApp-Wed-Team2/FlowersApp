@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MassTransit;
+using FlowersApp.Shared.MessageContracts;
 
 namespace FlowersApp.Auth.Features.CustomerRegister;
 

@@ -155,10 +155,13 @@ services:
     depends_on:
       - sqlserver
       - redis
-
+      - rabbitmq
     environment:
       - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=FlowersApp.CartDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
       - REDIS_CONNECTION_STRING=redis:6379,password=your_redis_password,abortConnect=false
+      - RabbitMQ__Host=rabbitmq # <-- Add connection info for RabbitMQ
+      - RabbitMQ__UserName=guest
+      - RabbitMQ__Password=guest
     networks:
       - myapp-network
 
