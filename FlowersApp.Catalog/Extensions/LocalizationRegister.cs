@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+using System.Linq;
 
 namespace FlowersApp.Catalog.Extensions;
 
@@ -6,23 +8,22 @@ public static class LocalizationRegister
 {
     public static IServiceCollection AddAppLocalization(this IServiceCollection services)
     {
+        // Use default localization resource lookup (resx placed under namespace folders)
         services.AddLocalization();
-       // services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-        var supportedCultures = new[] { "en", "ar"};
+        var supportedCultures = new[] { new CultureInfo("en"), new CultureInfo("ar") };
         services.Configure<RequestLocalizationOptions>(options =>
         {
-            options.SetDefaultCulture(supportedCultures[0])
-                .AddSupportedCultures(supportedCultures)
-                .AddSupportedUICultures(supportedCultures);
+            options.DefaultRequestCulture = new RequestCulture(supportedCultures[0]);
+            options.SupportedCultures = supportedCultures.ToList();
+            options.SupportedUICultures = supportedCultures.ToList();
 
-            // This is what reads Accept-Language automatically
+            // This reads Accept-Language automatically
             options.RequestCultureProviders = new List<IRequestCultureProvider>
                {
                    new AcceptLanguageHeaderRequestCultureProvider()
                };
         });
-        //services.AddLocalization(options => options.ResourcesPath = "Resources");
         return services;
     }
 }

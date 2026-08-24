@@ -5,6 +5,8 @@ using FlowersApp.Auth.Shared.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MassTransit;
+using FlowersApp.Shared.MessageContracts;
 
 namespace FlowersApp.Auth.Features.CustomerRegister;
 
@@ -13,15 +15,17 @@ public class CustomerRegisterHandler : ICommandHandler<CustomerRegisterCommand, 
     private readonly UserManager<AppUser> _userManager;
     private readonly RoleManager<Role> _roleManager;
     private readonly AppDbContext _db;
+    private readonly IPublishEndpoint _publishEndpoint;
 
     public CustomerRegisterHandler(
         UserManager<AppUser> userManager,
         RoleManager<Role> roleManager,
-        AppDbContext db)
+        AppDbContext db , IPublishEndpoint publishEndpoint)
     {
         _userManager = userManager;
         _roleManager = roleManager;
         _db = db;
+        _publishEndpoint = publishEndpoint;
     }
 
     public async Task<RequestResult<Guid>> Handle(CustomerRegisterCommand request, CancellationToken cancellationToken)
@@ -83,6 +87,7 @@ public class CustomerRegisterHandler : ICommandHandler<CustomerRegisterCommand, 
         }
 
         await tx.CommitAsync(cancellationToken);
+        await _publishEndpoint.Publish(new CustomerRegisterEvent(user.Id.ToString(), user.Email), cancellationToken);
 
         return RequestResult<Guid>.succeeded(user.Id, ResultCode.RegistrationSuccessful);
     }

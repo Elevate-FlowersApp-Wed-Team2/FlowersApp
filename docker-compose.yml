@@ -51,13 +51,13 @@ services:
       dockerfile: FlowersApp.APIGateway/Dockerfile
 
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health/live"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/health/live || exit 1"]
       interval: 15s
       timeout: 3s
       retries: 3
       start_period: 10s
-    # ports:
-    #   - "9090:8080"
+    ports:
+      - "9090:8080"
     networks:
       - myapp-network
     depends_on:
@@ -75,7 +75,7 @@ services:
       dockerfile: FlowersApp.Auth/Dockerfile
 
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health/live"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/health/live || exit 1"]
       interval: 15s
       timeout: 3s
       retries: 3
@@ -84,10 +84,14 @@ services:
     depends_on:
       - sqlserver
       - redis
+      - rabbitmq
 
     environment:
       - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=FlowersApp.AuthDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
       - REDIS_CONNECTION_STRING=redis:6379,password=your_redis_password,abortConnect=false
+      - RabbitMQ__Host=rabbitmq # <-- Add connection info for RabbitMQ
+      - RabbitMQ__UserName=guest
+      - RabbitMQ__Password=guest
     networks:
       - myapp-network
 
@@ -98,7 +102,7 @@ services:
       dockerfile: FlowersApp.Catalog/Dockerfile
 
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health/live"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/health/live || exit 1"]
       interval: 15s
       timeout: 3s
       retries: 3
@@ -120,9 +124,10 @@ services:
     build:
       context: .
       dockerfile: FlowersApp.Notification/Dockerfile
+    
 
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health/live"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/health/live || exit 1"]
       interval: 15s
       timeout: 3s
       retries: 3
@@ -132,6 +137,9 @@ services:
 
     environment:
       - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=FlowersApp.NotificationDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - Firebase__CredentialsPath=/app/Secrets/flowersapp-5b282-firebase-adminsdk-fbsvc-291b465eff.json
+    volumes:
+      - ./Secrets/flowersapp-5b282-firebase-adminsdk-fbsvc-291b465eff.json:/app/Secrets/flowersapp-5b282-firebase-adminsdk-fbsvc-291b465eff.json:ro
     networks:
       - myapp-network
 
@@ -142,7 +150,7 @@ services:
       dockerfile: FlowersApp.Cart/Dockerfile
 
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health/live"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/health/live || exit 1"]
       interval: 15s
       timeout: 3s
       retries: 3
@@ -151,13 +159,27 @@ services:
     depends_on:
       - sqlserver
       - redis
-
+      - rabbitmq
     environment:
       - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=FlowersApp.CartDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
       - REDIS_CONNECTION_STRING=redis:6379,password=your_redis_password,abortConnect=false
+      - RabbitMQ__Host=rabbitmq # <-- Add connection info for RabbitMQ
+      - RabbitMQ__UserName=guest
+      - RabbitMQ__Password=guest
     networks:
       - myapp-network
 
+  rabbitmq:                             # <-- New RabbitMQ service
+    image: rabbitmq:3-management        # <-- Image with management UI [citation:4][citation:9]
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"                     # Port for your app to connect
+      - "15672:15672"                   # Port for the management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest      # Set default user
+      RABBITMQ_DEFAULT_PASS: guest      # Set default password
+    networks:
+      - myapp-network
 
 volumes:
   sqlserver_data:

@@ -17,8 +17,8 @@ public class UpdateSectionsOrderOrActiveStatusEndpoint : IEndpoint
             var result = await mediator.Send(request);
             return result.Code switch
             {
-                ResultCode.SectionsUpdatedSuccesfully => ApiResponse<List<UpdateSectionOrderOrActiveStatusResponse>>.Success(result.Result, System.Net.HttpStatusCode.OK),
-                _ => ApiResponse<List<UpdateSectionOrderOrActiveStatusResponse>>.Failure(result.Message, System.Net.HttpStatusCode.BadRequest),
+                ResultCode.SectionsUpdatedSuccesfully => ApiResponse<List<UpdateSectionOrderOrActiveStatusResponse>>.Success(result.Result, System.Net.HttpStatusCode.OK, result.Message),
+                _ => ApiResponse<List<UpdateSectionOrderOrActiveStatusResponse>>.Failure(result.Message, System.Net.HttpStatusCode.BadRequest, result.Message),
             };
 
         }).Produces<ApiResponse<List<UpdateSectionOrderOrActiveStatusResponse>>>(StatusCodes.Status200OK)

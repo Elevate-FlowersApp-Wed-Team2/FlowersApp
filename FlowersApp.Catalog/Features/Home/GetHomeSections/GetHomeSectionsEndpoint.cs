@@ -21,8 +21,8 @@ public sealed class GetHomeSectionsEndpoint : IEndpoint
             var result = await mediator.Send(new GetHomeSectionsQuery(acceptLanguage));
             return result.Code switch
             {
-                ResultCode.SectionRetrieved => ApiResponse<IReadOnlyList<HomeSectionResponse>>.Success(result.Result, System.Net.HttpStatusCode.OK),
-                _ => ApiResponse<IReadOnlyList<HomeSectionResponse>>.Failure(result.Message, System.Net.HttpStatusCode.BadRequest),
+                ResultCode.SectionRetrieved => ApiResponse<IReadOnlyList<HomeSectionResponse>>.Success(result.Result, System.Net.HttpStatusCode.OK,result.Message),
+                _ => ApiResponse<IReadOnlyList<HomeSectionResponse>>.Failure(result.Message, System.Net.HttpStatusCode.BadRequest,result.Message),
             };
         }).Produces<ApiResponse<IReadOnlyList<HomeSectionResponse>>>(StatusCodes.Status200OK)
             .Produces<ApiResponse<IReadOnlyList<HomeSectionResponse>>>(StatusCodes.Status400BadRequest)

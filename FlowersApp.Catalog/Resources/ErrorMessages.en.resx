@@ -153,4 +153,25 @@
   <data name="test" xml:space="preserve">
     <value>Testt</value>
   </data>
+<data name="SectionRetrieved" xml:space="preserve">
+    <value>Section retrieved successfully.</value>
+  </data>
+  <data name="NotSupportedLanguage" xml:space="preserve">
+    <value>The specified language is not supported.</value>
+  </data>
+  <data name="FailedToSaveSection" xml:space="preserve">
+    <value>Failed to save the section.</value>
+  </data>
+  <data name="SectionSavedSuccesfully" xml:space="preserve">
+    <value>Section saved successfully.</value>
+  </data>
+  <data name="SectionsNotFound" xml:space="preserve">
+    <value>No sections were found.</value>
+  </data>
+  <data name="CanNotUpdateSections" xml:space="preserve">
+    <value>Sections cannot be updated.</value>
+  </data>
+  <data name="SectionsUpdatedSuccesfully" xml:space="preserve">
+    <value>Sections updated successfully.</value>
+  </data>
 </root>
