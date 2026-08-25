@@ -150,6 +150,15 @@
   <data name="NotSupportedLanguage" xml:space="preserve">
     <value>Wrong or Not Supported Language</value>
   </data>
+ <data name="ProductRetrieved" xml:space="preserve">
+  <value>Product retrieved successfully</value>
+ </data>
+ <data name="ProductNotFound" xml:space="preserve">
+  <value>This product could not be found</value>
+ </data>
+ <data name="StoreNotResolved" xml:space="preserve">
+  <value>Please set a delivery address to see availability and pricing</value>
+</data>
   <data name="test" xml:space="preserve">
     <value>Testt</value>
   </data>
