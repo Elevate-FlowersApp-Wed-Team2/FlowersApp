@@ -4,7 +4,7 @@
     <File Path=".gitignore" />
   </Folder>
   <Project Path="docker-compose.dcproj">
-    <Build />
+    <Build Solution="Release|*" />
   </Project>
   <Project Path="FlowersApp.APIGateway/FlowersApp.APIGateway.csproj" Id="3f1135a3-4061-4226-b2c4-e5684b452aec" />
   <Project Path="FlowersApp.Auth/FlowersApp.Auth.csproj" />

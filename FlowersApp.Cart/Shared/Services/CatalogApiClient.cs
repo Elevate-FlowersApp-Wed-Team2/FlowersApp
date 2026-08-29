@@ -6,10 +6,9 @@ public class CatalogApiClient(HttpClient httpClient) : ICatalogApiClient
 {
     private readonly HttpClient _httpClient = httpClient;
 
-    public async Task<CatalogProductResponse?> GetProductAsync(
-        string productId, CancellationToken cancellationToken)
+    public async Task<CatalogProductResponse?> GetProductAsync(Guid productId, CancellationToken cancellationToken)
     {
-        var url = $"products/{productId}");
+        var url = $"products/{productId}";
 
         using var response = await _httpClient.GetAsync(url, cancellationToken);
 

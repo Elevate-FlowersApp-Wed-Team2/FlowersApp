@@ -8,5 +8,8 @@ public class ShoppingCartItem:BaseEntity
     public int Quantity { get; set; }
     public decimal UnitPriceSnapshot { get; set; }
     public decimal TotalPrice {  get; set; }
+    public string? ImageUrl { get; set; }
+    public decimal? DiscountPercentage { get; set; }
+    public decimal? DiscountedPrice { get; set; }
     public ShoppingCart? Cart { get; set; }
 }

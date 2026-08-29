@@ -10,7 +10,7 @@ public record GetUserCartWithSpecificProductQuery
 (string UserId ,string ProductId) : IQuery<GetUserCartWithSpecificProductResponse>;
 
 public record GetUserCartWithSpecificProductResponse(Guid CartId , ProductData? ProductData );
-public record ProductData(string? ProductId, int? Quentity);
+public record ProductData(Guid CartItemId ,string ProductId, int Quentity);
 
 public class GetUserCartQueryHandler(Repository<ShoppingCart> repository)
     : IQueryHandler<GetUserCartWithSpecificProductQuery, GetUserCartWithSpecificProductResponse>
@@ -26,6 +26,7 @@ public class GetUserCartQueryHandler(Repository<ShoppingCart> repository)
                                                c.Items.Where(i => i.ProductId == request.ProductId)
                                                              .Select(i => new ProductData
                                                              (
+                                                                 i.Id,
                                                                  i.ProductId,
                                                                  i.Quantity
                                                              )).FirstOrDefault()

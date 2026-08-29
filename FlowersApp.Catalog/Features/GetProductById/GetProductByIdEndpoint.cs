@@ -4,25 +4,55 @@ using FlowersApp.Catalog.Shared.Interfaces;
 using FlowersApp.Catalog.Shared.Response;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
-namespace FlowersApp.Catalog.Features.GetProductById;
-
-public class GetProductByIdEndpoint : IEndpoint
+namespace FlowersApp.Catalog.Features.GetProductById
 {
-    public void MapEndpoint(IEndpointRouteBuilder app)
+    public class GetProductByIdEndpoint : IEndpoint
     {
-        app.MapGet(Endpoints.Catalog.GetProductById ,async ([FromRoute]string productId ,IMediator mediator ) =>
+        public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            var result = await mediator.Send(new GetProductByIdQuery(productId));
-            return result.Code switch
+            app.MapGet(Endpoints.Catalog.GetProductById, async (
+                Guid id,
+                Guid? storeId,
+                [FromServices] IMediator mediator,
+                CancellationToken cancellationToken) =>
             {
-                ResultCode.ProductNotFound => ApiResponse<GetProductByIdResponse>.Failure(result.Message, System.Net.HttpStatusCode.NotFound),
-                ResultCode.ProductRetrieved => ApiResponse<GetProductByIdResponse>.Success(result.Result, System.Net.HttpStatusCode.OK, result.Message),
-                _ => ApiResponse<GetProductByIdResponse>.Failure(result.Message, System.Net.HttpStatusCode.BadRequest),
-            };
-        }).Produces<ApiResponse<PagedResult<GetProductByIdResponse>>>(StatusCodes.Status200OK)
-            .ProducesProblem(StatusCodes.Status404NotFound)
+                var result = await mediator.Send(new GetProductByIdQuery(id, storeId), cancellationToken);
+
+                return result.Code switch
+                {
+                    ResultCode.ProductRetrieved => Results.Ok(
+                        ApiResponse<ProductDetailsResponse>.Success(
+                            value: result.Result,
+                            statusCode: HttpStatusCode.OK,
+                            message: result.Message)),
+
+                    ResultCode.ProductNotFound => Results.NotFound(
+                        ApiResponse<ProductDetailsResponse>.Failure(
+                            errors: new List<string>(),
+                            statusCode: HttpStatusCode.NotFound,
+                            message: result.Message)),
+
+                   
+                    ResultCode.StoreNotResolved => Results.BadRequest(
+                        ApiResponse<ProductDetailsResponse>.Failure(
+                            errors: new List<string>(),
+                            statusCode: HttpStatusCode.BadRequest,
+                            message: result.Message)),
+
+                    _ => Results.BadRequest(
+                        ApiResponse<ProductDetailsResponse>.Failure(
+                            errors: new List<string>(),
+                            statusCode: HttpStatusCode.BadRequest,
+                            message: result.Message))
+                };
+            })
+            .Produces<ApiResponse<ProductDetailsResponse>>(StatusCodes.Status200OK)
+            .Produces<ApiResponse<ProductDetailsResponse>>(StatusCodes.Status404NotFound)
+            .Produces<ApiResponse<ProductDetailsResponse>>(StatusCodes.Status400BadRequest)
             .WithName("GetProductById")
             .WithTags("Catalog");
+        }
     }
 }

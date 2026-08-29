@@ -4,26 +4,24 @@ using FlowersApp.Cart.Shared.Response;
 namespace FlowersApp.Cart.Features.GetProductByProductId;
 
 public record GetProductByProductIdQuery
-(string ProductId) : IQuery<GetProductByProductIdResponse>;
-
-public record GetProductByProductIdResponse(string ProductName, int Stock, decimal Price);
+(string ProductId) : IQuery<CatalogProductResponse>;
 
 public class GetProductByProductIdQueryHandler(ICatalogApiClient catalogApiClient)
-    : IQueryHandler<GetProductByProductIdQuery, GetProductByProductIdResponse>
+    : IQueryHandler<GetProductByProductIdQuery, CatalogProductResponse>
 {
     private readonly ICatalogApiClient _catalogApiClient = catalogApiClient;
 
-    public async Task<RequestResult<GetProductByProductIdResponse>> Handle(
+    public async Task<RequestResult<CatalogProductResponse>> Handle(
         GetProductByProductIdQuery request, CancellationToken cancellationToken)
     {
+        if(!Guid.TryParse(request.ProductId, out var productId))
+            return RequestResult<CatalogProductResponse>.Failure(ResultCode.ProductNotFound);
         var product = await _catalogApiClient.GetProductAsync(
-            request.ProductId, cancellationToken);
+            productId, cancellationToken);
 
         if (product is null)
-            return RequestResult<GetProductByProductIdResponse>.Failure(ResultCode.ProductNotFound);
+            return RequestResult<CatalogProductResponse>.Failure(ResultCode.ProductNotFound);
 
-        var response = new GetProductByProductIdResponse(product.Name, product.AvailableQty, product.Price);
-
-        return RequestResult<GetProductByProductIdResponse>.succeeded(response,ResultCode.ProductAddedSuccesfully);
+        return RequestResult<CatalogProductResponse>.succeeded(product, ResultCode.ProductAddedSuccesfully);
     }
 }

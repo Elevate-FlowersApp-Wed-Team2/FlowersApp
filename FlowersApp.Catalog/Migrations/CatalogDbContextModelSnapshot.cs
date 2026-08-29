@@ -77,7 +77,7 @@ namespace FlowersApp.Catalog.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CategoryId")
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -87,12 +87,23 @@ namespace FlowersApp.Catalog.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
                     b.Property<decimal?>("DiscountPercentage")
                         .HasColumnType("decimal(5,2)");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImageUrls")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("Includes")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -227,184 +238,184 @@ namespace FlowersApp.Catalog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6505e5a6-2e80-4020-b682-2bd995949177"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8738),
+                            Id = new Guid("24ba8588-8851-4279-b595-2e7bf535365d"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7138),
                             CreatedBy = "System",
                             Index = 1,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Featured Products",
                             Type = 1,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8740),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7141),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("f72a7fd5-0c0c-491a-b40b-a396579ad06a"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8745),
+                            Id = new Guid("1cf0812e-0b42-4ce7-b052-1a3b3ce9aca8"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7156),
                             CreatedBy = "System",
                             Index = 2,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "New Arrivals",
                             Type = 1,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8746),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7157),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("fc11c499-7f4e-4445-ae4f-9e750364de8e"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8748),
+                            Id = new Guid("fdd1c93f-58c5-4194-ad6c-77c3d59614a5"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7160),
                             CreatedBy = "System",
                             Index = 3,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Trending Now",
                             Type = 1,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8748),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7160),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("6234ab21-d8c0-4009-a71b-f305ebb76378"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8751),
+                            Id = new Guid("95eaf337-4f14-446d-b01d-9e4c2e8d9e9b"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7163),
                             CreatedBy = "System",
                             Index = 4,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Shop by Category",
                             Type = 2,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8752),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7163),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("9ff9f9e5-515b-4e34-b371-c53486b92e5c"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8754),
+                            Id = new Guid("5b8ae00f-9a29-4f6e-a898-2f41821263af"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7166),
                             CreatedBy = "System",
                             Index = 5,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Popular Categories",
                             Type = 2,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8754),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7166),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("d0b082c1-5e07-494b-9211-359061a0fd7f"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8806),
+                            Id = new Guid("b394f359-8703-4884-8493-2e0d9a1f1fa8"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7169),
                             CreatedBy = "System",
                             Index = 6,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Special Occasions",
                             Type = 3,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8806),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7170),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("bf73b2a9-d8dd-49f6-88a5-00c5394b238d"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8810),
+                            Id = new Guid("e8730c7f-c2de-4574-a39c-a919a220c8d6"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7172),
                             CreatedBy = "System",
                             Index = 7,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Holiday Collections",
                             Type = 3,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8810),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7172),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("00f62b00-da4a-43d9-8979-fd963db01dee"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8820),
+                            Id = new Guid("39e4e8b0-bb2d-4979-b019-5e4cd0e38dda"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7176),
                             CreatedBy = "System",
                             Index = 8,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Birthday Specials",
                             Type = 3,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8820),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7176),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("61b984ef-8498-4666-8e4c-0fc7de161eee"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8823),
+                            Id = new Guid("fac654cc-fc1e-44c0-a5fa-8a10cc435d9c"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7179),
                             CreatedBy = "System",
                             Index = 9,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Summer Sale",
                             Type = 4,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8823),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7179),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("b444ddf3-4ae0-4a01-9ea3-cedfd3bba197"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8826),
+                            Id = new Guid("e05dc921-8aad-414d-b149-6c7bcc7bc65e"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7185),
                             CreatedBy = "System",
                             Index = 10,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Mother's Day Special",
                             Type = 4,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8826),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7185),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("6741db93-9e3b-4bab-a09c-a383ea475da6"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8829),
+                            Id = new Guid("ba192ef3-4de8-4cbb-86c8-61ccdc498158"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7188),
                             CreatedBy = "System",
                             Index = 11,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Flash Sale",
                             Type = 4,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8829),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7188),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("47afe3b9-f7a6-44fd-9f93-7553124bee1b"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8831),
+                            Id = new Guid("d174b909-6f35-4f1b-ab42-f09c28a64112"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7290),
                             CreatedBy = "System",
                             Index = 12,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Best Sellers",
                             Type = 5,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8832),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7291),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("74ec7f26-d798-4a76-89bf-268f9faeb6cb"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8834),
+                            Id = new Guid("51818fd0-5ec5-43a1-9d03-9a53fc09f4c0"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7294),
                             CreatedBy = "System",
                             Index = 13,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Customer Favorites",
                             Type = 5,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8834),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7294),
                             UpdatedBy = "System"
                         },
                         new
                         {
-                            Id = new Guid("4dcfa0eb-66d1-464f-baca-d6322f59cab6"),
-                            CreatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8836),
+                            Id = new Guid("cf2f2830-9381-4fa8-8c35-d9facf58901e"),
+                            CreatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7297),
                             CreatedBy = "System",
                             Index = 14,
                             IsActive = true,
                             IsDeleted = false,
                             Title = "Top Rated",
                             Type = 5,
-                            UpdatedAt = new DateTime(2026, 8, 21, 17, 35, 11, 173, DateTimeKind.Utc).AddTicks(8837),
+                            UpdatedAt = new DateTime(2026, 8, 24, 21, 48, 18, 842, DateTimeKind.Utc).AddTicks(7297),
                             UpdatedBy = "System"
                         });
                 });
@@ -429,7 +440,8 @@ namespace FlowersApp.Catalog.Migrations
                     b.HasOne("FlowersApp.Catalog.Domain.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Category");
                 });

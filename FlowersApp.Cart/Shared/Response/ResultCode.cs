@@ -9,4 +9,17 @@ public enum ResultCode
     CartRetrivedSuccesfully = 103,
     ProductNotFound = 104,
     ProductAddedSuccesfully = 105,
+    NoValidQuantity = 106,
+    ProductIsOutOfStock = 107,
+    InvalidQuantity = 108,
+    InvalidProductId = 109,
+    CartRetrievalFailed = 110,
+    CartInitiatedSuccessfully = 111,
+    //ShoopingCartItem
+    NoCartItemFounded = 201,
+    CartItemUpdatedSuccesfully = 202,
+    CanNotUpdateCartItem = 203,
+    CartItemCreatedSuccesfully = 204,
+
+    Unauthorized = 300,
 }

@@ -2,7 +2,17 @@
 
 public interface ICatalogApiClient
 {
-    Task<CatalogProductResponse?> GetProductAsyncGetProductAsync(string productId, CancellationToken cancellationToken);
+    Task<CatalogProductResponse?> GetProductAsync(Guid productId, CancellationToken cancellationToken);
 }
 
-public record CatalogProductResponse(string Id, string Name, decimal Price, bool InStock, int AvailableQty);
+
+public record CatalogProductResponse(Guid Id,
+string Name,
+string Description,
+List<string> ImageUrls,
+List<string> Includes,
+decimal OriginalPrice,
+decimal? DiscountedPrice,
+int? DiscountPercentage,
+bool IsOutOfStock,
+int StockQuantity);
