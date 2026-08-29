@@ -4,6 +4,7 @@ using FlowersApp.Catalog.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlowersApp.Catalog.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    partial class CatalogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260829042137_SeedGovernoratesAndCities")]
+    partial class SeedGovernoratesAndCities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +71,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("IsActive", "SortOrder");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.City", b =>
@@ -93,7 +96,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("GovernorateId");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Governorate", b =>
@@ -113,7 +116,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Governorates", (string)null);
+                    b.ToTable("Governorates");
                 });
 
             modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Product", b =>
@@ -179,7 +182,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("FloweryApp.Api.Domain.Entities.Occasion", b =>
@@ -228,7 +231,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("IsActive", "SortOrder");
 
-                    b.ToTable("Occasions", (string)null);
+                    b.ToTable("Occasions");
                 });
 
             modelBuilder.Entity("FloweryApp.Api.Domain.Entities.Section", b =>
@@ -278,7 +281,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("OccasionId");
 
-                    b.ToTable("Sections", (string)null);
+                    b.ToTable("Sections");
 
                     b.HasData(
                         new

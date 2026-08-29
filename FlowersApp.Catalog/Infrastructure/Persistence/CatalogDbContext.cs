@@ -1,6 +1,7 @@
 ﻿using FlowersApp.Catalog.Domain.Entities;
 using FloweryApp.Api.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace FlowersApp.Catalog.Infrastructure.Persistence;
 
@@ -15,9 +16,12 @@ public class CatalogDbContext:DbContext
     {
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(typeof(CatalogDbContext).Assembly);
+        base.OnModelCreating(builder);
     }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Section> Sections { get; set; }
     public DbSet<Occasion> Occasions { get; set; }
+    public DbSet<Governorate> Governorates => Set<Governorate>();
+    public DbSet<City> Cities => Set<City>();
 }

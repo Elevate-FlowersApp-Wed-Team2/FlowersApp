@@ -30,4 +30,14 @@
     <Folder Include="Infrastructure\Persistence\Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Infrastructure\Persistence\Seed\SeedJsonFiles\cities.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Infrastructure\Persistence\Seed\SeedJsonFiles\states.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+	
+
 </Project>
