@@ -183,4 +183,34 @@
   <data name="SectionsUpdatedSuccesfully" xml:space="preserve">
     <value>Sections updated successfully.</value>
   </data>
+<data name="StoreCreated" xml:space="preserve">
+  <value>Store created successfully.</value>
+</data>
+<data name="StoreUpdated" xml:space="preserve">
+  <value>Store updated successfully.</value>
+</data>
+<data name="StoreNotFound" xml:space="preserve">
+  <value>Store not found.</value>
+</data>
+<data name="CoverageUpdated" xml:space="preserve">
+  <value>Coverage area updated successfully.</value>
+</data>
+<data name="InvalidCoveragePolygon" xml:space="preserve">
+  <value>The coverage polygon is not valid. Please ensure it is closed and does not self-intersect.</value>
+</data>
+<data name="CoverageMustHaveAtLeastOneMechanism" xml:space="preserve">
+  <value>Coverage must be defined using a polygon, a radius, or a list of cities.</value>
+</data>
+<data name="StoreDeactivated" xml:space="preserve">
+  <value>Store deactivated successfully.</value>
+</data>
+<data name="StoreCoverageOverlapsFound" xml:space="preserve">
+  <value>Overlapping coverage areas were found between one or more stores.</value>
+</data>
+<data name="StoreCoverageGapsFound" xml:space="preserve">
+  <value>Gaps were found in store coverage for the requested area(s).</value>
+</data>
+<data name="NoCoveringStoreFound" xml:space="preserve">
+  <value>No store currently covers this address.</value>
+</data>
 </root>
