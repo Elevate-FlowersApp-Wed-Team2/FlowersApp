@@ -4,17 +4,19 @@ using FlowersApp.Catalog.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NetTopologySuite.Geometries;
 
 #nullable disable
 
 namespace FlowersApp.Catalog.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    partial class CatalogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260829042137_SeedGovernoratesAndCities")]
+    partial class SeedGovernoratesAndCities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,61 +24,6 @@ namespace FlowersApp.Catalog.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.AddressStoreAssignment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AddressId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUnresolved")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("ResolvedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("StoreId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId")
-                        .IsUnique();
-
-                    b.HasIndex("IsUnresolved");
-
-                    b.HasIndex("StoreId");
-
-                    b.ToTable("AddressStoreAssignments");
-                });
 
             modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Category", b =>
                 {
@@ -124,98 +71,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("IsActive", "SortOrder");
 
-                    b.ToTable("Categories", (string)null);
-                });
-
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.CoverageArea", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<double?>("CenterLatitude")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("CenterLongitude")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Polygon>("Geometry")
-                        .HasColumnType("geography");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<double?>("RadiusMeters")
-                        .HasColumnType("float");
-
-                    b.Property<Guid>("StoreId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsActive");
-
-                    b.HasIndex("StoreId");
-
-                    b.ToTable("CoverageAreas");
-                });
-
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.CoverageCity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CityName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("CoverageAreaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Region")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CoverageAreaId");
-
-                    b.ToTable("CoverageCities");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.City", b =>
@@ -240,7 +96,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("GovernorateId");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Governorate", b =>
@@ -260,7 +116,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Governorates", (string)null);
+                    b.ToTable("Governorates");
                 });
 
             modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Product", b =>
@@ -326,55 +182,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
-                });
-
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Store", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Status");
-
-                    b.ToTable("Stores");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("FloweryApp.Api.Domain.Entities.Occasion", b =>
@@ -423,7 +231,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("IsActive", "SortOrder");
 
-                    b.ToTable("Occasions", (string)null);
+                    b.ToTable("Occasions");
                 });
 
             modelBuilder.Entity("FloweryApp.Api.Domain.Entities.Section", b =>
@@ -473,7 +281,7 @@ namespace FlowersApp.Catalog.Migrations
 
                     b.HasIndex("OccasionId");
 
-                    b.ToTable("Sections", (string)null);
+                    b.ToTable("Sections");
 
                     b.HasData(
                         new
@@ -675,38 +483,6 @@ namespace FlowersApp.Catalog.Migrations
                     b.ToTable("ProductOccasions", (string)null);
                 });
 
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.AddressStoreAssignment", b =>
-                {
-                    b.HasOne("FlowersApp.Catalog.Domain.Entities.Store", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Store");
-                });
-
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.CoverageArea", b =>
-                {
-                    b.HasOne("FlowersApp.Catalog.Domain.Entities.Store", "Store")
-                        .WithMany("CoverageAreas")
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Store");
-                });
-
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.CoverageCity", b =>
-                {
-                    b.HasOne("FlowersApp.Catalog.Domain.Entities.CoverageArea", "CoverageArea")
-                        .WithMany("Cities")
-                        .HasForeignKey("CoverageAreaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CoverageArea");
-                });
-
             modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.City", b =>
                 {
                     b.HasOne("FlowersApp.Catalog.Domain.Entities.Governorate", "Governorate")
@@ -757,16 +533,6 @@ namespace FlowersApp.Catalog.Migrations
                         .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.CoverageArea", b =>
-                {
-                    b.Navigation("Cities");
-                });
-
-            modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Store", b =>
-                {
-                    b.Navigation("CoverageAreas");
                 });
 
             modelBuilder.Entity("FlowersApp.Catalog.Domain.Entities.Governorate", b =>

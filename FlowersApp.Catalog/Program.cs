@@ -90,8 +90,9 @@ public class Program
             var db = scope.ServiceProvider.GetRequiredService<CatalogDbContext>();
             await db.Database.MigrateAsync(); // ensure schema is current before seeding
             await CatalogSeeder.SeedAsync(db);
+            var jsonFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Infrastructure", "Persistence", "Seed", "SeedJsonFiles");
+            await DbJsonInitializer.SeedDataAsync(db, jsonFolderPath);
+            app.Run();
         }
-
-        app.Run();
     }
 }
