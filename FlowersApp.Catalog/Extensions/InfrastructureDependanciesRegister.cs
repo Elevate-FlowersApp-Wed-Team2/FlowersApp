@@ -17,7 +17,7 @@ public static class InfrastructureDependanciesRegister
 
         services.AddDbContext<CatalogDbContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),sql => sql.UseNetTopologySuite());
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         });
 

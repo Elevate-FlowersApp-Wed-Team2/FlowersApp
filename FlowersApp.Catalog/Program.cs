@@ -31,6 +31,8 @@ public class Program
             c.OperationFilter<AcceptLanguageHeaderOperationFilter>();
         });
         builder.Services.AddDependencies(builder.Configuration);
+        builder.Services.AddAuthorization(options =>
+        options.AddPolicy("AdminOnly", p => p.RequireRole("Admin")));
         var app = builder.Build();
         app.UseMiddleware<ExceptionHandlingMiddleware>();
 

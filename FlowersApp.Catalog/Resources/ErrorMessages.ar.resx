@@ -183,4 +183,34 @@
 <data name="StoreNotResolved" xml:space="preserve">
   <value>يرجى تحديد عنوان التوصيل لعرض التوفر والسعر</value>
 </data>
+<data name="StoreCreated" xml:space="preserve">
+  <value>تم إنشاء المتجر بنجاح.</value>
+</data>
+<data name="StoreUpdated" xml:space="preserve">
+  <value>تم تحديث المتجر بنجاح.</value>
+</data>
+<data name="StoreNotFound" xml:space="preserve">
+  <value>المتجر غير موجود.</value>
+</data>
+<data name="CoverageUpdated" xml:space="preserve">
+  <value>تم تحديث نطاق التغطية بنجاح.</value>
+</data>
+<data name="InvalidCoveragePolygon" xml:space="preserve">
+  <value>نطاق التغطية غير صالح. يرجى التأكد من أنه شكل مغلق ولا يتقاطع مع نفسه.</value>
+</data>
+<data name="CoverageMustHaveAtLeastOneMechanism" xml:space="preserve">
+  <value>يجب تحديد نطاق التغطية باستخدام مضلع، أو نطاق دائري، أو قائمة مدن.</value>
+</data>
+<data name="StoreDeactivated" xml:space="preserve">
+  <value>تم إلغاء تفعيل المتجر بنجاح.</value>
+</data>
+<data name="StoreCoverageOverlapsFound" xml:space="preserve">
+  <value>تم العثور على تداخل في نطاقات التغطية بين متجر أو أكثر.</value>
+</data>
+<data name="StoreCoverageGapsFound" xml:space="preserve">
+  <value>تم العثور على فجوات في تغطية المتاجر للمنطقة (المناطق) المطلوبة.</value>
+</data>
+<data name="NoCoveringStoreFound" xml:space="preserve">
+  <value>لا يوجد متجر يغطي هذا العنوان حاليًا.</value>
+</data>
 </root>
