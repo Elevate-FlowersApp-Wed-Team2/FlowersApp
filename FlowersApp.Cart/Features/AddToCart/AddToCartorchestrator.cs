@@ -12,22 +12,22 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace FlowersApp.Cart.Features.AddToCart;
 
-public record AddToCartCommand(
+public record AddToCartorchestrator(
     string ProductId,
     int Quantity,
     string UserId
 ) : ICommand<CartResponse>;
 
-public class AddToCartCommandHandler : ICommandHandler<AddToCartCommand, CartResponse>
+public class AddToCartorchestratorHandler : ICommandHandler<AddToCartorchestrator, CartResponse>
 {
     private readonly UnitOfWork _unitOfWork;
-    private readonly ILogger<AddToCartCommandHandler> _logger;
+    private readonly ILogger<AddToCartorchestratorHandler> _logger;
     private readonly IMediator _mediator;
     private readonly ICurrentUserService _currentUserService;
 
-    public AddToCartCommandHandler(
+    public AddToCartorchestratorHandler(
         UnitOfWork unitOfWork,
-        ILogger<AddToCartCommandHandler> logger,
+        ILogger<AddToCartorchestratorHandler> logger,
         IMediator mediator,
         ICurrentUserService currentUserService)
     {
@@ -38,7 +38,7 @@ public class AddToCartCommandHandler : ICommandHandler<AddToCartCommand, CartRes
     }
 
     public async Task<RequestResult<CartResponse>> Handle(
-        AddToCartCommand request,
+        AddToCartorchestrator request,
         CancellationToken cancellationToken)
     {
         // Get authenticated user ID

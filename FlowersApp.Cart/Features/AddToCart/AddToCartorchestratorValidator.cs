@@ -4,11 +4,11 @@ using FluentValidation;
 
 namespace FlowersApp.Cart.Features.AddToCart;
 
-public class AddToCartCommandValidator : AbstractValidator<AddToCartCommand>
+public class AddToCartorchestratorValidator : AbstractValidator<AddToCartorchestrator>
 {
     private readonly ICurrentUserService _currentUserService;
 
-    public AddToCartCommandValidator(ICurrentUserService currentUserService)
+    public AddToCartorchestratorValidator(ICurrentUserService currentUserService)
     {
 
         // Validate Quantity

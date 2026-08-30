@@ -126,10 +126,68 @@
   <data name="ValidationFailureMessage" xml:space="preserve">
     <value>Validation failed</value>
   </data>
-  <data name="FailedToInitiateCart" xml:space="preserve">
-    <value>Failed To Initiate Cart</value>
+ <data name="FailedToInitiateCart" xml:space="preserve">
+    <value>Failed to initiate the cart.</value>
+  </data>
+  <data name="CartInitiatedSuccesfully" xml:space="preserve">
+    <value>Cart initiated successfully.</value>
+  </data>
+  <data name="NotFoundCartForThisUser" xml:space="preserve">
+    <value>No cart was found for this user.</value>
+  </data>
+  <data name="CartRetrivedSuccesfully" xml:space="preserve">
+    <value>Cart retrieved successfully.</value>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>Product not found.</value>
+  </data>
+  <data name="ProductAddedSuccesfully" xml:space="preserve">
+    <value>Product added to cart successfully.</value>
+  </data>
+  <data name="NoValidQuantity" xml:space="preserve">
+    <value>The requested quantity exceeds the available stock.</value>
+  </data>
+  <data name="ProductIsOutOfStock" xml:space="preserve">
+    <value>This product is currently out of stock.</value>
+  </data>
+  <data name="InvalidQuantity" xml:space="preserve">
+    <value>Quantity must be greater than 0.</value>
+  </data>
+  <data name="InvalidProductId" xml:space="preserve">
+    <value>Invalid product id.</value>
+  </data>
+  <data name="CartRetrievalFailed" xml:space="preserve">
+    <value>Failed to retrieve the cart.</value>
   </data>
   <data name="CartInitiatedSuccessfully" xml:space="preserve">
-    <value>Cart Initiated Successfully</value>
+    <value>Cart initiated successfully.</value>
+  </data>
+
+  <!-- Shopping Cart Item -->
+  <data name="CartItemNotFound" xml:space="preserve">
+    <value>Cart item not found.</value>
+  </data>
+  <data name="CartItemUpdatedSuccesfully" xml:space="preserve">
+    <value>Cart item updated successfully.</value>
+  </data>
+  <data name="CanNotUpdateCartItem" xml:space="preserve">
+    <value>Unable to update the cart item.</value>
+  </data>
+  <data name="CartItemCreatedSuccesfully" xml:space="preserve">
+    <value>Cart item created successfully.</value>
+  </data>
+  <data name="CartItemRetrievedSuccessfully" xml:space="preserve">
+    <value>Cart item retrieved successfully.</value>
+  </data>
+  <data name="CartItemRemovedSuccessfully" xml:space="preserve">
+    <value>Cart item removed successfully.</value>
+  </data>
+  <data name="CartItemUpdatedSuccessfully" xml:space="preserve">
+    <value>Cart item updated successfully.</value>
+  </data>
+
+  <!-- Auth -->
+  <data name="Unauthorized" xml:space="preserve">
+    <value>You are not authorized to perform this action.</value>
   </data>
 </root>

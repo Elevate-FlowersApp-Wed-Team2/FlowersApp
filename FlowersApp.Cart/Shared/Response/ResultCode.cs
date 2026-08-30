@@ -16,10 +16,13 @@ public enum ResultCode
     CartRetrievalFailed = 110,
     CartInitiatedSuccessfully = 111,
     //ShoopingCartItem
-    NoCartItemFounded = 201,
+    CartItemNotFound = 201,
     CartItemUpdatedSuccesfully = 202,
     CanNotUpdateCartItem = 203,
     CartItemCreatedSuccesfully = 204,
+    CartItemRetrievedSuccessfully = 205,
+    CartItemRemovedSuccessfully = 206,
+    CartItemUpdatedSuccessfully = 207,
 
     Unauthorized = 300,
 }
