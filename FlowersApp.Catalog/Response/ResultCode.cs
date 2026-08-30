@@ -41,4 +41,5 @@ public enum ResultCode
     StoreCoverageOverlapsFound = 507,
     StoreCoverageGapsFound = 508,
     NoCoveringStoreFound = 509,
+    
 }
