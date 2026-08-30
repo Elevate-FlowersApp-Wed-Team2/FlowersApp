@@ -14,8 +14,8 @@ public static class RegisterClient
         services.AddHttpClient<ICatalogApiClient, CatalogApiClient>(client =>
         {
             // "flowersapp.catalog" resolved via Docker Compose service name / service discovery
-            client.BaseAddress = new Uri("http://flowersapp.catalog/api/v1");
-            client.Timeout = TimeSpan.FromSeconds(5);
+            client.BaseAddress = new Uri("http://flowersapp.catalog:8080/api/v1/catalog");
+            client.Timeout = TimeSpan.FromSeconds(30);
         })
          .AddPolicyHandler(GetRetryPolicy())
          .AddPolicyHandler(GetCircuitBreakerPolicy());

@@ -10,11 +10,6 @@ public class AddToCartCommandValidator : AbstractValidator<AddToCartCommand>
 
     public AddToCartCommandValidator(ICurrentUserService currentUserService)
     {
-        // Validate ProductId
-        RuleFor(x => x.ProductId)
-            .GreaterThan(0)
-            .WithMessage("ProductId must be greater than 0.")
-            .WithErrorCode(ResultCode.InvalidProductId.ToString());
 
         // Validate Quantity
         RuleFor(x => x.Quantity)

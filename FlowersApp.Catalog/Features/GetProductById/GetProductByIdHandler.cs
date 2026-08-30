@@ -19,8 +19,8 @@ namespace FlowersApp.Catalog.Features.GetProductById
             GetProductByIdQuery request, CancellationToken cancellationToken)
         {
             
-            if (!request.StoreId.HasValue)
-                return RequestResult<ProductDetailsResponse>.Failure(ResultCode.StoreNotResolved);
+            //if (!request.StoreId.HasValue)
+            //    return RequestResult<ProductDetailsResponse>.Failure(ResultCode.StoreNotResolved);
 
             var product = await _products
                 .Get(p => p.Id == request.ProductId && p.IsActive)

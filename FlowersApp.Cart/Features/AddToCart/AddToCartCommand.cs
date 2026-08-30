@@ -13,8 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace FlowersApp.Cart.Features.AddToCart;
 
 public record AddToCartCommand(
-    int ProductId,
-    int Quantity
+    string ProductId,
+    int Quantity,
+    string UserId
 ) : ICommand<CartResponse>;
 
 public class AddToCartCommandHandler : ICommandHandler<AddToCartCommand, CartResponse>
@@ -41,9 +42,10 @@ public class AddToCartCommandHandler : ICommandHandler<AddToCartCommand, CartRes
         CancellationToken cancellationToken)
     {
         // Get authenticated user ID
-        var userId = _currentUserService.UserId;
-        if (string.IsNullOrEmpty(userId))
-            return RequestResult<CartResponse>.Failure(ResultCode.Unauthorized);
+        //var userId = _currentUserService.UserId;
+        //if (string.IsNullOrEmpty(userId))
+        //    return RequestResult<CartResponse>.Failure(ResultCode.Unauthorized);
+        var userId = request.UserId;
 
         try
         {

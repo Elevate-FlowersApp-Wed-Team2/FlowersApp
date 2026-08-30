@@ -32,7 +32,7 @@ public class GetUserCartQueryHandler(Repository<ShoppingCart> repository)
                                                              )).FirstOrDefault()
                                           ))
                                           .FirstOrDefaultAsync(cancellationToken);
-        if (userCart is not null)
+        if (userCart is null)
             return RequestResult<GetUserCartWithSpecificProductResponse>.Failure(ResultCode.NotFoundCartForThisUser);
         return RequestResult<GetUserCartWithSpecificProductResponse>.succeeded(userCart, ResultCode.CartRetrivedSuccesfully);
     }
