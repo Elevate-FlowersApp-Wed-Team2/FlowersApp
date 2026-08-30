@@ -132,4 +132,16 @@
   <data name="CartInitiatedSuccessfully" xml:space="preserve">
     <value>Cart Initiated Successfully</value>
   </data>
+  <data name="DefaultAddressSet" xml:space="preserve">
+  <value>Default address updated successfully.</value>
+</data>
+<data name="AddressNotFound" xml:space="preserve">
+  <value>Address not found.</value>
+</data>
+<data name="AddressNotOwned" xml:space="preserve">
+  <value>You do not have permission to access this address.</value>
+</data>
+<data name="NoDefaultAddressFound" xml:space="preserve">
+  <value>No default address has been set yet.</value>
+</data>
 </root>
