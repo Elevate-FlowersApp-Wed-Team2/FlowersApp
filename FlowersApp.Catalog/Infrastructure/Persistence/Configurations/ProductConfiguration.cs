@@ -16,6 +16,20 @@ namespace FlowersApp.Catalog.Infrastructure.Persistence.Configurations
             builder.HasMany(p => p.Occasions)
                   .WithMany(o => o.Products)
                   .UsingEntity(j => j.ToTable("ProductOccasions"));
+            builder.Property(p => p.ImageUrls)
+                   .HasConversion(
+                    v => string.Join(';', v),
+                    v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList())
+                    .HasMaxLength(2000);
+
+            builder.Property(p => p.Includes)
+                .HasConversion(
+                    v => string.Join(';', v),
+                    v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList())
+                .HasMaxLength(1000);
+
+            builder.Property(p => p.Description)
+                .HasMaxLength(2000);
 
         }
     }

@@ -126,10 +126,81 @@
   <data name="ValidationFailureMessage" xml:space="preserve">
     <value>فشل التحقق من الصحة</value>
   </data>
+   <!-- Cart -->
   <data name="FailedToInitiateCart" xml:space="preserve">
-    <value>فشل انشاء الحقيبه</value>
+    <value>فشل في إنشاء السلة.</value>
+  </data>
+  <data name="CartInitiatedSuccesfully" xml:space="preserve">
+    <value>تم إنشاء السلة بنجاح.</value>
+  </data>
+  <data name="NotFoundCartForThisUser" xml:space="preserve">
+    <value>لم يتم العثور على سلة لهذا المستخدم.</value>
+  </data>
+  <data name="CartRetrivedSuccesfully" xml:space="preserve">
+    <value>تم جلب السلة بنجاح.</value>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>المنتج غير موجود.</value>
+  </data>
+  <data name="ProductAddedSuccesfully" xml:space="preserve">
+    <value>تمت إضافة المنتج إلى السلة بنجاح.</value>
+  </data>
+  <data name="NoValidQuantity" xml:space="preserve">
+    <value>الكمية المطلوبة تتجاوز المخزون المتاح.</value>
+  </data>
+  <data name="ProductIsOutOfStock" xml:space="preserve">
+    <value>هذا المنتج غير متوفر حالياً في المخزون.</value>
+  </data>
+  <data name="InvalidQuantity" xml:space="preserve">
+    <value>يجب أن تكون الكمية أكبر من 0.</value>
+  </data>
+  <data name="InvalidProductId" xml:space="preserve">
+    <value>معرّف المنتج غير صالح.</value>
+  </data>
+  <data name="CartRetrievalFailed" xml:space="preserve">
+    <value>فشل في جلب السلة.</value>
   </data>
   <data name="CartInitiatedSuccessfully" xml:space="preserve">
-    <value>تم انشاء الحقيبة بنجاح</value>
+    <value>تم إنشاء السلة بنجاح.</value>
   </data>
+
+  <!-- Shopping Cart Item -->
+  <data name="CartItemNotFound" xml:space="preserve">
+    <value>عنصر السلة غير موجود.</value>
+  </data>
+  <data name="CartItemUpdatedSuccesfully" xml:space="preserve">
+    <value>تم تحديث عنصر السلة بنجاح.</value>
+  </data>
+  <data name="CanNotUpdateCartItem" xml:space="preserve">
+    <value>تعذّر تحديث عنصر السلة.</value>
+  </data>
+  <data name="CartItemCreatedSuccesfully" xml:space="preserve">
+    <value>تم إنشاء عنصر السلة بنجاح.</value>
+  </data>
+  <data name="CartItemRetrievedSuccessfully" xml:space="preserve">
+    <value>تم جلب عنصر السلة بنجاح.</value>
+  </data>
+  <data name="CartItemRemovedSuccessfully" xml:space="preserve">
+    <value>تم حذف عنصر السلة بنجاح.</value>
+  </data>
+  <data name="CartItemUpdatedSuccessfully" xml:space="preserve">
+    <value>تم تحديث عنصر السلة بنجاح.</value>
+  </data>
+
+  <!-- Auth -->
+  <data name="Unauthorized" xml:space="preserve">
+    <value>غير مصرح لك بتنفيذ هذا الإجراء.</value>
+  </data>
+  <data name="DefaultAddressSet" xml:space="preserve">
+  <value>تم تحديث العنوان الافتراضي بنجاح.</value>
+</data>
+<data name="AddressNotFound" xml:space="preserve">
+  <value>العنوان غير موجود.</value>
+</data>
+<data name="AddressNotOwned" xml:space="preserve">
+  <value>ليس لديك صلاحية للوصول إلى هذا العنوان.</value>
+</data>
+<data name="NoDefaultAddressFound" xml:space="preserve">
+  <value>لم يتم تعيين عنوان افتراضي بعد.</value>
+</data>
 </root>

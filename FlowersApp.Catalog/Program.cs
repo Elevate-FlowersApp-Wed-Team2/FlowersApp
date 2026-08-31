@@ -1,11 +1,12 @@
 using FlowersApp.Catalog.Extensions;
 using FlowersApp.Catalog.Infrastructure.Persistence;
+using FlowersApp.Catalog.Infrastructure.Persistence.Seed;
 using FlowersApp.Catalog.Middlewares;
 using FlowersApp.Catalog.Shared.Interfaces;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 
@@ -13,7 +14,7 @@ namespace FlowersApp.Catalog;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddHealthChecks()
@@ -30,6 +31,8 @@ public class Program
             c.OperationFilter<AcceptLanguageHeaderOperationFilter>();
         });
         builder.Services.AddDependencies(builder.Configuration);
+        builder.Services.AddAuthorization(options =>
+        options.AddPolicy("AdminOnly", p => p.RequireRole("Admin")));
         var app = builder.Build();
         app.UseMiddleware<ExceptionHandlingMiddleware>();
 
@@ -81,7 +84,15 @@ public class Program
 
 
         app.MapControllers();
-
-        app.Run();
+        //seed 
+        using (var scope = app.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<CatalogDbContext>();
+            await db.Database.MigrateAsync(); // ensure schema is current before seeding
+            await CatalogSeeder.SeedAsync(db);
+            var jsonFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Infrastructure", "Persistence", "Seed", "SeedJsonFiles");
+            await DbJsonInitializer.SeedDataAsync(db, jsonFolderPath);
+            app.Run();
+        }
     }
 }
