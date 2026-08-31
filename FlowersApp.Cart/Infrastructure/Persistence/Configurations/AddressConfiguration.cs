@@ -10,10 +10,10 @@ namespace FlowersApp.Cart.Infrastructure.Persistence.Configurations
         {
             builder.Property(a => a.IsDefault).HasDefaultValue(false);
 
-            builder.HasOne(a => a.City)
-                .WithMany()
-                .HasForeignKey(a => a.CityId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.HasOne(a => a.City)
+            //    .WithMany()
+            //    .HasForeignKey(a => a.CityId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasIndex(a => a.UserId)
                 .IsUnique()
