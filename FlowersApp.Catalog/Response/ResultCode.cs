@@ -29,4 +29,17 @@ public enum ResultCode
     ProductRetrieved = 400,
     ProductNotFound = 401,
     StoreNotResolved = 402,
+
+    //Store 
+    StoreCreated = 500,
+    StoreUpdated = 501,
+    StoreNotFound = 502,
+    CoverageUpdated = 503,
+    InvalidCoveragePolygon = 504,
+    CoverageMustHaveAtLeastOneMechanism = 505,
+    StoreDeactivated = 506,
+    StoreCoverageOverlapsFound = 507,
+    StoreCoverageGapsFound = 508,
+    NoCoveringStoreFound = 509,
+    
 }

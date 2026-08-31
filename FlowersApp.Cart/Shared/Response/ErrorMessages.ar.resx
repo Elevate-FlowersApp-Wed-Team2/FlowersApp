@@ -191,4 +191,16 @@
   <data name="Unauthorized" xml:space="preserve">
     <value>غير مصرح لك بتنفيذ هذا الإجراء.</value>
   </data>
+  <data name="DefaultAddressSet" xml:space="preserve">
+  <value>تم تحديث العنوان الافتراضي بنجاح.</value>
+</data>
+<data name="AddressNotFound" xml:space="preserve">
+  <value>العنوان غير موجود.</value>
+</data>
+<data name="AddressNotOwned" xml:space="preserve">
+  <value>ليس لديك صلاحية للوصول إلى هذا العنوان.</value>
+</data>
+<data name="NoDefaultAddressFound" xml:space="preserve">
+  <value>لم يتم تعيين عنوان افتراضي بعد.</value>
+</data>
 </root>

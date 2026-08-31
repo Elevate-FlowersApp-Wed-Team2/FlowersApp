@@ -6,6 +6,7 @@ public class CartDbContext :DbContext
 {
     public DbSet<ShoppingCart> ShoppingCarts { get; set; }
     public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+    public DbSet<Address> Addresses { get; set; }
     public CartDbContext(DbContextOptions<CartDbContext> options)
         : base(options)
     {
