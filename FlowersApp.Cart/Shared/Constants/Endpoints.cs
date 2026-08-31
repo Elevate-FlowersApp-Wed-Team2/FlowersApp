@@ -13,4 +13,14 @@ public static class Endpoints
         public const string GetDefaultAddress = $"{Base}/default";
     }
 
+
+    public static class ShoppingCats
+    {
+        public const string BaseCart = $"{BasePath}/Cart";
+        public const string GetCart = $"{BasePath}/Cart";
+        public const string AddToCart = $"{BaseCart}/Items";
+        public const string UpdateCartItem = $"{BaseCart}/Items/{{id}}";
+        public const string DeleteCartItem = $"{BaseCart}/Items/{{id}}/{{userId}}";
+    }
+    
 }

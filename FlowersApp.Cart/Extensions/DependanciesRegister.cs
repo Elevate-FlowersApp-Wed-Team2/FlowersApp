@@ -7,6 +7,7 @@ public static class DependanciesRegister
         services.AddInfrastructureDependancies(configuration);
         services.AddApplicationDependancies(configuration);
         services.AddAppLocalization();
+        services.RegisterClients();
         return services;
     }
 }

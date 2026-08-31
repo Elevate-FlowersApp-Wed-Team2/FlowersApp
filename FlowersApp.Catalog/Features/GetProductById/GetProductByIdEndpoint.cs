@@ -1,4 +1,5 @@
-﻿using FlowersApp.Catalog.Shared.Constants;
+﻿using FlowersApp.Catalog.Features.GetProductCatalog;
+using FlowersApp.Catalog.Shared.Constants;
 using FlowersApp.Catalog.Shared.Interfaces;
 using FlowersApp.Catalog.Shared.Response;
 using MediatR;
