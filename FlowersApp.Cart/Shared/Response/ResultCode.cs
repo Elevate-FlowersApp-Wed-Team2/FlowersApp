@@ -25,7 +25,6 @@ public enum ResultCode
     CartItemUpdatedSuccessfully = 207,
 
     Unauthorized = 300,
-    CartInitiatedSuccessfully = 101,
     //Addresses
     DefaultAddressSet = 200,
     AddressNotFound = 201,
@@ -33,5 +32,4 @@ public enum ResultCode
     NoDefaultAddressFound = 203,
     // user
     UserNotFound = 401,
-    Unauthorized = 402,
 }
